@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频提示词库 - AI创作资源站</title>
+    <!-- 引入全站通用样式 -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入一键复制库（CDN在线引入，不用下载） -->
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-logo">AI创作资源站</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="video.html" class="active">视频提示词库</a></li>
+                <li><a href="image.html">图片提示词库</a></li>
+                <li><a href="tools.html">AI工具集合</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 页面主体 -->
+    <div class="container">
+        <!-- 页面标题 -->
+        <div class="page-header">
+            <h1 class="page-title">视频提示词库</h1>
+            <p class="page-desc">精选电影级镜头提示词，覆盖景别、灯光、构图、运镜、调色全维度，一键复制即用</p>
+        </div>
+
+        <!-- 筛选工具栏 -->
+        <div class="filter-bar">
+            <div class="filter-left">
+                <button class="filter-btn active" data-category="all">集合</button>
+                <!-- 分类按钮由 JS 动态生成 -->
+            </div>
+            <div class="filter-right">
+                <input type="text" id="searchInput" class="search-input" placeholder="搜索提示词...">
+                <span id="resultCount">共 0 条结果</span>
+            </div>
+        </div>
+
+        <!-- 瀑布流卡片容器 -->
+        <div class="masonry-grid" id="masonryGrid">
+            <!-- JS会自动把卡片渲染到这里 -->
+        </div>
+    </div>
+
+    <!-- 详情弹窗 -->
+    <div class="modal-mask" id="modalMask">
+        <div class="modal-container">
+            <span class="modal-close">×</span>
+            <!-- 左侧图片 -->
+            <div class="modal-left">
+                <img id="modalImg" src="" alt="">
+            </div>
+            <!-- 右侧信息 -->
+            <div class="modal-right">
+                <div class="modal-category" id="modalCategory"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-tags" id="modalTags"></div>
+                <div class="prompt-box">
+                    <div class="prompt-header">
+                        <span>提示词内容</span>
+                        <button class="copy-btn-small" data-clipboard-target="#modalPrompt">复制</button>
+                    </div>
+                    <textarea id="modalPrompt" readonly></textarea>
+                </div>
+                <button class="copy-btn-main" data-clipboard-target="#modalPrompt">一键复制提示词</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="footer-logo">AI创作资源站</div>
+                <p class="footer-desc">精选AI提示词与实用工具，助力创作效率提升</p>
+            </div>
+            <div class="footer-column">
+                <h4>功能导航</h4>
+                <ul>
+                    <li><a href="video.html">视频提示词库</a></li>
+                    <li><a href="image.html">图片提示词库</a></li>
+                    <li><a href="tools.html">AI工具集合</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>关于</h4>
+                <ul>
+                    <li><a href="#">关于本站</a></li>
+                    <li><a href="#">反馈建议</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 AI创作资源站 · 个人站点
+        </div>
+    </footer>
+
+    <!-- 引入通用脚本（含离线兜底数据 data.js 与通用逻辑 common.js） -->
+    <script src="js/data.js"></script>
+    <script src="js/common.js"></script>
+
+    <!-- 页面初始化（复用 common.js 的 initPromptPage，含事件委托分类筛选与离线兜底） -->
+    <script>
+        initPromptPage({
+            dataUrl: 'data/video-prompts.json',
+            dataKey: 'video',
+            gridId: 'masonryGrid'
+        });
+    </script>
+</body>
+</html>

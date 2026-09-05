@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "name": "Midjourney",
+        "logo": "M",
+        "desc": "全球最热门的AI绘画工具，生成效果惊艳，适合创意插画、概念设计",
+        "category": "图像生成",
+        "link": "https://www.midjourney.com/"
+    },
+    {
+        "id": 2,
+        "name": "Stable Diffusion",
+        "logo": "SD",
+        "desc": "开源免费AI绘画模型，可本地部署，支持自定义模型和插件扩展",
+        "category": "图像生成",
+        "link": "https://stability.ai/"
+    },
+    {
+        "id": 3,
+        "name": "Sora",
+        "logo": "S",
+        "desc": "OpenAI推出的文生视频模型，可生成60秒高清电影级视频内容",
+        "category": "视频生成",
+        "link": "https://openai.com/sora"
+    },
+    {
+        "id": 4,
+        "name": "Runway",
+        "logo": "R",
+        "desc": "专业AI视频创作工具，支持文生视频、图生视频、视频编辑等功能",
+        "category": "视频生成",
+        "link": "https://runwayml.com/"
+    },
+    {
+        "id": 5,
+        "name": "ChatGPT",
+        "logo": "G",
+        "desc": "OpenAI旗舰大语言模型，支持文案写作、代码生成、逻辑推理等",
+        "category": "AI写作",
+        "link": "https://chat.openai.com/"
+    },
+    {
+        "id": 6,
+        "name": "豆包",
+        "logo": "豆",
+        "desc": "字节跳动自研AI助手，中文能力优秀，支持聊天、写作、画图等",
+        "category": "AI写作",
+        "link": "https://www.doubao.com/"
+    },
+    {
+        "id": 7,
+        "name": "Figma",
+        "logo": "F",
+        "desc": "在线UI设计工具，内置AI设计功能，团队协作效率极高",
+        "category": "设计工具",
+        "link": "https://www.figma.com/"
+    },
+    {
+        "id": 8,
+        "name": "Remove.bg",
+        "logo": "R",
+        "desc": "一键AI抠图工具，自动去除背景，效果精准，免费可用",
+        "category": "设计工具",
+        "link": "https://www.remove.bg/"
+    }
+]

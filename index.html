@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI创作资源站 - 提示词库 · 工具导航</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入一键复制库（CDN在线引入） -->
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-logo">AI创作资源站</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="video.html">视频提示词库</a></li>
+                <li><a href="image.html">图片提示词库</a></li>
+                <li><a href="tools.html">AI工具集合</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 首屏Hero区域 -->
+    <div class="container">
+        <div class="page-header" style="margin-top: 40px; margin-bottom: 60px;">
+            <h1 class="page-title" style="font-size: 40px; margin-bottom: 16px;">
+                AI 创作资源宝库
+            </h1>
+            <p class="page-desc" style="font-size: 16px; max-width: 500px;">
+                精选图片/视频AI提示词，聚合主流AI创作工具<br>
+                一键复制即用，激发创作灵感，提升工作效率
+            </p>
+        </div>
+
+        <!-- 三大专区入口 -->
+        <div class="home-entries">
+            <a href="video.html" class="entry-card">
+                <div class="entry-cover">🎬</div>
+                <div class="entry-content">
+                    <h3 class="entry-title">视频提示词库</h3>
+                    <p class="entry-desc">电影级镜头提示词，覆盖景别、灯光、运镜、调色全维度</p>
+                </div>
+            </a>
+            <a href="image.html" class="entry-card">
+                <div class="entry-cover">🖼️</div>
+                <div class="entry-content">
+                    <h3 class="entry-title">图片提示词库</h3>
+                    <p class="entry-desc">海量AI绘画提示词，人像、风景、插画、商业摄影全覆盖</p>
+                </div>
+            </a>
+            <a href="tools.html" class="entry-card">
+                <div class="entry-cover">🛠️</div>
+                <div class="entry-content">
+                    <h3 class="entry-title">AI工具集合</h3>
+                    <p class="entry-desc">精选主流AI工具导航，图像、视频、写作、设计一键直达</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- 最近上传的作品瀑布流 -->
+        <div class="recent-works-section">
+            <div class="recent-works-header">
+                <h2 class="section-title">🆕 最近上传</h2>
+                <a href="image.html" class="view-more-link">查看全部 →</a>
+            </div>
+            <div class="home-search-bar">
+                <input type="text" id="homeSearchInput" class="search-input" placeholder="搜索作品标题、标签、提示词...">
+            </div>
+            <div class="masonry-grid" id="homeMasonryGrid">
+                <!-- JS 自动渲染 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 作品详情弹窗 -->
+    <div class="modal-mask" id="modalMask">
+        <div class="modal-container">
+            <span class="modal-close">×</span>
+            <!-- 左侧媒体区 -->
+            <div class="modal-left">
+                <img id="modalImg" src="" alt="" style="display:none;">
+                <video id="modalVideo" controls playsinline style="display:none; width:100%; border-radius:8px;"></video>
+            </div>
+            <!-- 右侧信息 -->
+            <div class="modal-right">
+                <div class="modal-category" id="modalCategory"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-tags" id="modalTags"></div>
+                <div class="prompt-box">
+                    <div class="prompt-header">
+                        <span>提示词内容</span>
+                        <button class="copy-btn-small" data-clipboard-target="#modalPrompt">复制</button>
+                    </div>
+                    <textarea id="modalPrompt" readonly></textarea>
+                </div>
+                <button class="copy-btn-main" data-clipboard-target="#modalPrompt">一键复制提示词</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        async function loadRecentWorks() {
+            try {
+                // 同时加载图片和视频数据（fetch 失败回退到离线兜底 window.APP_DATA）
+                let imageData, videoData;
+                try {
+                    const [imageRes, videoRes] = await Promise.all([
+                        fetch('/api/data/image-prompts'),
+                        fetch('/api/data/video-prompts')
+                    ]);
+                    if (!imageRes.ok) throw new Error('图片 API 状态 ' + imageRes.status);
+                    if (!videoRes.ok) throw new Error('视频 API 状态 ' + videoRes.status);
+                    imageData = await imageRes.json();
+                    videoData = await videoRes.json();
+                } catch (e) {
+                    console.warn('API 中转失败，回退到直接请求 JSON 文件：', e);
+                    try {
+                        const [imageRes, videoRes] = await Promise.all([
+                            fetch('data/image-prompts.json'),
+                            fetch('data/video-prompts.json')
+                        ]);
+                        imageData = await imageRes.json();
+                        videoData = await videoRes.json();
+                    } catch (e2) {
+                        console.warn('首页 fetch 失败，使用离线兜底数据：', e2);
+                        imageData = (window.APP_DATA && window.APP_DATA.image) || [];
+                        videoData = (window.APP_DATA && window.APP_DATA.video) || [];
+                    }
+                }
+
+                // 合并数据并标注来源
+                const allWorks = [
+                    ...imageData.map(item => ({...item, type: '图片'})),
+                    ...videoData.map(item => ({...item, type: '视频'}))
+                ];
+
+                // 按 order 倒序排列（order 大的排前面 = 新上传的靠前）
+                allWorks.sort((a, b) => (b.order || 0) - (a.order || 0));
+
+                const recent = allWorks.slice(0, 12);
+                const grid = document.getElementById('homeMasonryGrid');
+                grid.innerHTML = recent.map(item => {
+                    const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
+                    return `
+                    <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
+                        <img src="${item.cover}" alt="${item.title}" loading="lazy">
+                        <div class="home-card-info">
+                            <span class="home-card-title">${item.title}</span>
+                            <div class="home-card-tags">
+                                <span class="home-card-tag type-badge ${badgeClass}">${item.type}</span>
+                                <span class="home-card-tag">${item.category}</span>
+                            </div>
+                        </div>
+                    </div>
+                `}).join('');
+
+                // 存储数据到 window 供点击使用
+                window.allWorks = allWorks;
+                window.displayedWorks = allWorks;
+
+                // 绑定卡片点击打开弹窗
+                bindHomeWorkClick(allWorks);
+
+                // 初始化搜索
+                initHomeSearch();
+            } catch (error) {
+                console.error('作品加载失败：', error);
+            }
+        }
+
+        // 初始化首页搜索
+        function initHomeSearch() {
+            const searchInput = document.getElementById('homeSearchInput');
+            if (searchInput) {
+                let timer;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        const keyword = this.value.trim().toLowerCase();
+                        if (!keyword) {
+                            renderHomeWorks(allWorks);
+                        } else {
+                            const filtered = allWorks.filter(item =>
+                                item.title.toLowerCase().includes(keyword) ||
+                                item.category.toLowerCase().includes(keyword) ||
+                                item.type.toLowerCase().includes(keyword) ||
+                                item.prompt.toLowerCase().includes(keyword) ||
+                                (item.tags || []).some(tag => tag.toLowerCase().includes(keyword))
+                            );
+                            renderHomeWorks(filtered);
+                        }
+                    }, 300);
+                });
+            }
+        }
+
+        // 渲染首页作品卡片
+        function renderHomeWorks(works) {
+            const recent = works.slice(0, 12);
+            const grid = document.getElementById('homeMasonryGrid');
+            grid.innerHTML = recent.map(item => {
+                const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
+                return `
+                <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
+                    <img src="${item.cover}" alt="${item.title}" loading="lazy">
+                    <div class="home-card-info">
+                        <span class="home-card-title">${item.title}</span>
+                        <div class="home-card-tags">
+                            <span class="home-card-tag type-badge ${badgeClass}">${item.type}</span>
+                            <span class="home-card-tag">${item.category}</span>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+
+            // 绑定卡片点击打开弹窗
+            bindHomeWorkClick(allWorks);
+        }
+
+        // 关闭弹窗时停止视频
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalMask = document.getElementById('modalMask');
+            const modalClose = document.querySelector('.modal-close');
+            const modalVideo = document.getElementById('modalVideo');
+            function closeHomeModal() {
+                modalMask.classList.remove('show');
+                document.body.style.overflow = '';
+                if (modalVideo) {
+                    modalVideo.pause();
+                    modalVideo.src = '';
+                }
+            }
+            if (modalClose) modalClose.addEventListener('click', closeHomeModal);
+            modalMask.addEventListener('click', function(e) {
+                if (e.target === modalMask) closeHomeModal();
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', loadRecentWorks);
+    </script>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="footer-logo">AI创作资源站</div>
+                <p class="footer-desc">精选AI提示词与实用工具，助力创作效率提升</p>
+            </div>
+            <div class="footer-column">
+                <h4>功能导航</h4>
+                <ul>
+                    <li><a href="video.html">视频提示词库</a></li>
+                    <li><a href="image.html">图片提示词库</a></li>
+                    <li><a href="tools.html">AI工具集合</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>关于</h4>
+                <ul>
+                    <li><a href="#">关于本站</a></li>
+                    <li><a href="#">反馈建议</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 AI创作资源站 · 个人站点
+        </div>
+    </footer>
+</body>
+</html>
