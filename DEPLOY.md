@@ -114,8 +114,8 @@ git push -u origin main
 
 ### 3.3 图片链接格式
 
-jsDelivr CDN 链接格式�?- 图片：`https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/1.jpg`
-- 视频：`https://cdn.jsdelivr.net/gh/huchenchen9527/ai-videos@main/1.jpg`
+jsDelivr CDN 链接格式�?- 图片：`https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/1.jpg`
+- 视频：`https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/1.jpg`
 
 代码中的链接已配置好，只需确保图片上传到正确路径即可�?
 > **提示�?* jsDelivr 有约 10 分钟缓存延迟�?
@@ -239,7 +239,7 @@ git push -u origin main
 ### 3.3 图片链接格式
 
 jsDelivr CDN 链接格式�?```
-https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics/ai-videos@main/img/image/1.jpg
+https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics/ai-videos@main/img/image/1.jpg
 ```
 
 代码中的链接已配置好，只需确保图片上传到正确路径即可�?

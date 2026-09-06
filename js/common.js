@@ -240,7 +240,7 @@ function initPromptPage(config) {
             return;
         }
         grid.innerHTML = data.map(item => {
-            const defaultCover = 'https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/default-cover.jpg';
+            const defaultCover = 'https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/default-cover.jpg';
             return `
             <div class="prompt-card" data-id="${escapeHtml(item.id)}" data-category="${escapeHtml(item.category)}">
                 <img src="${escapeHtml(item.cover || defaultCover)}" alt="${escapeHtml(item.title)}" loading="lazy">
