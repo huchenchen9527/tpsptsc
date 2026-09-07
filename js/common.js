@@ -154,7 +154,7 @@ function initPromptPage(config) {
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             } catch (apiErr) {
                 console.warn('API 中转失败，回退到直接请求 JSON 文件：', apiErr);
-                res = await fetch(dataUrl);
+                res = await fetch(dataUrl + '?t=' + Date.now());
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             }
             allData = await res.json();
@@ -329,7 +329,7 @@ function initToolsPage(config) {
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             } catch (apiErr) {
                 console.warn('API 中转失败，回退到直接请求 JSON 文件：', apiErr);
-                res = await fetch(dataUrl);
+                res = await fetch(dataUrl + '?t=' + Date.now());
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             }
             allTools = await res.json();
