@@ -121,8 +121,8 @@
                     console.warn('API 中转失败，回退到直接请求 JSON 文件：', e);
                     try {
                         const [imageRes, videoRes] = await Promise.all([
-                            fetch('data/image-prompts.json'),
-                            fetch('data/video-prompts.json')
+                            fetch('/data/image-prompts.json'),
+                            fetch('/data/video-prompts.json')
                         ]);
                         imageData = await imageRes.json();
                         videoData = await videoRes.json();
