@@ -61,5 +61,41 @@
         "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/r00007.jpg",
         "tags": ["人像", "摄影"],
         "prompt": "888888888888888"
+    },
+    {
+        "id": 8,
+        "order": 8,
+        "title": "待补充标题",
+        "category": "人像风格",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/r00008.webp",
+        "tags": ["待补充"],
+        "prompt": "88888"
+    },
+    {
+        "id": 9,
+        "order": 9,
+        "title": "待补充标题",
+        "category": "人像风格",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/r00009.webp",
+        "tags": ["待补充"],
+        "prompt": "88888"
+    },
+    {
+        "id": 10,
+        "order": 10,
+        "title": "待补充标题",
+        "category": "人像风格",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/r00010.webp",
+        "tags": ["待补充"],
+        "prompt": "88888"
+    },
+    {
+        "id": 11,
+        "order": 11,
+        "title": "待补充标题",
+        "category": "人像风格",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/r00011.jpg",
+        "tags": ["待补充"],
+        "prompt": "88888"
     }
 ]
