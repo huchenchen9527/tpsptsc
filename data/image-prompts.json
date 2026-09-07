@@ -4,7 +4,7 @@
         "order": 1,
         "title": "赛博朋克少女肖像",
         "category": "人像风格",
-        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/00001.jpg",
+        "cover": "https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/1.jpg",
         "tags": ["赛博朋克", "人像", "霓虹"],
         "prompt": "赛博朋克风格少女肖像，霓虹灯光打在脸上，背景是雨夜城市街道，全息投影装饰，机械义肢细节，高对比度，冷色调，电影级光影，8k超清，细节丰富，Midjourney风格"
     },
@@ -13,7 +13,7 @@
         "order": 2,
         "title": "国风山水水墨画",
         "category": "艺术风格",
-        "cover": null,
+        "cover": "https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/2.jpg",
         "tags": ["国风", "水墨", "山水"],
         "prompt": "中国传统水墨画风格，远山层叠，云雾缭绕，一叶扁舟行驶在江面，留白构图，笔墨晕染效果，意境悠远，淡雅配色，宣纸质感，大师级作品"
     },
@@ -22,7 +22,7 @@
         "order": 3,
         "title": "产品摄影香水大片",
         "category": "商业摄影",
-        "cover": null,
+        "cover": "https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/3.jpg",
         "tags": ["产品摄影", "香水", "高级感"],
         "prompt": "高端香水商业摄影，黑色瓶身放置在大理石台面上，周围散落玫瑰花瓣，柔和侧逆光勾勒瓶身轮廓，暗调背景，光斑散景，高级质感，专业棚拍效果，8k高清"
     },
@@ -31,7 +31,7 @@
         "order": 4,
         "title": "二次元动漫少女",
         "category": "动漫插画",
-        "cover": null,
+        "cover": "https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/4.jpg",
         "tags": ["二次元", "动漫", "少女"],
         "prompt": "日系动漫风格少女，金色长发，蓝色眼睛，穿着JK制服，站在樱花树下，花瓣飘落，阳光透过树叶，治愈系画风，色彩明亮，线条流畅，高精度插画"
     },
@@ -40,7 +40,7 @@
         "order": 5,
         "title": "超写实森林风景",
         "category": "自然风光",
-        "cover": null,
+        "cover": "https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/5.jpg",
         "tags": ["写实", "森林", "自然"],
         "prompt": "超写实森林风景，阳光穿透茂密的树叶形成丁达尔效应，地面长满青苔与蕨类植物，露珠晶莹剔透，空气清新，细节拉满，真实摄影质感，广角镜头，8k分辨率"
     },
@@ -49,7 +49,7 @@
         "order": 6,
         "title": "复古港风人像",
         "category": "人像风格",
-        "cover": null,
+        "cover": "https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/6.jpg",
         "tags": ["复古", "港风", "胶片"],
         "prompt": "90年代港风人像写真，年轻女性穿着红色连衣裙，站在老式霓虹灯牌下，胶片颗粒质感，暖黄调色，柔焦效果，复古氛围感，王家卫电影风格"
     },
@@ -58,7 +58,7 @@
         "order": 15,
         "title": "人像摄影作品",
         "category": "人像风格",
-        "cover": null,
+        "cover": "https://cdn.jsdelivr.net/gh/huchenchen9527/ai-pics@main/7.jpg",
         "tags": ["人像", "摄影"],
         "prompt": "888888888888888"
     }
