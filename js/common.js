@@ -240,13 +240,23 @@ function initPromptPage(config) {
             return;
         }
         grid.innerHTML = data.map(item => {
-            const defaultCover = 'https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/default-cover.jpg';
+            const defaultCover = 'https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/00001.jpg';
+            const hue = (item.id * 45) % 360;
+            const nextHue = (hue + 60) % 360;
+            let coverHtml;
+            if (item.cover) {
+                coverHtml = `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy">`;
+            } else {
+                coverHtml = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))">${escapeHtml(item.title)}</div>`;
+            }
+            const videoBadge = item.video_url ? '<span class="video-badge">▶ 视频</span>' : '';
             return `
             <div class="prompt-card" data-id="${escapeHtml(item.id)}" data-category="${escapeHtml(item.category)}">
-                <img src="${escapeHtml(item.cover || defaultCover)}" alt="${escapeHtml(item.title)}" loading="lazy">
+                ${coverHtml}
                 <div class="card-bottom">
                     <div class="card-title">${escapeHtml(item.title)}</div>
                     <span class="card-tag">${escapeHtml(item.category)}</span>
+                    ${videoBadge}
                 </div>
             </div>
         `;
@@ -261,9 +271,10 @@ function initPromptPage(config) {
                 const item = data.find(d => d.id === id);
                 if (!item) return;
                 const modalLeft = document.querySelector('.modal-left');
-                if (item.videoUrl) {
+                if (item.video_url || item.videoUrl) {
+                    const videoSrc = item.video_url || item.videoUrl;
                     // 有视频URL时显示视频播放器
-                    modalLeft.innerHTML = `<video src="${escapeHtml(item.videoUrl)}" controls autoplay loop playsinline style="width:100%;max-height:100%;object-fit:contain;border-radius:8px"></video>`;
+                    modalLeft.innerHTML = `<video src="${escapeHtml(videoSrc)}" controls autoplay loop playsinline style="width:100%;max-height:100%;object-fit:contain;border-radius:8px"></video>`;
                     // 隐藏图片元素
                     const modalImg = document.getElementById('modalImg');
                     if (modalImg) modalImg.style.display = 'none';

@@ -1,9 +1,5 @@
-# 环境变量（包含 API Key）
-server/.env
-
 # Node.js
 node_modules/
-server/node_modules/
 
 # 操作系统
 .DS_Store
