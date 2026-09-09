@@ -2,7 +2,7 @@
  * 通用工具函数（全站共用）
  * ========================================================= */
 
-// HTML 转义，防止 XSS 注入
+// HTML 转义，防�?XSS 注入
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -13,7 +13,7 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 }
 
-// 简单防抖
+// 简单防�?
 function debounce(fn, delay) {
     let timer = null;
     return function() {
@@ -27,8 +27,8 @@ function debounce(fn, delay) {
 }
 
 /* =========================================================
- * 一键复制功能
- * 优先使用原生 navigator.clipboard，失败时回退到 Clipboard.js
+ * 一键复制功�?
+ * 优先使用原生 navigator.clipboard，失败时回退�?Clipboard.js
  * ========================================================= */
 function initCopy() {
     // 原生剪贴板回退
@@ -43,7 +43,7 @@ function initCopy() {
             navigator.clipboard.writeText(text).then(function() {
                 showCopySuccess(btn);
             }).catch(function() {
-                // 回退到 document.execCommand
+                // 回退�?document.execCommand
                 fallbackCopy(text, btn);
             });
         });
@@ -61,7 +61,7 @@ function initCopy() {
 // 复制成功提示
 function showCopySuccess(btn) {
     const originalText = btn.innerText;
-    btn.innerText = '复制成功！';
+    btn.innerText = '复制成功�?;
     setTimeout(() => {
         btn.innerText = originalText;
     }, 1500);
@@ -79,7 +79,7 @@ function fallbackCopy(text, btn) {
         document.execCommand('copy');
         showCopySuccess(btn);
     } catch (err) {
-        console.error('复制失败：', err);
+        console.error('复制失败�?, err);
     }
     document.body.removeChild(textarea);
 }
@@ -88,7 +88,7 @@ function fallbackCopy(text, btn) {
 function closeModal() {
     const mask = document.getElementById('modalMask');
     if (mask) {
-        // 停止正在播放的视频
+        // 停止正在播放的视�?
         const video = mask.querySelector('video');
         if (video) {
             video.pause();
@@ -99,7 +99,7 @@ function closeModal() {
     }
 }
 
-// 页面加载完成后执行通用初始化
+// 页面加载完成后执行通用初始�?
 document.addEventListener('DOMContentLoaded', function() {
     initCopy();
     
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             closeBtn.addEventListener('click', closeModal);
         }
         
-        // ESC键关闭弹窗
+        // ESC键关闭弹�?
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
@@ -128,8 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* =========================================================
- * 提示词页面通用逻辑（video.html / image.html 共用）
- * 通过配置初始化，消除页面间重复脚本
+ * 提示词页面通用逻辑（video.html / image.html 共用�?
+ * 通过配置初始化，消除页面间重复脚�?
  * ========================================================= */
 function initPromptPage(config) {
     const dataUrl = config.dataUrl;
@@ -137,7 +137,7 @@ function initPromptPage(config) {
     const gridId = config.gridId;
     const modal = document.getElementById('modalMask');
 
-    // 离线兜底数据（file:// 模式下 fetch 会被拦截）
+    // 离线兜底数据（file:// 模式�?fetch 会被拦截�?
     const fallback = (window.APP_DATA && window.APP_DATA[dataKey]) || [];
 
     let allData = [];
@@ -146,19 +146,19 @@ function initPromptPage(config) {
     async function loadData() {
         const grid = document.getElementById(gridId);
         try {
-            // 优先请求后端 API 中转，失败则回退到直接请求 .json 文件
+            // 优先请求后端 API 中转，失败则回退到直接请�?.json 文件
             let res;
             try {
                 res = await fetch('/api/data/' + dataKey + '-prompts');
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             } catch (apiErr) {
-                console.warn('API 中转失败，回退到直接请求 JSON 文件：', apiErr);
+                console.warn('API 中转失败，回退到直接请�?JSON 文件�?, apiErr);
                 res = await fetch(dataUrl + '?t=' + Date.now());
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             }
             allData = await res.json();
         } catch (error) {
-            // fetch 全部失败时回退到内联数据
+            // fetch 全部失败时回退到内联数�?
             console.warn('fetch 数据失败，使用离线兜底数据：', error);
             allData = fallback.slice();
         }
@@ -193,7 +193,7 @@ function initPromptPage(config) {
 
         filtered = filtered.slice().sort((a, b) => (b.order || b.id) - (a.order || a.id));
         renderCards(filtered);
-        document.getElementById('resultCount').innerText = `共 ${filtered.length} 条结果`;
+        document.getElementById('resultCount').innerText = `�?${filtered.length} 条结果`;
     }
 
     function renderCards(data) {
@@ -203,7 +203,7 @@ function initPromptPage(config) {
             return;
         }
         grid.innerHTML = data.map(item => {
-            const defaultCover = 'https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/00001.jpg';
+            const defaultCover = 'https://testingcf.jsdelivr.net/gh/420201953-dot/ai-pics@main/00001.jpg';
             const hue = (item.id * 45) % 360;
             const nextHue = (hue + 60) % 360;
             let coverHtml;
@@ -212,7 +212,7 @@ function initPromptPage(config) {
             } else {
                 coverHtml = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))">${escapeHtml(item.title)}</div>`;
             }
-            const videoBadge = item.video_url ? '<span class="video-badge">▶ 视频</span>' : '';
+            const videoBadge = item.video_url ? '<span class="video-badge">�?视频</span>' : '';
             return `
             <div class="prompt-card" data-id="${escapeHtml(item.id)}">
                 ${coverHtml}
@@ -247,7 +247,7 @@ function initPromptPage(config) {
                         modalImg.src = item.cover;
                         modalImg.style.display = '';
                     }
-                    // 恢复原始结构（清除可能存在的视频标签）
+                    // 恢复原始结构（清除可能存在的视频标签�?
                     const existingVideo = modalLeft.querySelector('video');
                     if (existingVideo) existingVideo.remove();
                 }
@@ -267,12 +267,12 @@ function initPromptPage(config) {
 }
 
 /* =========================================================
- * 工具页面通用逻辑（tools.html）
+ * 工具页面通用逻辑（tools.html�?
  * ========================================================= */
 function initToolsPage(config) {
     const dataUrl = config.dataUrl;
 
-    // 离线兜底数据（file:// 模式下 fetch 会被拦截）
+    // 离线兜底数据（file:// 模式�?fetch 会被拦截�?
     const fallback = (window.APP_DATA && window.APP_DATA.tools) || [];
 
     let allTools = [];
@@ -282,13 +282,13 @@ function initToolsPage(config) {
     async function loadTools() {
         const grid = document.getElementById('toolsGrid');
         try {
-            // 优先请求后端 API 中转，失败则回退到直接请求 .json 文件
+            // 优先请求后端 API 中转，失败则回退到直接请�?.json 文件
             let res;
             try {
                 res = await fetch('/api/data/tools');
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             } catch (apiErr) {
-                console.warn('API 中转失败，回退到直接请求 JSON 文件：', apiErr);
+                console.warn('API 中转失败，回退到直接请�?JSON 文件�?, apiErr);
                 res = await fetch(dataUrl + '?t=' + Date.now());
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             }
@@ -363,13 +363,13 @@ function initToolsPage(config) {
 
         filtered = filtered.slice().sort((a, b) => b.id - a.id);
         renderTools(filtered);
-        document.getElementById('resultCount').innerText = `共 ${filtered.length} 款工具`;
+        document.getElementById('resultCount').innerText = `�?${filtered.length} 款工具`;
     }
 
     function renderTools(data) {
         const grid = document.getElementById('toolsGrid');
         if (!data.length) {
-            grid.innerHTML = '<div class="empty-tip">没有找到匹配的工具，换个关键词试试</div>';
+            grid.innerHTML = '<div class="empty-tip">没有找到匹配的工具，换个关键词试�?/div>';
             return;
         }
         grid.innerHTML = data.map(item => `
@@ -377,7 +377,7 @@ function initToolsPage(config) {
                 <div class="tool-logo">${escapeHtml(item.logo)}</div>
                 <div class="tool-name">${escapeHtml(item.name)}</div>
                 <div class="tool-desc">${escapeHtml(item.desc)}</div>
-                <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="tool-link">直达官网 →</a>
+                <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="tool-link">直达官网 �?/a>
             </div>
         `).join('');
     }
@@ -390,7 +390,7 @@ function initToolsPage(config) {
 }
 
 /* =========================================================
- * 首页最近上传卡片绑定（index.html）
+ * 首页最近上传卡片绑定（index.html�?
  * home-work-card 点击打开详情弹窗，复用通用 modal
  * ========================================================= */
 function bindHomeWorkClick(allWorks) {
