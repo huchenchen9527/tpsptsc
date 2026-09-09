@@ -141,7 +141,6 @@ function initPromptPage(config) {
     const fallback = (window.APP_DATA && window.APP_DATA[dataKey]) || [];
 
     let allData = [];
-    let currentCategory = 'all';
     let currentSearch = '';
 
     async function loadData() {
@@ -164,41 +163,10 @@ function initPromptPage(config) {
             allData = fallback.slice();
         }
         if (allData.length) {
-            generateCategoryButtons();
             applyFilters();
         } else if (grid) {
             grid.innerHTML = '<div class="empty-tip">数据加载失败，请检查网络或刷新重试</div>';
         }
-    }
-
-    // 事件委托：在 .filter-left 容器上统一监听 .filter-btn 点击
-    // 静态写死的"集合"按钮与动态生成的分类按钮都能响应，无需逐个绑定
-    function bindCategoryDelegate() {
-        const filterLeft = document.querySelector('.filter-left');
-        if (!filterLeft) return;
-        filterLeft.addEventListener('click', function(e) {
-            const btn = e.target.closest('.filter-btn');
-            if (!btn) return;
-            filterLeft.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentCategory = btn.dataset.category;
-            applyFilters();
-        });
-    }
-
-    function generateCategoryButtons() {
-        const categories = [...new Set(allData.map(item => item.category))];
-        const filterLeft = document.querySelector('.filter-left');
-        filterLeft.querySelectorAll('.filter-btn[data-category="all"]').forEach(btn => {
-            btn.classList.add('active');
-        });
-        categories.forEach(cat => {
-            const btn = document.createElement('button');
-            btn.className = 'filter-btn';
-            btn.dataset.category = cat;
-            btn.innerText = cat;
-            filterLeft.appendChild(btn);
-        });
     }
 
     function initSearch() {
@@ -214,17 +182,12 @@ function initPromptPage(config) {
     function applyFilters() {
         let filtered = allData;
 
-        if (currentCategory !== 'all') {
-            filtered = filtered.filter(item => item.category === currentCategory);
-        }
-
         if (currentSearch) {
             const keyword = currentSearch.toLowerCase();
             filtered = filtered.filter(item =>
                 String(item.title).toLowerCase().includes(keyword) ||
                 String(item.prompt).toLowerCase().includes(keyword) ||
-                (item.tags || []).some(tag => String(tag).toLowerCase().includes(keyword)) ||
-                String(item.category).toLowerCase().includes(keyword)
+                (item.tags || []).some(tag => String(tag).toLowerCase().includes(keyword))
             );
         }
 
@@ -251,11 +214,10 @@ function initPromptPage(config) {
             }
             const videoBadge = item.video_url ? '<span class="video-badge">▶ 视频</span>' : '';
             return `
-            <div class="prompt-card" data-id="${escapeHtml(item.id)}" data-category="${escapeHtml(item.category)}">
+            <div class="prompt-card" data-id="${escapeHtml(item.id)}">
                 ${coverHtml}
                 <div class="card-bottom">
                     <div class="card-title">${escapeHtml(item.title)}</div>
-                    <span class="card-tag">${escapeHtml(item.category)}</span>
                     ${videoBadge}
                 </div>
             </div>
@@ -289,7 +251,6 @@ function initPromptPage(config) {
                     const existingVideo = modalLeft.querySelector('video');
                     if (existingVideo) existingVideo.remove();
                 }
-                document.getElementById('modalCategory').innerText = item.category;
                 document.getElementById('modalTitle').innerText = item.title;
                 document.getElementById('modalTags').innerHTML = (item.tags || []).map(t => `<span>${escapeHtml(t)}</span>`).join('');
                 document.getElementById('modalPrompt').value = item.prompt;
@@ -300,7 +261,6 @@ function initPromptPage(config) {
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        bindCategoryDelegate();
         loadData();
         initSearch();
     });
@@ -454,7 +414,6 @@ function bindHomeWorkClick(allWorks) {
                 modalImg.style.display = 'block';
                 modalImg.src = item.cover;
             }
-            document.getElementById('modalCategory').innerText = item.category;
             document.getElementById('modalTitle').innerText = item.title;
             document.getElementById('modalTags').innerHTML = (item.tags || []).map(t => `<span>${escapeHtml(t)}</span>`).join('');
             document.getElementById('modalPrompt').value = item.prompt;

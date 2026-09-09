@@ -85,7 +85,6 @@
             </div>
             <!-- 右侧信息 -->
             <div class="modal-right">
-                <div class="modal-category" id="modalCategory"></div>
                 <h2 class="modal-title" id="modalTitle"></h2>
                 <div class="modal-tags" id="modalTags"></div>
                 <div class="prompt-box">
@@ -153,7 +152,6 @@
                             <span class="home-card-title">${item.title}</span>
                             <div class="home-card-tags">
                                 <span class="home-card-tag type-badge ${badgeClass}">${item.type}</span>
-                                <span class="home-card-tag">${item.category}</span>
                             </div>
                         </div>
                     </div>
@@ -187,7 +185,6 @@
                         } else {
                             const filtered = allWorks.filter(item =>
                                 item.title.toLowerCase().includes(keyword) ||
-                                item.category.toLowerCase().includes(keyword) ||
                                 item.type.toLowerCase().includes(keyword) ||
                                 item.prompt.toLowerCase().includes(keyword) ||
                                 (item.tags || []).some(tag => tag.toLowerCase().includes(keyword))
@@ -212,7 +209,6 @@
                         <span class="home-card-title">${item.title}</span>
                         <div class="home-card-tags">
                             <span class="home-card-tag type-badge ${badgeClass}">${item.type}</span>
-                            <span class="home-card-tag">${item.category}</span>
                         </div>
                     </div>
                 </div>
