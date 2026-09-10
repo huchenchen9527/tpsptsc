@@ -262,10 +262,15 @@ function initPromptPage(config) {
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            initSearch();
+        });
+    } else {
         loadData();
         initSearch();
-    });
+    }
 }
 
 /* =========================================================
@@ -384,11 +389,17 @@ function initToolsPage(config) {
         `).join('');
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            bindCategoryDelegate();
+            loadTools();
+            initSearch();
+        });
+    } else {
         bindCategoryDelegate();
         loadTools();
         initSearch();
-    });
+    }
 }
 
 /* =========================================================
