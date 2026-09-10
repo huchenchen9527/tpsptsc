@@ -5,6 +5,9 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/api/proxy", "destination": "/api/proxy" }
+  ],
   "headers": [
     {
       "source": "/data/(.*)",
@@ -21,4 +24,3 @@
     }
   ]
 }
- 

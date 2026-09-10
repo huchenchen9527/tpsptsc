@@ -2,7 +2,7 @@
  * 通用工具函数（全站共用）
  * ========================================================= */
 
-// HTML 转义，防�?XSS 注入
+// HTML 转义，防止XSS 注入
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -13,7 +13,7 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 }
 
-// 简单防�?
+// 简单防抖
 function debounce(fn, delay) {
     let timer = null;
     return function() {
@@ -43,7 +43,7 @@ function initCopy() {
             navigator.clipboard.writeText(text).then(function() {
                 showCopySuccess(btn);
             }).catch(function() {
-                // 回退�?document.execCommand
+                // 回退到 document.execCommand
                 fallbackCopy(text, btn);
             });
         });
@@ -99,7 +99,7 @@ function closeModal() {
     }
 }
 
-// 页面加载完成后执行通用初始�?
+// 页面加载完成后执行通用初始化
 document.addEventListener('DOMContentLoaded', function() {
     initCopy();
     
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             closeBtn.addEventListener('click', closeModal);
         }
         
-        // ESC键关闭弹�?
+        // ESC键关闭弹窗
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
@@ -137,7 +137,7 @@ function initPromptPage(config) {
     const gridId = config.gridId;
     const modal = document.getElementById('modalMask');
 
-    // 离线兜底数据（file:// 模式�?fetch 会被拦截�?
+    // 离线兜底数据
     const fallback = (window.APP_DATA && window.APP_DATA[dataKey]) || [];
 
     let allData = [];
@@ -146,19 +146,19 @@ function initPromptPage(config) {
     async function loadData() {
         const grid = document.getElementById(gridId);
         try {
-            // 优先请求后端 API 中转，失败则回退到直接请�?.json 文件
+            // 优先请求后端 API 中转，失败则回退到直接请求 JSON 文件
             let res;
             try {
                 res = await fetch('/api/data/' + dataKey + '-prompts');
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             } catch (apiErr) {
-                console.warn('API 中转失败，回退到直接请�?JSON 文件�?, apiErr);
+                console.warn('API 中转失败，回退到直接请求 JSON 文件', apiErr);
                 res = await fetch(dataUrl + '?t=' + Date.now());
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             }
             allData = await res.json();
         } catch (error) {
-            // fetch 全部失败时回退到内联数�?
+            // fetch 全部失败时回退到内联数据
             console.warn('fetch 数据失败，使用离线兜底数据：', error);
             allData = fallback.slice();
         }
@@ -193,7 +193,7 @@ function initPromptPage(config) {
 
         filtered = filtered.slice().sort((a, b) => (b.order || b.id) - (a.order || a.id));
         renderCards(filtered);
-        document.getElementById('resultCount').innerText = `�?${filtered.length} 条结果`;
+        document.getElementById('resultCount').innerText = `共 ${filtered.length} 条结果`;
     }
 
     function renderCards(data) {
@@ -214,7 +214,7 @@ function initPromptPage(config) {
             } else {
                 coverHtml = fallbackSvg;
             }
-            const videoBadge = item.video_url ? '<span class="video-badge">�?视频</span>' : '';
+            const videoBadge = item.video_url ? '<span class="video-badge">🎬 视频</span>' : '';
             return `
             <div class="prompt-card" data-id="${escapeHtml(item.id)}">
                 ${coverHtml}
@@ -249,7 +249,7 @@ function initPromptPage(config) {
                         modalImg.src = item.cover;
                         modalImg.style.display = '';
                     }
-                    // 恢复原始结构（清除可能存在的视频标签�?
+                    // 恢复原始结构（清除可能存在的视频标签）
                     const existingVideo = modalLeft.querySelector('video');
                     if (existingVideo) existingVideo.remove();
                 }
@@ -279,7 +279,7 @@ function initPromptPage(config) {
 function initToolsPage(config) {
     const dataUrl = config.dataUrl;
 
-    // 离线兜底数据（file:// 模式�?fetch 会被拦截�?
+    // 离线兜底数据（file:// 模式下 fetch 会被拦截）
     const fallback = (window.APP_DATA && window.APP_DATA.tools) || [];
 
     let allTools = [];
@@ -289,13 +289,13 @@ function initToolsPage(config) {
     async function loadTools() {
         const grid = document.getElementById('toolsGrid');
         try {
-            // 优先请求后端 API 中转，失败则回退到直接请�?.json 文件
+            // 优先请求后端 API 中转，失败则回退到直接请求 .json 文件
             let res;
             try {
                 res = await fetch('/api/data/tools');
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             } catch (apiErr) {
-                console.warn('API 中转失败，回退到直接请�?JSON 文件�?, apiErr);
+                console.warn('API 中转失败，回退到直接请求 JSON 文件', apiErr);
                 res = await fetch(dataUrl + '?t=' + Date.now());
                 if (!res.ok) throw new Error('HTTP ' + res.status);
             }
