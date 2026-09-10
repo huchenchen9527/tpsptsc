@@ -48,7 +48,7 @@ window.APP_DATA = {
             "category": "自然风光",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00005.jpg",
             "tags": ["写实", "森林", "自然"],
-            "prompt": "超写实森林风景，阳光穿透茂密的树叶形成丁达尔效应，地面长满青苔与�类植物，露珠晶莹剔透，空气清新，细节拉满，真实摄影质感，广角镜头，8k分辨率"
+            "prompt": "超写实森林风景，阳光穿透茂密的树叶形成丁达尔效应，地面长满青苔与苔藓植物，露珠晶莹剔透，空气清新，细节拉满，真实摄影质感，广角镜头，8k分辨率"
         },
         {
             "id": 6,
@@ -109,11 +109,11 @@ window.APP_DATA = {
         {
             "id": 1,
             "order": 7,
-            "title": "极近景人物情绪镜�?,
+            "title": "极近景人物情绪镜头",
             "category": "景别设计",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/1.jpg",
-            "tags": ["极近�?, "情绪", "人物"],
-            "prompt": "使用极近景拍摄人物眼神与嘴角，强调微表情变化，营造压迫感与亲密感。浅景深虚化背景，侧逆光勾勒面部轮廓，画面色调偏冷，帧率24fps，运镜缓慢推进�?
+            "tags": ["极近景", "情绪", "人物"],
+            "prompt": "使用极近景拍摄人物眼神与嘴角，强调微表情变化，营造压迫感与亲密感。浅景深虚化背景，侧逆光勾勒面部轮廓，画面色调偏冷，帧率24fps，运镜缓慢推进"
         },
         {
             "id": 2,
@@ -122,25 +122,25 @@ window.APP_DATA = {
             "category": "景别设计",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/2.jpg",
             "tags": ["全景", "夜景", "城市"],
-            "prompt": "以全景视角呈现繁华城市夜色，远景中的霓虹与车流形成宏大叙事氛围。广角镜头，低机位拍摄，冷色调为主，点缀暖黄车灯，画面带轻微胶片颗粒感�?
+            "prompt": "以全景视角呈现繁华城市夜色，远景中的霓虹与车流形成宏大叙事氛围。广角镜头，低机位拍摄，冷色调为主，点缀暖黄车灯，画面带轻微胶片颗粒感"
         },
         {
             "id": 3,
             "order": 9,
-            "title": "戏剧性侧光人�?,
-            "category": "灯光技�?,
+            "title": "戏剧性侧光人像",
+            "category": "灯光技巧",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/3.jpg",
-            "tags": ["侧光", "电影�?, "人像"],
-            "prompt": "采用强烈侧光从人�?5度角打出，硬边缘光影勾勒面部轮廓，暗部保留细节，营造情绪张力与电影质感。景深f2.8，焦�?0mm，背景纯黑突出主体�?
+            "tags": ["侧光", "电影感", "人像"],
+            "prompt": "采用强烈侧光从人像45度角打出，硬边缘光影勾勒面部轮廓，暗部保留细节，营造情绪张力与电影质感。景深f2.8，焦距50mm，背景纯黑突出主体"
         },
         {
             "id": 4,
             "order": 10,
-            "title": "柔和晨曦氛围�?,
-            "category": "灯光技�?,
+            "title": "柔和晨曦氛围感",
+            "category": "灯光技巧",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/4.jpg",
             "tags": ["晨曦", "柔光", "治愈"],
-            "prompt": "使用低饱和暖色灯光模拟晨曦，营造温柔、安静、治愈的视觉节奏。丁达尔光效穿过窗户，空气中有轻微浮尘，画面整体偏暖黄，对比度偏低�?
+            "prompt": "使用低饱和暖色灯光模拟晨曦，营造温柔、安静、治愈的视觉节奏。丁达尔光效穿过窗户，空气中有轻微浮尘，画面整体偏暖黄，对比度偏低"
         },
         {
             "id": 5,
@@ -149,25 +149,25 @@ window.APP_DATA = {
             "category": "构图艺术",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/5.jpg",
             "tags": ["黄金分割", "风景", "留白"],
-            "prompt": "将主体山峰放置在画面黄金分割点，利用大面积天空留白增强画面平衡感与视觉重点。前景草地引导视线，中景湖面倒影，远景山脉层次分明�?
+            "prompt": "将主体山峰放置在画面黄金分割点，利用大面积天空留白增强画面平衡感与视觉重点。前景草地引导视线，中景湖面倒影，远景山脉层次分明"
         },
         {
             "id": 6,
             "order": 12,
-            "title": "对角线动态运�?,
+            "title": "对角线动态运镜",
             "category": "镜头运动",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/6.jpg",
-            "tags": ["对角�?, "动�?, "推进"],
-            "prompt": "通过对角线线条引导观看者视线，形成动态推进感并强化叙事层次。镜头沿对角线方向缓慢移动，前景物体快速划过，增强空间纵深感�?
+            "tags": ["对角线", "动态", "推进"],
+            "prompt": "通过对角线线条引导观看者视线，形成动态推进感并强化叙事层次。镜头沿对角线方向缓慢移动，前景物体快速划过，增强空间纵深感"
         },
         {
             "id": 7,
             "order": 13,
-            "title": "电影级冷暖对比调�?,
+            "title": "电影级冷暖对比调色",
             "category": "色彩美学",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/7.jpg",
-            "tags": ["冷暖对比", "电影�?, "调色"],
-            "prompt": "将冷蓝与暖橙色块进行强对比，建立情绪冲突并强化视觉记忆点。暗部偏蓝，高光偏橙，中间调自然过渡，整体饱和度适中，画面通透有质感�?
+            "tags": ["冷暖对比", "电影感", "调色"],
+            "prompt": "将冷蓝与暖橙色块进行强对比，建立情绪冲突并强化视觉记忆点。暗部偏蓝，高光偏橙，中间调自然过渡，整体饱和度适中，画面通透有质感"
         },
         {
             "id": 8,
@@ -176,7 +176,7 @@ window.APP_DATA = {
             "category": "质感胶片",
             "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-videos/main/8.jpg",
             "tags": ["胶片", "复古", "颗粒"],
-            "prompt": "模仿35mm胶片的柔和边缘和细腻颗粒，让画面带有经典电影气息。轻微暗角，色彩偏暖黄，对比度偏低，带轻微曝光波动，模拟老胶片放映效果�?
+            "prompt": "模仿35mm胶片的柔和边缘和细腻颗粒，让画面带有经典电影气息。轻微暗角，色彩偏暖黄，对比度偏低，带轻微曝光波动，模拟老胶片放映效果"
         }
     ],
     tools: [
@@ -184,7 +184,7 @@ window.APP_DATA = {
             "id": 1,
             "name": "Midjourney",
             "logo": "M",
-            "desc": "全球最热门的AI绘画工具，生成效果惊艳，适合创意插画、概念设�?,
+            "desc": "全球最热门的AI绘画工具，生成效果惊艳，适合创意插画、概念设计",
             "category": "图像生成",
             "link": "https://www.midjourney.com/"
         },
@@ -192,7 +192,7 @@ window.APP_DATA = {
             "id": 2,
             "name": "Stable Diffusion",
             "logo": "SD",
-            "desc": "开源免费AI绘画模型，可本地部署，支持自定义模型和插件扩�?,
+            "desc": "开源免费AI绘画模型，可本地部署，支持自定义模型和插件扩展",
             "category": "图像生成",
             "link": "https://stability.ai/"
         },
@@ -200,7 +200,7 @@ window.APP_DATA = {
             "id": 3,
             "name": "Sora",
             "logo": "S",
-            "desc": "OpenAI推出的文生视频模型，可生�?0秒高清电影级视频内容",
+            "desc": "OpenAI推出的文生视频模型，可生成20秒高清电影级视频内容",
             "category": "视频生成",
             "link": "https://openai.com/sora"
         },
@@ -216,14 +216,14 @@ window.APP_DATA = {
             "id": 5,
             "name": "ChatGPT",
             "logo": "G",
-            "desc": "OpenAI旗舰大语言模型，支持文案写作、代码生成、逻辑推理�?,
+            "desc": "OpenAI旗舰大语言模型，支持文案写作、代码生成、逻辑推理",
             "category": "AI写作",
             "link": "https://chat.openai.com/"
         },
         {
             "id": 6,
             "name": "豆包",
-            "logo": "�?,
+            "logo": "豆",
             "desc": "字节跳动自研AI助手，中文能力优秀，支持聊天、写作、画图等",
             "category": "AI写作",
             "link": "https://www.doubao.com/"
@@ -232,7 +232,7 @@ window.APP_DATA = {
             "id": 7,
             "name": "Figma",
             "logo": "F",
-            "desc": "在线UI设计工具，内置AI设计功能，团队协作效率极�?,
+            "desc": "在线UI设计工具，内置AI设计功能，团队协作效率极高",
             "category": "设计工具",
             "link": "https://www.figma.com/"
         },
@@ -240,7 +240,7 @@ window.APP_DATA = {
             "id": 8,
             "name": "Remove.bg",
             "logo": "R",
-            "desc": "一键AI抠图工具，自动去除背景，效果精准，免费可�?,
+            "desc": "一键AI抠图工具，自动去除背景，效果精准，免费可用",
             "category": "设计工具",
             "link": "https://www.remove.bg/"
         }

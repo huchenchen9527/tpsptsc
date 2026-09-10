@@ -6,16 +6,16 @@
         "category": "人像风格",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00001.jpg",
         "tags": ["赛博朋克", "人像", "霓虹"],
-        "prompt": "赛博朋克风格少女肖像，霓虹灯光打在脸上，背景是雨夜城市街道，全息投影装饰，机械义肢细节，高对比度，冷色调，电影级光影�?k超清，细节丰富，Midjourney风格"
+        "prompt": "赛博朋克风格少女肖像，霓虹灯光打在脸上，背景是雨夜城市街道，全息投影装饰，机械义肢细节，高对比度，冷色调，电影级光影，4k超清，细节丰富，Midjourney风格"
     },
     {
         "id": 2,
         "order": 2,
-        "title": "国风山水水墨�?,
+        "title": "国风山水水墨画",
         "category": "艺术风格",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00002.jpg",
         "tags": ["国风", "水墨", "山水"],
-        "prompt": "中国传统水墨画风格，远山层叠，云雾缭绕，一叶扁舟行驶在江面，留白构图，笔墨晕染效果，意境悠远，淡雅配色，宣纸质感，大师级作�?
+        "prompt": "中国传统水墨画风格，远山层叠，云雾缭绕，一叶扁舟行驶在江面，留白构图，笔墨晕染效果，意境悠远，淡雅配色，宣纸质感，大师级作品"
     },
     {
         "id": 3,
@@ -23,26 +23,26 @@
         "title": "产品摄影香水大片",
         "category": "商业摄影",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00003.jpg",
-        "tags": ["产品摄影", "香水", "高级�?],
-        "prompt": "高端香水商业摄影，黑色瓶身放置在大理石台面上，周围散落玫瑰花瓣，柔和侧逆光勾勒瓶身轮廓，暗调背景，光斑散景，高级质感，专业棚拍效果�?k高清"
+        "tags": ["产品摄影", "香水", "高级感"],
+        "prompt": "高端香水商业摄影，黑色瓶身放置在大理石台面上，周围散落玫瑰花瓣，柔和侧逆光勾勒瓶身轮廓，暗调背景，光斑散景，高级质感，专业棚拍效果，4k高清"
     },
     {
         "id": 4,
         "order": 4,
-        "title": "二次元动漫少�?,
+        "title": "二次元动漫少女",
         "category": "动漫插画",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00004.jpg",
-        "tags": ["二次�?, "动漫", "少女"],
+        "tags": ["二次元", "动漫", "少女"],
         "prompt": "日系动漫风格少女，金色长发，蓝色眼睛，穿着JK制服，站在樱花树下，花瓣飘落，阳光透过树叶，治愈系画风，色彩明亮，线条流畅，高精度插画"
     },
     {
         "id": 5,
         "order": 5,
-        "title": "超写实森林风�?,
+        "title": "超写实森林风景",
         "category": "自然风光",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00005.jpg",
         "tags": ["写实", "森林", "自然"],
-        "prompt": "超写实森林风景，阳光穿透茂密的树叶形成丁达尔效应，地面长满青苔与�类植物，露珠晶莹剔透，空气清新，细节拉满，真实摄影质感，广角镜头，8k分辨�?
+        "prompt": "超写实森林风景，阳光穿透茂密的树叶形成丁达尔效应，地面长满青苔与苔藓植物，露珠晶莹剔透，空气清新，细节拉满，真实摄影质感，广角镜头，8k分辨率"
     },
     {
         "id": 6,
@@ -65,37 +65,37 @@
     {
         "id": 8,
         "order": 8,
-        "title": "待补充标�?,
+        "title": "待补充标题",
         "category": "人像风格",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00008.webp",
-        "tags": ["待补�?],
+        "tags": ["待补充"],
         "prompt": "88888"
     },
     {
         "id": 9,
         "order": 9,
-        "title": "待补充标�?,
+        "title": "待补充标题",
         "category": "人像风格",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00009.webp",
-        "tags": ["待补�?],
+        "tags": ["待补充"],
         "prompt": "88888"
     },
     {
         "id": 10,
         "order": 10,
-        "title": "待补充标�?,
+        "title": "待补充标题",
         "category": "人像风格",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00010.webp",
-        "tags": ["待补�?],
+        "tags": ["待补充"],
         "prompt": "88888"
     },
     {
         "id": 11,
         "order": 11,
-        "title": "待补充标�?,
+        "title": "待补充标题",
         "category": "人像风格",
         "cover": "https://ghproxy.net/https://raw.githubusercontent.com/420201953-dot/ai-pics/main/r00011.jpg",
-        "tags": ["待补�?],
+        "tags": ["待补充"],
         "prompt": "88888"
     }
 ]

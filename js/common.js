@@ -100,12 +100,50 @@ function closeModal() {
 }
 
 // 页面加载完成后执行通用初始�?
-if (document.readyState !== "loading") {loadData();
-        initSearch();
-    } else {
-        document.addEventListener("DOMContentLoaded", function() {loadData();
-            initSearch();
-        });() {
+document.addEventListener('DOMContentLoaded', function() {
+    initCopy();
+    
+    // 点击遮罩关闭弹窗
+    const mask = document.getElementById('modalMask');
+    if (mask) {
+        mask.addEventListener('click', function(e) {
+            if (e.target === mask) {
+                closeModal();
+            }
+        });
+        
+        // 点击关闭按钮关闭弹窗
+        const closeBtn = document.querySelector('.modal-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+        
+        // ESC键关闭弹�?
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    }
+});
+
+/* =========================================================
+ * 提示词页面通用逻辑（video.html / image.html 共用�?
+ * 通过配置初始化，消除页面间重复脚�?
+ * ========================================================= */
+function initPromptPage(config) {
+    const dataUrl = config.dataUrl;
+    const dataKey = config.dataKey;
+    const gridId = config.gridId;
+    const modal = document.getElementById('modalMask');
+
+    // 离线兜底数据（file:// 模式�?fetch 会被拦截�?
+    const fallback = (window.APP_DATA && window.APP_DATA[dataKey]) || [];
+
+    let allData = [];
+    let currentSearch = '';
+
+    async function loadData() {
         const grid = document.getElementById(gridId);
         try {
             // 优先请求后端 API 中转，失败则回退到直接请�?.json 文件
@@ -224,14 +262,15 @@ if (document.readyState !== "loading") {loadData();
         });
     }
 
-    if (document.readyState !== "loading") {loadData();
-        initSearch();
-    } else {
-        document.addEventListener("DOMContentLoaded", function() {loadData();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
             initSearch();
-        });();
+        });
+    } else {
+        loadData();
         initSearch();
-    });
+    }
 }
 
 /* =========================================================
@@ -350,14 +389,17 @@ function initToolsPage(config) {
         `).join('');
     }
 
-    if (document.readyState !== "loading") {loadTools();
-        initSearch();
-    } else {
-        document.addEventListener("DOMContentLoaded", function() {loadTools();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            bindCategoryDelegate();
+            loadTools();
             initSearch();
-        });();
+        });
+    } else {
+        bindCategoryDelegate();
+        loadTools();
         initSearch();
-    });
+    }
 }
 
 /* =========================================================
