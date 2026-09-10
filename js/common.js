@@ -2,7 +2,7 @@
  * 通用工具函数（全站共用）
  * ========================================================= */
 
-// HTML 转义，防止 XSS 注入
+// HTML 转义，防�?XSS 注入
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -11,16 +11,6 @@ function escapeHtml(str) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
-}
-
-// 图片渲染工具：CDN 不可用时自动回退为渐变色占位图
-function renderCover(item) {
-    const hue = (item.id * 45) % 360;
-    const nextHue = (hue + 60) % 360;
-    if (item.cover) {
-        return `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.outerHTML='<div class=\\'cover-placeholder\\' style=\\'background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))\\'>${escapeHtml(item.title)}</div>'">`;
-    }
-    return `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))">${escapeHtml(item.title)}</div>`;
 }
 
 // 简单防�?
@@ -213,7 +203,17 @@ function initPromptPage(config) {
             return;
         }
         grid.innerHTML = data.map(item => {
-            const coverHtml = renderCover(item);
+            const hue = (item.id * 45) % 360;
+            const nextHue = (hue + 60) % 360;
+            const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))">${escapeHtml(item.title)}</div>`;
+            let coverHtml;
+            if (item.cover) {
+                const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /><text x="200" y="160" font-family="sans-serif" font-size="24" fill="#fff" text-anchor="middle">${escapeHtml(item.title)}</text></svg>`;
+                const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
+                coverHtml = `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
+            } else {
+                coverHtml = fallbackSvg;
+            }
             const videoBadge = item.video_url ? '<span class="video-badge">�?视频</span>' : '';
             return `
             <div class="prompt-card" data-id="${escapeHtml(item.id)}">
