@@ -145,9 +145,10 @@
                 const grid = document.getElementById('homeMasonryGrid');
                 grid.innerHTML = recent.map(item => {
                     const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
+                    const coverHtml = renderCover(item);
                     return `
                     <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
-                        <img src="${item.cover}" alt="${item.title}" loading="lazy">
+                        ${coverHtml}
                         <div class="home-card-info">
                             <span class="home-card-title">${item.title}</span>
                             <div class="home-card-tags">
@@ -202,9 +203,10 @@
             const grid = document.getElementById('homeMasonryGrid');
             grid.innerHTML = recent.map(item => {
                 const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
+                const coverHtml = renderCover(item);
                 return `
                 <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
-                    <img src="${item.cover}" alt="${item.title}" loading="lazy">
+                    ${coverHtml}
                     <div class="home-card-info">
                         <span class="home-card-title">${item.title}</span>
                         <div class="home-card-tags">
