@@ -78,5 +78,45 @@
         "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/8.mp4",
         "tags": ["胶片", "复古", "颗粒"],
         "prompt": "模仿35mm胶片的柔和边缘和细腻颗粒，让画面带有经典电影气息。轻微暗角，色彩偏暖黄，对比度偏低，带轻微曝光波动，模拟老胶片放映效果"
+    },
+    {
+        "id": 9,
+        "order": 20,
+        "title": "视频9",
+        "category": "视频作品",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000001.jpg",
+        "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000001.mp4",
+        "tags": ["新上传"],
+        "prompt": "8888888555"
+    },
+    {
+        "id": 10,
+        "order": 21,
+        "title": "视频10",
+        "category": "视频作品",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000002.jpg",
+        "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000002.mp4",
+        "tags": ["新上传"],
+        "prompt": "8888888555"
+    },
+    {
+        "id": 11,
+        "order": 22,
+        "title": "视频11",
+        "category": "视频作品",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000003.jpg",
+        "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000003.mp4",
+        "tags": ["新上传"],
+        "prompt": "8888888555"
+    },
+    {
+        "id": 12,
+        "order": 23,
+        "title": "视频12",
+        "category": "视频作品",
+        "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000004.jpg",
+        "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000004.mp4",
+        "tags": ["新上传"],
+        "prompt": "8888888555"
     }
 ]
