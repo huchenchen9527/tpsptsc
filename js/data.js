@@ -183,7 +183,7 @@ window.APP_DATA = {
             "order": 20,
             "title": "视频9",
             "category": "视频作品",
-            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000001.jpg",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000001.mp4",
             "tags": ["新上传"],
             "prompt": "8888888555"
         },
@@ -192,7 +192,7 @@ window.APP_DATA = {
             "order": 21,
             "title": "视频10",
             "category": "视频作品",
-            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000002.jpg",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000002.mp4",
             "tags": ["新上传"],
             "prompt": "8888888555"
         },
@@ -201,7 +201,7 @@ window.APP_DATA = {
             "order": 22,
             "title": "视频11",
             "category": "视频作品",
-            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000003.jpg",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000003.mp4",
             "tags": ["新上传"],
             "prompt": "8888888555"
         },
@@ -210,7 +210,7 @@ window.APP_DATA = {
             "order": 23,
             "title": "视频12",
             "category": "视频作品",
-            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000004.jpg",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000004.mp4",
             "tags": ["新上传"],
             "prompt": "8888888555"
         }
