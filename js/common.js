@@ -224,10 +224,6 @@ function initPromptPage(config) {
             return `
             <div class="prompt-card" data-id="${escapeHtml(item.id)}">
                 ${coverHtml}
-                <div class="card-bottom">
-                    <div class="card-title">${escapeHtml(item.title)}</div>
-                    ${videoBadge}
-                </div>
             </div>
         `;
         }).join('');
