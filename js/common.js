@@ -210,9 +210,13 @@ function initPromptPage(config) {
             if (item.cover) {
                 const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /><text x="200" y="160" font-family="sans-serif" font-size="24" fill="#fff" text-anchor="middle">${escapeHtml(item.title)}</text></svg>`;
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                coverHtml = `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
+                if (item.cover.endsWith('.mp4')) {
+                    coverHtml = `<div class="cover-wrapper"><video src="${escapeHtml(item.cover)}" muted autoplay loop playsinline class="cover-video"></video></div>`;
+                } else {
+                    coverHtml = `<div class="cover-wrapper"><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
+                }
             } else if (item.video_url) {
-                coverHtml = `<video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline class="cover-video">`;
+                coverHtml = `<div class="cover-wrapper"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline class="cover-video"></video></div>`;
             } else {
                 coverHtml = fallbackSvg;
             }
