@@ -148,11 +148,9 @@
                     const nextHue = (hue + 60) % 360;
                     const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
                     const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                    const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
                     let coverHtml;
                     if (item.type === '视频' && item.video_url) {
-                        const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                        coverHtml = `<div style="${bgStyle};position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;"></div><video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video"></video>`;
+                        coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video" style="background:#000;"></video>`;
                     } else {
                         coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                     }
@@ -164,7 +162,6 @@
 
                 // 存储数据到 window 供点击使用
                 window.allWorks = allWorks;
-                window.displayedWorks = allWorks;
 
                 // 绑定卡片点击打开弹窗
                 bindHomeWorkClick(allWorks);
@@ -210,26 +207,19 @@
                 const nextHue = (hue + 60) % 360;
                 const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
-                    coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video"></video>`;
+                    const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
+                    coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video" style="background:${bgStyle};"></video>`;
                 } else {
                     coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
                 return `
                 <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
                     <div class="home-card-cover">${coverHtml}</div>
-                    <div class="home-card-info">
-                        <span class="home-card-title">${item.title}</span>
-                        <div class="home-card-tags">
-                            <span class="home-card-tag type-badge ${badgeClass}">${item.type}</span>
-                        </div>
-                    </div>
                 </div>
             `}).join('');
 
-            // 绑定卡片点击打开弹窗
             bindHomeWorkClick(allWorks);
         }
 

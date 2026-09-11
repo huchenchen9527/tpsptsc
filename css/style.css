@@ -278,35 +278,6 @@ a {
     aspect-ratio: 9/16;
 }
 
-.card-bottom {
-    padding: 12px 14px;
-}
-
-.card-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 6px;
-}
-
-.card-tag {
-    display: inline-block;
-    padding: 2px 8px;
-    background: #f3f4f6;
-    border-radius: 12px;
-    font-size: 12px;
-    color: var(--text-sub);
-}
-
-.video-badge {
-    font-size: 11px;
-    color: #fff;
-    background: #ef4444;
-    padding: 2px 8px;
-    border-radius: 999px;
-    font-weight: 600;
-    margin-left: 6px;
-}
-
 /* ========== 6. 详情弹窗样式 ========== */
 .modal-mask {
     position: fixed;
@@ -688,47 +659,6 @@ a {
 
 .masonry-grid .home-work-card:nth-child(5n) .home-card-cover {
     aspect-ratio: 9/16 !important; /* 极高竖版 */
-}
-
-.home-card-info {
-    padding: 10px 12px;
-}
-
-.home-card-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-main);
-    display: block;
-    margin-bottom: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.home-card-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.home-card-tag {
-    display: inline-block;
-    padding: 2px 8px;
-    background: #f3f4f6;
-    border-radius: 12px;
-    font-size: 11px;
-    color: var(--text-sub);
-}
-
-/* 来源标签（图片/视频）样式区分 */
-.type-badge-image {
-    background: #dbeafe;
-    color: #1e40af;
-}
-
-.type-badge-video {
-    background: #fce7f3;
-    color: #9d174d;
 }
 
 /* ========== 9. 页脚 ========== */
