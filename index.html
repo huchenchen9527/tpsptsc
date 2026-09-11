@@ -151,7 +151,8 @@
                     const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
                     let coverHtml;
                     if (item.type === '视频' && item.video_url) {
-                        coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video" onerror="this.style.display='none';this.previousElementSibling.style.display='block';"></video>`;
+                        const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
+                        coverHtml = `<div style="${bgStyle};position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;"></div><video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video"></video>`;
                     } else {
                         coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                     }

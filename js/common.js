@@ -211,12 +211,14 @@ function initPromptPage(config) {
                 const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                 if (item.cover.endsWith('.mp4')) {
-                    coverHtml = `<div class="cover-wrapper"><video src="${escapeHtml(item.cover)}" muted autoplay loop playsinline class="cover-video"></video></div>`;
+                    const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
+                    coverHtml = `<div class="cover-wrapper" style="${bgStyle}"><div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;background:inherit;"></div><video src="${escapeHtml(item.cover)}" muted autoplay loop playsinline class="cover-video"></video></div>`;
                 } else {
                     coverHtml = `<div class="cover-wrapper"><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
                 }
             } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline class="cover-video"></video></div>`;
+                const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
+                coverHtml = `<div class="cover-wrapper" style="${bgStyle}"><div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;background:inherit;"></div><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline class="cover-video"></video></div>`;
             } else {
                 coverHtml = fallbackSvg;
             }
