@@ -203,7 +203,7 @@ a {
 .cover-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
     background: #000;
 }
@@ -230,6 +230,7 @@ a {
 .cover-placeholder {
     width: 100%;
     aspect-ratio: 16/10;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -239,7 +240,6 @@ a {
     text-align: center;
     padding: 12px;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    min-height: 160px;
 }
 
 .card-bottom {
