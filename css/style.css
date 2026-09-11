@@ -623,9 +623,36 @@ a {
     box-shadow: var(--shadow-hover);
 }
 
-.home-work-card img {
+.home-work-card img,
+.home-work-card video,
+.home-card-cover {
     width: 100%;
     display: block;
+}
+
+.home-card-cover {
+    overflow: hidden;
+    position: relative;
+}
+
+.home-card-cover video,
+.home-card-cover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 首页瀑布流 - 不同卡片使用不同封面比例 */
+.home-work-card:nth-child(3n+1) .home-card-cover {
+    aspect-ratio: 16/10;
+}
+
+.home-work-card:nth-child(3n+2) .home-card-cover {
+    aspect-ratio: 16/9;
+}
+
+.home-work-card:nth-child(3n) .home-card-cover {
+    aspect-ratio: 4/3;
 }
 
 .home-card-info {

@@ -421,10 +421,11 @@ function bindHomeWorkClick(allWorks) {
             if (!item) return;
             const modalImg = document.getElementById('modalImg');
             const modalVideo = document.getElementById('modalVideo');
-            if (item.videoUrl) {
+            const videoSrc = item.videoUrl || item.video_url;
+            if (videoSrc) {
                 modalImg.style.display = 'none';
                 modalVideo.style.display = 'block';
-                modalVideo.src = item.videoUrl;
+                modalVideo.src = videoSrc;
                 modalVideo.play();
             } else {
                 modalVideo.style.display = 'none';

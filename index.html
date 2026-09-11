@@ -149,9 +149,15 @@
                     const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /><text x="200" y="160" font-family="sans-serif" font-size="24" fill="#fff" text-anchor="middle">${item.title}</text></svg>`;
                     const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                     const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
+                    let coverHtml;
+                    if (item.type === '视频' && item.video_url) {
+                        coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" style="width:100%;height:100%;object-fit:cover;"></video>`;
+                    } else {
+                        coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
+                    }
                     return `
                     <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
-                        <img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">
+                        <div class="home-card-cover">${coverHtml}</div>
                         <div class="home-card-info">
                             <span class="home-card-title">${item.title}</span>
                             <div class="home-card-tags">
@@ -210,9 +216,15 @@
                 const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /><text x="200" y="160" font-family="sans-serif" font-size="24" fill="#fff" text-anchor="middle">${item.title}</text></svg>`;
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                 const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
+                let coverHtml;
+                if (item.type === '视频' && item.video_url) {
+                    coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>`;
+                } else {
+                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
+                }
                 return `
                 <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
-                    <img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">
+                    <div class="home-card-cover">${coverHtml}</div>
                     <div class="home-card-info">
                         <span class="home-card-title">${item.title}</span>
                         <div class="home-card-tags">
