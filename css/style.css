@@ -179,24 +179,17 @@ a {
 
 /* ========== 5. 瀑布流卡片通用样式 ========== */
 .masonry-grid {
-    column-count: 4;
+    column-count: 4 !important;
     column-gap: 16px;
+    display: block !important;
 }
 
-.prompt-card {
-    break-inside: avoid;
+.prompt-card,
+.home-work-card {
+    break-inside: avoid !important;
     margin-bottom: 16px;
-    background: var(--card-bg);
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: var(--shadow);
-}
-
-.prompt-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 /* 封面统一容器 - 固定宽高比 */
