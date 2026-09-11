@@ -61,7 +61,7 @@ function initCopy() {
 // 复制成功提示
 function showCopySuccess(btn) {
     const originalText = btn.innerText;
-    btn.innerText = '复制成功�?;
+    btn.innerText = '复制成功';
     setTimeout(() => {
         btn.innerText = originalText;
     }, 1500);
@@ -79,7 +79,7 @@ function fallbackCopy(text, btn) {
         document.execCommand('copy');
         showCopySuccess(btn);
     } catch (err) {
-        console.error('复制失败�?, err);
+        console.error('复制失败', err);
     }
     document.body.removeChild(textarea);
 }
@@ -370,7 +370,7 @@ function initToolsPage(config) {
 
         filtered = filtered.slice().sort((a, b) => b.id - a.id);
         renderTools(filtered);
-        document.getElementById('resultCount').innerText = `�?${filtered.length} 款工具`;
+        document.getElementById('resultCount').innerText = `共 ${filtered.length} 款工具`;
     }
 
     function renderTools(data) {
