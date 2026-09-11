@@ -151,7 +151,8 @@
                     const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
                     let coverHtml;
                     if (item.type === '视频' && item.video_url) {
-                        coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" style="width:100%;height:100%;object-fit:cover;"></video>`;
+                        const coverSrc = item.cover || encodedSvg;
+                        coverHtml = `<img src="${coverSrc}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'"><video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video" onerror="this.style.display='none'"></video>`;
                     } else {
                         coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                     }
@@ -218,7 +219,8 @@
                 const badgeClass = item.type === '图片' ? 'type-badge-image' : 'type-badge-video';
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
-                    coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>`;
+                    const coverSrc = item.cover || encodedSvg;
+                    coverHtml = `<img src="${coverSrc}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'"><video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video" onerror="this.style.display='none'"></video>`;
                 } else {
                     coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
