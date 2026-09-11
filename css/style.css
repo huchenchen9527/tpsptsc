@@ -180,7 +180,7 @@ a {
 /* ========== 5. 瀑布流卡片通用样式 ========== */
 .masonry-grid {
     column-count: 5 !important;
-    column-gap: 16px;
+    column-gap: 20px;
     display: block !important;
 }
 
@@ -207,17 +207,30 @@ a {
     display: block;
 }
 
-/* 瀑布流 - 不同卡片使用不同封面比例 */
-.masonry-grid .prompt-card:nth-child(3n+1) .cover-wrapper {
-    aspect-ratio: 16/10;
+.cover-video {
+    position: relative;
+    z-index: 2;
 }
 
-.masonry-grid .prompt-card:nth-child(3n+2) .cover-wrapper {
-    aspect-ratio: 16/9;
+/* 瀑布流 - 5种不同封面比例，让落差更明显 */
+.masonry-grid .prompt-card:nth-child(5n+1) .cover-wrapper {
+    aspect-ratio: 16/9; /* 超宽屏 */
 }
 
-.masonry-grid .prompt-card:nth-child(3n) .cover-wrapper {
-    aspect-ratio: 4/3;
+.masonry-grid .prompt-card:nth-child(5n+2) .cover-wrapper {
+    aspect-ratio: 3/4; /* 竖版 */
+}
+
+.masonry-grid .prompt-card:nth-child(5n+3) .cover-wrapper {
+    aspect-ratio: 1/1; /* 正方形 */
+}
+
+.masonry-grid .prompt-card:nth-child(5n+4) .cover-wrapper {
+    aspect-ratio: 2/1; /* 横版 */
+}
+
+.masonry-grid .prompt-card:nth-child(5n) .cover-wrapper {
+    aspect-ratio: 9/16; /* 极高竖版 */
 }
 
 .prompt-card img {
@@ -245,16 +258,24 @@ a {
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-.masonry-grid .prompt-card:nth-child(3n+1) .cover-placeholder {
-    aspect-ratio: 16/10;
-}
-
-.masonry-grid .prompt-card:nth-child(3n+2) .cover-placeholder {
+.masonry-grid .prompt-card:nth-child(5n+1) .cover-placeholder {
     aspect-ratio: 16/9;
 }
 
-.masonry-grid .prompt-card:nth-child(3n) .cover-placeholder {
-    aspect-ratio: 4/3;
+.masonry-grid .prompt-card:nth-child(5n+2) .cover-placeholder {
+    aspect-ratio: 3/4;
+}
+
+.masonry-grid .prompt-card:nth-child(5n+3) .cover-placeholder {
+    aspect-ratio: 1/1;
+}
+
+.masonry-grid .prompt-card:nth-child(5n+4) .cover-placeholder {
+    aspect-ratio: 2/1;
+}
+
+.masonry-grid .prompt-card:nth-child(5n) .cover-placeholder {
+    aspect-ratio: 9/16;
 }
 
 .card-bottom {
@@ -650,11 +671,11 @@ a {
 
 /* 首页瀑布流 - 5种不同封面比例，让落差更明显 */
 .masonry-grid .home-work-card:nth-child(5n+1) .home-card-cover {
-    aspect-ratio: 3/4 !important; /* 高竖版 */
+    aspect-ratio: 16/9 !important; /* 超宽屏 */
 }
 
 .masonry-grid .home-work-card:nth-child(5n+2) .home-card-cover {
-    aspect-ratio: 16/10 !important; /* 宽屏 */
+    aspect-ratio: 3/4 !important; /* 竖版 */
 }
 
 .masonry-grid .home-work-card:nth-child(5n+3) .home-card-cover {
@@ -662,11 +683,11 @@ a {
 }
 
 .masonry-grid .home-work-card:nth-child(5n+4) .home-card-cover {
-    aspect-ratio: 16/9 !important; /* 超宽屏 */
+    aspect-ratio: 2/1 !important; /* 横版 */
 }
 
 .masonry-grid .home-work-card:nth-child(5n) .home-card-cover {
-    aspect-ratio: 2/3 !important; /* 中等竖版 */
+    aspect-ratio: 9/16 !important; /* 极高竖版 */
 }
 
 .home-card-info {
