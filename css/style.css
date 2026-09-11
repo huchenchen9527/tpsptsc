@@ -92,7 +92,7 @@ a {
 
 /* ========== 3. 页面通用容器 ========== */
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 40px 20px;
 }
@@ -179,7 +179,7 @@ a {
 
 /* ========== 5. 瀑布流卡片通用样式 ========== */
 .masonry-grid {
-    column-count: 4 !important;
+    column-count: 5 !important;
     column-gap: 16px;
     display: block !important;
 }
@@ -649,17 +649,25 @@ a {
     pointer-events: none;
 }
 
-/* 首页瀑布流 - 不同卡片使用不同封面比例 */
-.masonry-grid .home-work-card:nth-child(3n+1) .home-card-cover {
-    aspect-ratio: 16/10 !important;
+/* 首页瀑布流 - 5种不同封面比例，让落差更明显 */
+.masonry-grid .home-work-card:nth-child(5n+1) .home-card-cover {
+    aspect-ratio: 3/4 !important; /* 高竖版 */
 }
 
-.masonry-grid .home-work-card:nth-child(3n+2) .home-card-cover {
-    aspect-ratio: 16/9 !important;
+.masonry-grid .home-work-card:nth-child(5n+2) .home-card-cover {
+    aspect-ratio: 16/10 !important; /* 宽屏 */
 }
 
-.masonry-grid .home-work-card:nth-child(3n) .home-card-cover {
-    aspect-ratio: 4/3 !important;
+.masonry-grid .home-work-card:nth-child(5n+3) .home-card-cover {
+    aspect-ratio: 1/1 !important; /* 正方形 */
+}
+
+.masonry-grid .home-work-card:nth-child(5n+4) .home-card-cover {
+    aspect-ratio: 16/9 !important; /* 超宽屏 */
+}
+
+.masonry-grid .home-work-card:nth-child(5n) .home-card-cover {
+    aspect-ratio: 2/3 !important; /* 中等竖版 */
 }
 
 .home-card-info {
@@ -767,7 +775,11 @@ a {
 }
 
 /* ========== 10. 响应式适配（手机/平板） ========== */
-@media (max-width: 992px) {
+@media (max-width: 1400px) {
+    .masonry-grid { column-count: 4; }
+}
+
+@media (max-width: 1100px) {
     .masonry-grid { column-count: 3; }
     .tools-grid { grid-template-columns: repeat(3, 1fr); }
 }
