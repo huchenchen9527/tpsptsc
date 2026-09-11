@@ -183,18 +183,6 @@ a {
     column-gap: 16px;
 }
 
-.masonry-grid .prompt-card:nth-child(3n+1) .cover-wrapper {
-    aspect-ratio: 16/10;
-}
-
-.masonry-grid .prompt-card:nth-child(3n+2) .cover-wrapper {
-    aspect-ratio: 16/9;
-}
-
-.masonry-grid .prompt-card:nth-child(3n) .cover-wrapper {
-    aspect-ratio: 4/3;
-}
-
 .prompt-card {
     break-inside: avoid;
     margin-bottom: 16px;
@@ -215,7 +203,6 @@ a {
 .cover-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 10;
     overflow: hidden;
     background: #000;
 }
@@ -226,6 +213,19 @@ a {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* 瀑布流 - 不同卡片使用不同封面比例 */
+.masonry-grid .prompt-card:nth-child(3n+1) .cover-wrapper {
+    aspect-ratio: 16/10;
+}
+
+.masonry-grid .prompt-card:nth-child(3n+2) .cover-wrapper {
+    aspect-ratio: 16/9;
+}
+
+.masonry-grid .prompt-card:nth-child(3n) .cover-wrapper {
+    aspect-ratio: 4/3;
 }
 
 .prompt-card img {
