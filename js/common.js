@@ -125,7 +125,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // 分享链接按钮
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+            const url = window.location.href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showShareSuccess(this);
+                }).catch(() => {
+                    fallbackCopy(url, this);
+                });
+            } else {
+                fallbackCopy(url, this);
+            }
+        });
+    }
 });
+
+// 分享成功提示
+function showShareSuccess(btn) {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '✅';
+    btn.title = '链接已复制';
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.title = '分享链接';
+    }, 1500);
+}
 
 /* =========================================================
  * 提示词页面通用逻辑（video.html / image.html 共用�?
@@ -443,3 +471,5 @@ function bindHomeWorkClick(allWorks) {
         });
     });
 }
+
+// End of common.js

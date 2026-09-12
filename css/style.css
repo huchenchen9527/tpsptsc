@@ -398,6 +398,12 @@ a {
     color: var(--text-sub);
 }
 
+.prompt-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .copy-btn-small {
     border: none;
     background: transparent;
@@ -434,6 +440,29 @@ a {
 
 .copy-btn-main:hover {
     background: #b45309;
+}
+
+/* 分享链接按钮 */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.share-btn-main {
+    flex: 1;
+    padding: 12px;
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: auto;
+    transition: background 0.2s;
+}
+
+.share-btn-main:hover {
+    background: #0284c7;
 }
 
 /* ========== 7. 工具卡片网格样式 ========== */
