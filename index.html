@@ -150,8 +150,13 @@
                     const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                     let coverHtml;
                     if (item.type === '视频' && item.video_url) {
-                        coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video" style="background:#000;"></video>`;
+                        const hue = (item.id * 45) % 360;
+                        const nextHue = (hue + 60) % 360;
+                        const bgStyle = `background: linear-gradient(135deg, hsl(${hue}, 70%, 70%), hsl(${nextHue}, 70%, 50%))`;
+                        coverHtml = `<div class="home-video-wrapper" style="opacity: 0; transition: opacity 0.3s; ${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
                     } else {
+                        const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
+                        const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                         coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                     }
                     return `
@@ -165,6 +170,17 @@
 
                 // 绑定卡片点击打开弹窗
                 bindHomeWorkClick(allWorks);
+
+                // 首页视频加载完成后淡入显示
+                document.querySelectorAll('.home-video-wrapper video').forEach(video => {
+                    const wrapper = video.closest('.home-video-wrapper');
+                    const showWrapper = () => { wrapper.style.opacity = '1'; };
+                    if (video.readyState >= 1) {
+                        showWrapper();
+                    } else {
+                        video.addEventListener('loadeddata', showWrapper, { once: true });
+                    }
+                });
 
                 // 初始化搜索
                 initHomeSearch();
@@ -210,7 +226,7 @@
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
                     const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                    coverHtml = `<video src="${item.video_url}" muted autoplay loop playsinline loading="lazy" class="home-card-video" style="background:${bgStyle};"></video>`;
+                    coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
                 } else {
                     coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
@@ -221,6 +237,17 @@
             `}).join('');
 
             bindHomeWorkClick(allWorks);
+
+            // 视频加载完成后淡入显示
+            document.querySelectorAll('.home-video-wrapper video').forEach(video => {
+                const wrapper = video.closest('.home-video-wrapper');
+                const showWrapper = () => { wrapper.style.opacity = '1'; };
+                if (video.readyState >= 1) {
+                    showWrapper();
+                } else {
+                    video.addEventListener('loadeddata', showWrapper, { once: true });
+                }
+            });
         }
 
         // 关闭弹窗时停止视频

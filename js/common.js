@@ -211,7 +211,7 @@ function initPromptPage(config) {
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                 coverHtml = `<div class="cover-wrapper"><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
             } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper" style="background:#000"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline class="cover-video"></video></div>`;
+                coverHtml = `<div class="cover-wrapper video-wrapper" style="opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
             } else {
                 const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))"></div>`;
                 coverHtml = fallbackSvg;
@@ -223,6 +223,16 @@ function initPromptPage(config) {
         `;
         }).join('');
         bindCardClick(data);
+        // 视频加载完成后淡入显示
+        document.querySelectorAll('.video-wrapper video').forEach(video => {
+            const wrapper = video.closest('.video-wrapper');
+            const showWrapper = () => { wrapper.style.opacity = '1'; };
+            if (video.readyState >= 1) {
+                showWrapper();
+            } else {
+                video.addEventListener('loadeddata', showWrapper, { once: true });
+            }
+        });
     }
 
     function bindCardClick(data) {
