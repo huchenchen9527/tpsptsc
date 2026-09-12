@@ -28,7 +28,7 @@
         <div class="recent-works-section">
             <div class="recent-works-header">
                 <h2 class="section-title">🆕 最近上传</h2>
-                <a href="image.html" class="view-more-link">查看全部 →</a>
+                <span class="works-count" id="worksCount"></span>
             </div>
             <div class="home-search-bar">
                 <input type="text" id="homeSearchInput" class="search-input" placeholder="搜索作品标题、标签、提示词...">
@@ -129,6 +129,10 @@
                         <div class="home-card-cover">${coverHtml}</div>
                     </div>
                 `}).join('');
+
+                // 更新数量统计
+                document.getElementById('worksCount').textContent = 
+                    `🖼 图片 ${imageData.length} 个 · 🎬 视频 ${videoData.length} 个`;
 
                 // 存储数据到 window 供点击使用
                 window.allWorks = allWorks;
