@@ -231,25 +231,6 @@
             });
         }
 
-        // 关闭弹窗时停止视频
-        document.addEventListener('DOMContentLoaded', function() {
-            const modalMask = document.getElementById('modalMask');
-            const modalClose = document.querySelector('.modal-close');
-            const modalVideo = document.getElementById('modalVideo');
-            function closeHomeModal() {
-                modalMask.classList.remove('show');
-                document.body.style.overflow = '';
-                if (modalVideo) {
-                    modalVideo.pause();
-                    modalVideo.src = '';
-                }
-            }
-            if (modalClose) modalClose.addEventListener('click', closeHomeModal);
-            modalMask.addEventListener('click', function(e) {
-                if (e.target === modalMask) closeHomeModal();
-            });
-        });
-
         document.addEventListener('DOMContentLoaded', loadRecentWorks);
     </script>
 
