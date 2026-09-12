@@ -566,9 +566,16 @@ a {
     font-weight: 700;
 }
 
-.works-count {
+.view-more-link {
     font-size: 14px;
-    color: var(--text-sub);
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.view-more-link:hover {
+    color: var(--accent-color);
 }
 
 /* 首页作品搜索栏 */

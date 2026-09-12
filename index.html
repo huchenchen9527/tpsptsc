@@ -130,10 +130,6 @@
                     </div>
                 `}).join('');
 
-                // 更新数量统计
-                document.getElementById('worksCount').textContent = 
-                    `🖼 图片 ${imageData.length} 个 · 🎬 视频 ${videoData.length} 个`;
-
                 // 存储数据到 window 供点击使用
                 window.allWorks = allWorks;
 
@@ -150,6 +146,22 @@
                         video.addEventListener('loadeddata', showWrapper, { once: true });
                     }
                 });
+
+                // 更新作品数量统计
+                const countEl = document.getElementById('worksCount');
+                if (countEl) {
+                    const imageCount = imageData.length;
+                    const videoCount = videoData.length;
+                    countEl.innerHTML = `📸 ${imageCount} 张图片 · 🎬 ${videoCount} 个视频`;
+                    countEl.style.cssText = `
+                        display: inline-block;
+                        padding: 6px 16px;
+                        background: #f3f4f6;
+                        border-radius: 20px;
+                        font-size: 14px;
+                        color: #6b7280;
+                    `;
+                }
 
                 // 初始化搜索
                 initHomeSearch();
