@@ -112,28 +112,7 @@
                 allWorks.sort((a, b) => (b.order || 0) - (a.order || 0));
 
                 const recent = allWorks.slice(0, 12);
-                const grid = document.getElementById('homeMasonryGrid');
-                grid.innerHTML = recent.map(item => {
-                    const hue = (item.id * 45) % 360;
-                    const nextHue = (hue + 60) % 360;
-                    const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-                    const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                    let coverHtml;
-                    if (item.type === '视频' && item.video_url) {
-                        const hue = (item.id * 45) % 360;
-                        const nextHue = (hue + 60) % 360;
-                        const bgStyle = `background: linear-gradient(135deg, hsl(${hue}, 70%, 70%), hsl(${nextHue}, 70%, 50%))`;
-                        coverHtml = `<div class="home-video-wrapper" style="opacity: 0; transition: opacity 0.3s; ${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
-                    } else {
-                        const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-                        const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                        coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
-                    }
-                    return `
-                    <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
-                        <div class="home-card-cover">${coverHtml}</div>
-                    </div>
-                `}).join('');
+                renderHomeWorks(recent, false);
 
                 // 存储数据到 window 供点击使用
                 window.allWorks = allWorks;
@@ -154,17 +133,6 @@
                         }, 500);
                     }
                 }
-
-                // 首页视频加载完成后淡入显示
-                document.querySelectorAll('.home-video-wrapper video').forEach(video => {
-                    const wrapper = video.closest('.home-video-wrapper');
-                    const showWrapper = () => { wrapper.style.opacity = '1'; };
-                    if (video.readyState >= 1) {
-                        showWrapper();
-                    } else {
-                        video.addEventListener('loadeddata', showWrapper, { once: true });
-                    }
-                });
 
                 // 更新作品数量统计
                 const countEl = document.getElementById('worksCount');
@@ -198,6 +166,7 @@
                     clearTimeout(timer);
                     timer = setTimeout(() => {
                         const keyword = this.value.trim().toLowerCase();
+                        const allWorks = window.allWorks || [];
                         if (!keyword) {
                             renderHomeWorks(allWorks);
                         } else {
@@ -215,8 +184,8 @@
         }
 
         // 渲染首页作品卡片
-        function renderHomeWorks(works) {
-            const recent = works.slice(0, 12);
+        function renderHomeWorks(works, applyFilter = true) {
+            const recent = applyFilter ? works.slice(0, 12) : works;
             const grid = document.getElementById('homeMasonryGrid');
             grid.innerHTML = recent.map(item => {
                 const hue = (item.id * 45) % 360;
@@ -236,7 +205,7 @@
                 </div>
             `}).join('');
 
-            bindHomeWorkClick(allWorks);
+            bindHomeWorkClick(window.allWorks || []);
 
             // 视频加载完成后淡入显示
             document.querySelectorAll('.home-video-wrapper video').forEach(video => {

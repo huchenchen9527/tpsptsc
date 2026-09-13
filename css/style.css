@@ -192,6 +192,19 @@ a {
     box-sizing: border-box !important;
 }
 
+.prompt-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    transition: all 0.25s ease;
+}
+
+.prompt-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
 /* 封面统一容器 - 固定宽高比 */
 .cover-wrapper {
     position: relative;

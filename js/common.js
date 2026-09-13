@@ -31,37 +31,39 @@ function debounce(fn, delay) {
 }
 
 /* =========================================================
- * 一键复制功�?
- * 优先使用原生 navigator.clipboard，失败时回退�?Clipboard.js
+ * 一键复制功能
+ * 优先使用原生 navigator.clipboard，失败时回退到Clipboard.js
  * ========================================================= */
 function initCopy() {
-    // 原生剪贴板回退
-    const buttons = document.querySelectorAll('.copy-btn-small, .copy-btn-main');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            // 如果 Clipboard.js 已接管，则不重复处理
-            if (typeof ClipboardJS !== 'undefined') return;
-            const target = document.querySelector(this.dataset.clipboardTarget);
-            if (!target || !navigator.clipboard) return;
-            const text = target.value !== undefined ? target.value : target.innerText;
-            navigator.clipboard.writeText(text).then(function() {
-                showCopySuccess(btn);
-            }).catch(function() {
-                // 回退到 document.execCommand
-                fallbackCopy(text, btn);
-            });
-        });
-    });
-
+    // 优先使用 Clipboard.js（如果可用）
     if (typeof ClipboardJS !== 'undefined') {
         const clipboard = new ClipboardJS('.copy-btn-small, .copy-btn-main');
         clipboard.on('success', function(e) {
             showCopySuccess(e.trigger);
             e.clearSelection();
         });
+        return;
     }
+    
+    // 没有 Clipboard.js 时使用原生剪贴板 API
+    const buttons = document.querySelectorAll('.copy-btn-small, .copy-btn-main');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const target = document.querySelector(this.dataset.clipboardTarget);
+            if (!target) return;
+            const text = target.value !== undefined ? target.value : target.innerText;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopySuccess(btn);
+                }).catch(function() {
+                    fallbackCopy(text, btn);
+                });
+            } else {
+                fallbackCopy(text, btn);
+            }
+        });
+    });
 }
-
 // 复制成功提示
 function showCopySuccess(btn) {
     const originalText = btn.innerText;
@@ -166,8 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* =========================================================
- * 提示词页面通用逻辑（video.html / image.html 共用�?
- * 通过配置初始化，消除页面间重复脚�?
+ * 提示词页面通用逻辑（video.html / image.html 共用）
+ * 通过配置初始化，消除页面间重复脚本
  * ========================================================= */
 function initPromptPage(config) {
     const dataUrl = config.dataUrl;
@@ -331,7 +333,7 @@ function initPromptPage(config) {
 }
 
 /* =========================================================
- * 工具页面通用逻辑（tools.html�?
+ * 工具页面通用逻辑（tools.html）
  * ========================================================= */
 function initToolsPage(config) {
     const dataUrl = config.dataUrl;
@@ -433,7 +435,7 @@ function initToolsPage(config) {
     function renderTools(data) {
         const grid = document.getElementById('toolsGrid');
         if (!data.length) {
-            grid.innerHTML = '<div class="empty-tip">没有找到匹配的工具，换个关键词试�?/div>';
+            grid.innerHTML = '<div class="empty-tip">没有找到匹配的工具，换个关键词试试</div>';
             return;
         }
         grid.innerHTML = data.map(item => `
@@ -441,7 +443,7 @@ function initToolsPage(config) {
                 <div class="tool-logo">${escapeHtml(item.logo)}</div>
                 <div class="tool-name">${escapeHtml(item.name)}</div>
                 <div class="tool-desc">${escapeHtml(item.desc)}</div>
-                <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="tool-link">直达官网 �?/a>
+                <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="tool-link">直达官网 →</a>
             </div>
         `).join('');
     }
@@ -460,7 +462,7 @@ function initToolsPage(config) {
 }
 
 /* =========================================================
- * 首页最近上传卡片绑定（index.html�?
+* 首页最近上传卡片绑定（index.html）
  * home-work-card 点击打开详情弹窗，复用通用 modal
  * ========================================================= */
 function bindHomeWorkClick(allWorks) {
