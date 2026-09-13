@@ -126,11 +126,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // 分享链接按钮 - 复制当前页面URL并在新标签页打开
+    // 分享链接按钮 - 根据当前弹窗作品类型生成对应页面URL
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
         shareBtn.addEventListener('click', function() {
-            const url = window.location.href;
+            const modal = document.getElementById('modalMask');
+            const modalVideo = document.getElementById('modalVideo');
+            let url = window.location.href;
+            // 如果是视频作品，跳转到video.html；如果是图片作品，跳转到image.html
+            if (modal && modal.classList.contains('show')) {
+                if (modalVideo && modalVideo.src && modalVideo.style.display !== 'none') {
+                    url = window.location.origin + window.location.pathname.replace(/[^/]+$/, '') + 'video.html';
+                } else {
+                    url = window.location.origin + window.location.pathname.replace(/[^/]+$/, '') + 'image.html';
+                }
+            }
             navigator.clipboard.writeText(url).then(function() {
                 window.open(url, '_blank');
                 const icon = shareBtn.querySelector('.share-icon');
