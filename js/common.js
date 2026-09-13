@@ -133,10 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('modalMask');
             const baseURL = window.location.origin;
             let url = window.location.href;
-            // 检测弹窗是否打开且里面有video元素
+            // 检测弹窗是否打开，通过video标签是否有src来判断是否为视频
             if (modal && modal.classList.contains('show')) {
                 const modalLeft = document.querySelector('.modal-left');
-                const hasVideo = modalLeft && modalLeft.querySelector('video');
+                const videoEl = modalLeft ? modalLeft.querySelector('video') : null;
+                const hasVideo = videoEl && videoEl.src && videoEl.src !== window.location.origin;
                 if (hasVideo) {
                     url = baseURL + '/video.html';
                 } else {
