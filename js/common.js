@@ -156,13 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             navigator.clipboard.writeText(url).then(function() {
-                window.open(url, '_blank');
                 const btn = shareBtn;
                 const originalHtml = btn.innerHTML;
                 btn.innerHTML = '✓';
                 setTimeout(() => { btn.innerHTML = originalHtml; }, 1500);
-            }).catch(function() {
-                window.open(url, '_blank');
             });
         });
     }
