@@ -132,13 +132,14 @@ document.addEventListener('DOMContentLoaded', function() {
         shareBtn.addEventListener('click', function() {
             const modal = document.getElementById('modalMask');
             const modalVideo = document.getElementById('modalVideo');
+            const baseURL = window.location.origin;
             let url = window.location.href;
             // 如果是视频作品，跳转到video.html；如果是图片作品，跳转到image.html
             if (modal && modal.classList.contains('show')) {
                 if (modalVideo && modalVideo.src && modalVideo.style.display !== 'none') {
-                    url = window.location.origin + window.location.pathname.replace(/[^/]+$/, '') + 'video.html';
+                    url = baseURL + '/video.html';
                 } else {
-                    url = window.location.origin + window.location.pathname.replace(/[^/]+$/, '') + 'image.html';
+                    url = baseURL + '/image.html';
                 }
             }
             navigator.clipboard.writeText(url).then(function() {
