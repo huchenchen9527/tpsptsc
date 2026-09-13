@@ -126,11 +126,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // 分享链接按钮 - 直接定位到当前页面
+    // 分享链接按钮 - 复制当前页面URL并在新标签页打开
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
         shareBtn.addEventListener('click', function() {
-            window.location.href = window.location.href;
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(function() {
+                window.open(url, '_blank');
+                const icon = shareBtn.querySelector('.share-icon');
+                if (icon) {
+                    const originalSvg = icon.innerHTML;
+                    icon.innerHTML = '✓';
+                    setTimeout(() => { icon.innerHTML = originalSvg; }, 1500);
+                }
+            }).catch(function() {
+                window.open(url, '_blank');
+            });
         });
     }
 });
