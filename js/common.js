@@ -2,6 +2,10 @@
  * 通用工具函数（全站共用）
  * ========================================================= */
 
+// 当前打开弹窗的作品ID和类型（用于分享链接）
+let currentOpenWorkId = null;
+let currentOpenWorkType = null;
+
 // HTML 转义，防止XSS 注入
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
@@ -88,7 +92,9 @@ function fallbackCopy(text, btn) {
 function closeModal() {
     const mask = document.getElementById('modalMask');
     if (mask) {
-        // 停止正在播放的视�?
+        currentOpenWorkId = null;
+        currentOpenWorkType = null;
+        // 停止正在播放的视频
         const video = mask.querySelector('video');
         if (video) {
             video.pause();
@@ -126,15 +132,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // 分享链接按钮 - 根据当前弹窗作品类型生成对应页面URL
+    // 分享链接按钮 - 生成带作品ID的URL
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
         shareBtn.addEventListener('click', function() {
             const modal = document.getElementById('modalMask');
             const baseURL = window.location.origin;
             let url = window.location.href;
-            // 检测弹窗是否打开，通过video标签是否有src来判断是否为视频
-            if (modal && modal.classList.contains('show')) {
+            if (currentOpenWorkId !== null) {
+                if (currentOpenWorkType === '视频') {
+                    url = baseURL + '/video.html?id=' + currentOpenWorkId;
+                } else {
+                    url = baseURL + '/image.html?id=' + currentOpenWorkId;
+                }
+            } else if (modal && modal.classList.contains('show')) {
                 const modalLeft = document.querySelector('.modal-left');
                 const videoEl = modalLeft ? modalLeft.querySelector('video') : null;
                 const hasVideo = videoEl && videoEl.src && videoEl.src !== window.location.origin;
@@ -194,6 +205,16 @@ function initPromptPage(config) {
         }
         if (allData.length) {
             applyFilters();
+            // 检查URL是否有id参数，自动打开对应作品
+            const urlParams = new URLSearchParams(window.location.search);
+            const autoOpenId = urlParams.get('id');
+            if (autoOpenId) {
+                const targetId = parseInt(autoOpenId);
+                setTimeout(() => {
+                    const card = document.querySelector('.prompt-card[data-id="' + targetId + '"]');
+                    if (card) card.click();
+                }, 500);
+            }
         } else if (grid) {
             grid.innerHTML = '<div class="empty-tip">数据加载失败，请检查网络或刷新重试</div>';
         }
@@ -293,6 +314,8 @@ function initPromptPage(config) {
                 document.getElementById('modalTitle').innerText = item.title;
                 document.getElementById('modalTags').innerHTML = (item.tags || []).map(t => `<span>${escapeHtml(t)}</span>`).join('');
                 document.getElementById('modalPrompt').value = item.prompt;
+                currentOpenWorkId = id;
+                currentOpenWorkType = (item.video_url || item.videoUrl) ? '视频' : '图片';
                 modal.classList.add('show');
                 document.body.style.overflow = 'hidden';
             });
@@ -468,6 +491,8 @@ function bindHomeWorkClick(allWorks) {
             document.getElementById('modalTitle').innerText = item.title;
             document.getElementById('modalTags').innerHTML = (item.tags || []).map(t => `<span>${escapeHtml(t)}</span>`).join('');
             document.getElementById('modalPrompt').value = item.prompt;
+            currentOpenWorkId = id;
+            currentOpenWorkType = type;
             document.getElementById('modalMask').classList.add('show');
             document.body.style.overflow = 'hidden';
         });

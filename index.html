@@ -141,6 +141,20 @@
                 // 绑定卡片点击打开弹窗
                 bindHomeWorkClick(allWorks);
 
+                // 检查URL是否有id参数，自动打开对应作品
+                const urlParams = new URLSearchParams(window.location.search);
+                const autoOpenId = urlParams.get('id');
+                if (autoOpenId) {
+                    const targetId = parseInt(autoOpenId);
+                    const targetItem = allWorks.find(w => w.id === targetId);
+                    if (targetItem) {
+                        setTimeout(() => {
+                            const card = document.querySelector('.home-work-card[data-id="' + targetId + '"]');
+                            if (card) card.click();
+                        }, 500);
+                    }
+                }
+
                 // 首页视频加载完成后淡入显示
                 document.querySelectorAll('.home-video-wrapper video').forEach(video => {
                     const wrapper = video.closest('.home-video-wrapper');
