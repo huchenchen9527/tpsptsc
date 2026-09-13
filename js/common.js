@@ -131,12 +131,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (shareBtn) {
         shareBtn.addEventListener('click', function() {
             const modal = document.getElementById('modalMask');
-            const modalVideo = document.getElementById('modalVideo');
             const baseURL = window.location.origin;
             let url = window.location.href;
-            // 如果是视频作品，跳转到video.html；如果是图片作品，跳转到image.html
+            // 检测弹窗是否打开且里面有video元素
             if (modal && modal.classList.contains('show')) {
-                if (modalVideo && modalVideo.src && modalVideo.style.display !== 'none') {
+                const modalLeft = document.querySelector('.modal-left');
+                const hasVideo = modalLeft && modalLeft.querySelector('video');
+                if (hasVideo) {
                     url = baseURL + '/video.html';
                 } else {
                     url = baseURL + '/image.html';
@@ -144,12 +145,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             navigator.clipboard.writeText(url).then(function() {
                 window.open(url, '_blank');
-                const icon = shareBtn.querySelector('.share-icon');
-                if (icon) {
-                    const originalSvg = icon.innerHTML;
-                    icon.innerHTML = '✓';
-                    setTimeout(() => { icon.innerHTML = originalSvg; }, 1500);
-                }
+                const btn = shareBtn;
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '✓';
+                setTimeout(() => { btn.innerHTML = originalHtml; }, 1500);
             }).catch(function() {
                 window.open(url, '_blank');
             });
