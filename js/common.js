@@ -438,14 +438,21 @@ function initToolsPage(config) {
             grid.innerHTML = '<div class="empty-tip">没有找到匹配的工具，换个关键词试试</div>';
             return;
         }
-        grid.innerHTML = data.map(item => `
+        grid.innerHTML = data.map(item => {
+            // data URI 不需要 HTML 转义
+            const logoSrc = item.logo.startsWith('data:') ? item.logo : escapeHtml(item.logo);
+            return `
             <div class="tool-card">
-                <div class="tool-logo">${escapeHtml(item.logo)}</div>
+                <div class="tool-logo">
+                    <img src="${logoSrc}" alt="${escapeHtml(item.name)}" loading="lazy"
+                        onerror="this.style.display='none';this.parentElement.innerText='${item.fallback || '\\u{1F517}'}';">
+                </div>
                 <div class="tool-name">${escapeHtml(item.name)}</div>
                 <div class="tool-desc">${escapeHtml(item.desc)}</div>
                 <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="tool-link">直达官网 →</a>
             </div>
-        `).join('');
+        `;
+        }).join('');
     }
 
     if (document.readyState === 'loading') {

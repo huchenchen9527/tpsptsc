@@ -1,66 +1,146 @@
 [
     {
         "id": 1,
+        "name": "ChatGPT",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2310a95c'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='28' font-weight='bold' font-family='sans-serif'%3EGPT%3C/text%3E%3C/svg%3E",
+        "fallback": "💬",
+        "desc": "OpenAI旗舰大语言模型，支持文案写作、代码生成、逻辑推理等",
+        "category": "AI对话",
+        "link": "https://chat.openai.com/"
+    },
+    {
+        "id": 2,
+        "name": "Claude",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%237c3aed'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='36' font-weight='bold' font-family='sans-serif'%3EC%3C/text%3E%3C/svg%3E",
+        "fallback": "🧠",
+        "desc": "Anthropic开发的AI助手，长上下文理解能力强，写作与编程表现出色",
+        "category": "AI对话",
+        "link": "https://claude.ai/"
+    },
+    {
+        "id": 3,
+        "name": "Gemini",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%234285f4'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='24' font-weight='bold' font-family='sans-serif'%3EGem%3C/text%3E%3C/svg%3E",
+        "fallback": "🔮",
+        "desc": "Google多模态AI，支持文本、图像、视频理解与生成",
+        "category": "AI对话",
+        "link": "https://gemini.google.com/"
+    },
+    {
+        "id": 4,
+        "name": "DeepSeek",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234a90d9'/%3E%3Ctext x='50' y='52' text-anchor='middle' fill='white' font-size='32' font-weight='bold' font-family='sans-serif'%3EDS%3C/text%3E%3C/svg%3E",
+        "fallback": "🚀",
+        "desc": "深度求索AI大模型，中文理解与代码能力突出，免费可用",
+        "category": "AI对话",
+        "link": "https://chat.deepseek.com/"
+    },
+    {
+        "id": 5,
         "name": "Midjourney",
-        "logo": "M",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%235b5b5b'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='32' font-weight='bold' font-family='sans-serif'%3EMJ%3C/text%3E%3C/svg%3E",
+        "fallback": "🎨",
         "desc": "全球最热门的AI绘画工具，生成效果惊艳，适合创意插画、概念设计",
         "category": "图像生成",
         "link": "https://www.midjourney.com/"
     },
     {
-        "id": 2,
+        "id": 6,
         "name": "Stable Diffusion",
-        "logo": "SD",
-        "desc": "开源免费AI绘画模型，可本地部署，支持自定义模型和插件扩展",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f0a030'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='28' font-weight='bold' font-family='sans-serif'%3ESD%3C/text%3E%3C/svg%3E",
+        "fallback": "�️",
+        "desc": "开源AI绘画模型，可本地部署，支持自定义模型和插件扩展",
         "category": "图像生成",
         "link": "https://stability.ai/"
     },
     {
-        "id": 3,
+        "id": 7,
+        "name": "DALL·E",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e02040'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='28' font-weight='bold' font-family='sans-serif'%3EDE%3C/text%3E%3C/svg%3E",
+        "fallback": "🎭",
+        "desc": "OpenAI文生图模型，理解自然语言能力强，生成风格多样",
+        "category": "图像生成",
+        "link": "https://openai.com/index/dall-e-3/"
+    },
+    {
+        "id": 8,
+        "name": "Canva",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2300c4cc'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='32' font-weight='bold' font-family='sans-serif'%3EC%3C/text%3E%3C/svg%3E",
+        "fallback": "✏️",
+        "desc": "在线设计平台，内置AI设计功能，模板丰富，团队协作高效",
+        "category": "设计工具",
+        "link": "https://www.canva.com/"
+    },
+    {
+        "id": 9,
         "name": "Sora",
-        "logo": "S",
-        "desc": "OpenAI推出的文生视频模型，可生成60秒高清电影级视频内容",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231a1a2e'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='%2300d4ff' font-size='40' font-weight='bold' font-family='sans-serif'%3ES%3C/text%3E%3C/svg%3E",
+        "fallback": "🎬",
+        "desc": "OpenAI文生视频模型，可生成60秒高清电影级视频内容",
         "category": "视频生成",
         "link": "https://openai.com/sora"
     },
     {
-        "id": 4,
+        "id": 10,
         "name": "Runway",
-        "logo": "R",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23222222'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23ff4444' stroke-width='6'/%3E%3C/svg%3E",
+        "fallback": "🎥",
         "desc": "专业AI视频创作工具，支持文生视频、图生视频、视频编辑等功能",
         "category": "视频生成",
         "link": "https://runwayml.com/"
     },
     {
-        "id": 5,
-        "name": "ChatGPT",
-        "logo": "G",
-        "desc": "OpenAI旗舰大语言模型，支持文案写作、代码生成、逻辑推理等",
+        "id": 11,
+        "name": "Kling AI",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23635bff'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='32' font-weight='bold' font-family='sans-serif'%3EK%3C/text%3E%3C/svg%3E",
+        "fallback": "🎞️",
+        "desc": "快手可灵AI视频生成，支持高质量文生视频和图生视频",
+        "category": "视频生成",
+        "link": "https://klingai.com/"
+    },
+    {
+        "id": 12,
+        "name": "Cursor",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23f0f0f0'/%3E%3Cpath d='M35 35 L55 50 L35 65Z' fill='%23333'/%3E%3C/svg%3E",
+        "fallback": "⌨️",
+        "desc": "AI编程编辑器，内置代码补全和对话功能，程序员必备",
+        "category": "AI编程",
+        "link": "https://cursor.com/"
+    },
+    {
+        "id": 13,
+        "name": "GitHub Copilot",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2324292e'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='28' font-weight='bold' font-family='sans-serif'%3ECO%3C/text%3E%3C/svg%3E",
+        "fallback": "🐱",
+        "desc": "GitHub官方AI编程助手，支持多IDE代码补全和重构",
+        "category": "AI编程",
+        "link": "https://github.com/features/copilot"
+    },
+    {
+        "id": 14,
+        "name": "Jasper",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%232e2e2e'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='%23f5c518' font-size='40' font-weight='bold' font-family='sans-serif'%3EJ%3C/text%3E%3C/svg%3E",
+        "fallback": "📝",
+        "desc": "AI营销写作工具，支持博客、广告文案、社交媒体内容生成",
         "category": "AI写作",
-        "link": "https://chat.openai.com/"
+        "link": "https://jasper.ai/"
     },
     {
-        "id": 6,
-        "name": "豆包",
-        "logo": "豆",
-        "desc": "字节跳动自研AI助手，中文能力优秀，支持聊天、写作、画图等",
+        "id": 15,
+        "name": "Notion AI",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='white'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='%23333' font-size='44' font-weight='bold' font-family='sans-serif'%3EN%3C/text%3E%3C/svg%3E",
+        "fallback": "📄",
+        "desc": "Notion内置AI功能，支持文档生成、总结、翻译等",
         "category": "AI写作",
-        "link": "https://www.doubao.com/"
+        "link": "https://www.notion.so/product/ai"
     },
     {
-        "id": 7,
-        "name": "Figma",
-        "logo": "F",
-        "desc": "在线UI设计工具，内置AI设计功能，团队协作效率极高",
+        "id": 16,
+        "name": "Adobe Firefly",
+        "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='40' font-weight='bold' font-family='sans-serif'%3E Ad%3C/text%3E%3C/svg%3E",
+        "fallback": "🔥",
+        "desc": "Adobe生成的AI设计工具，支持文生图、图像编辑、文字效果等",
         "category": "设计工具",
-        "link": "https://www.figma.com/"
-    },
-    {
-        "id": 8,
-        "name": "Remove.bg",
-        "logo": "R",
-        "desc": "一键AI抠图工具，自动去除背景，效果精准，免费可用",
-        "category": "设计工具",
-        "link": "https://www.remove.bg/"
+        "link": "https://www.adobe.com/products/firefly.html"
     }
 ]
