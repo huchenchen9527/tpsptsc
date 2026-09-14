@@ -150,6 +150,15 @@ window.APP_DATA = {
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000005.mp4",
             "tags": ["动态流", "青绿色", "同心环", "黑色虚空", "层叠涟漪", "散点"],
             "prompt": "The teal and blue dots flow in continuous concentric rings around the black oval void, rotating clockwise. The figure stands still at the bottom edge of the void as the streams swirl past. Scattered dots in the foreground drift slowly outward away from the void. The flow lines ripple like water currents — layered, not uniform. The void stays perfectly black and static while everything around it rotates."
+        },
+        {
+            "id": 14,
+            "order": 25,
+            "title": "同步群舞视频提示词",
+            "category": "人物剧情",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000006.mp4",
+            "tags": ["电影级场景展示", "电影级写实风格", "人物/角色", "人群/群体"],
+            "prompt": "将上传的图像作为角色、服装、构图、灯光和整体电影感的精确视觉参考。创建一个逼真的真人实拍视频。一位年轻女性身穿长款全扣象牙白定制大衣，佩戴黑色墨镜和黑色尖头高跟鞋，缓慢而自信地径直走向庞大的人群。她的姿态优雅克制，双臂自然垂于身体两侧，表情严肃平静。以中远景正面镜头开始。女性径直走向摄像机并朝向人群中心移动。摄像机以相同速度平滑后退跟踪，使她始终完美居中。人群保持完全静止，目光向前注视。她到达人群正前方中心位置并完全停下脚步。双脚自然站稳，双臂仍垂于身侧，肩膀放松。她透过黑色墨镜直视摄像机镜头。该女性保持 100% 完全静止。随后，就在她正后方，整个人群突然开始以完美的同步节奏运动。他们的动作应锐利且令人不安：头部快速甩向一侧，肩膀猛然上提，上半身短暂前倾，突然再次挺直身体，像完美同步的团队一样重复此动作。动作贯穿整个群体，从最近的人到最深处的背景排。该女性绝对不做任何动作。无头部移动。无身体移动。无手部移动。无行走。无反应。她只是静止站立，而她身后的每个人都以同步方式激烈运动。摄像机缓慢推向女性，同时人群在她身后继续同步运动。保持她的面部和白色大衣清晰聚焦，而移动的人群具有微妙的电影感景深模糊。以一个有力的居中近景/中景结束。女性在前景中完全静止，而人群在她身后进行最后一次同步的头肩猛动。在最后一刻保持她静止的表情。视觉方向：黑暗、冷峻、高端的电影时尚美学。原始混凝土环境，深邃阴影，柔和顶光，真实的皮肤和织物纹理，自然的头发物理效果，真实的人类运动。核心视觉对比至关重要：一位完美静止的白衣女性 + 一大群黑衣人在她身后以完美同步的方式剧烈运动。无重复主角。无额外白色服装。无男性。无卡通或动画风格。无 CGI 外观。无夸张的摄像机抖动。无文字。无字幕。无标志。无突然的场景切换。无多余角色的出现或消失。"
         }
     ],
     tools: [
