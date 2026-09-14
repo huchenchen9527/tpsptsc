@@ -58,5 +58,21 @@
             "人物 / 角色"
         ],
         "prompt": "高端化妆品广告，8K 分辨率，电影级布光，中性米色调摄影棚场景。一位身穿白色抹胸上衣的金发模特将一支带有金色装饰、标签为[APIS GLOW]的白色管状产品直接伸向镜头。特写镜头展示拇指按下泵头，挤出一滴细腻的白色乳霜。微距镜头展示白色乳霜被顺滑地涂抹并轻柔推开在女性焕发光彩的脸颊上，突显真实的皮肤纹理与水润感。切换至模特将产品放在脸颊旁优雅微笑的画面。最后以动态产品镜头收尾：白色与金色的化妆品管身居中放置在温暖、光芒四射的背景前，周围环绕着闪烁的金色液体漩涡及飞溅的液滴。专业商业摄影，柔焦景深，时尚美学。"
+    },
+    {
+        "id": 13,
+        "order": 24,
+        "title": "蓝色和青色点流动的黑色椭圆形空洞周围",
+        "category": "艺术视觉效果",
+        "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000005.mp4",
+        "tags": [
+            "动态流",
+            "青绿色",
+            "同心环",
+            "黑色虚空",
+            "层叠涟漪",
+            "散点"
+        ],
+        "prompt": "The teal and blue dots flow in continuous concentric rings around the black oval void, rotating clockwise. The figure stands still at the bottom edge of the void as the streams swirl past. Scattered dots in the foreground drift slowly outward away from the void. The flow lines ripple like water currents — layered, not uniform. The void stays perfectly black and static while everything around it rotates."
     }
 ]

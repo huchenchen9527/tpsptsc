@@ -141,6 +141,15 @@ window.APP_DATA = {
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000004.mp4",
             "tags": ["新上�?],
             "prompt": "8888888555"
+        },
+        {
+            "id": 13,
+            "order": 24,
+            "title": "蓝色和青色点流动的黑色椭圆形空洞周围",
+            "category": "艺术视觉效果",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000005.mp4",
+            "tags": ["动态流", "青绿色", "同心环", "黑色虚空", "层叠涟漪", "散点"],
+            "prompt": "The teal and blue dots flow in continuous concentric rings around the black oval void, rotating clockwise. The figure stands still at the bottom edge of the void as the streams swirl past. Scattered dots in the foreground drift slowly outward away from the void. The flow lines ripple like water currents — layered, not uniform. The void stays perfectly black and static while everything around it rotates."
         }
     ],
     tools: [
