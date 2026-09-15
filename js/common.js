@@ -252,11 +252,14 @@ function initPromptPage(config) {
             grid.innerHTML = '<div class="empty-tip">没有找到匹配的提示词，换个关键词试试</div>';
             return;
         }
-        grid.innerHTML = data.map(item => {
+        const aspectRatios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
+        const usedRatios = [];
+        grid.innerHTML = data.map((item, index) => {
             const hue = (item.id * 45) % 360;
             const nextHue = (hue + 60) % 360;
-            const aspectRatios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
-            const randomAspect = aspectRatios[Math.floor(Math.random() * aspectRatios.length)];
+            let available = index === 0 ? aspectRatios : aspectRatios.filter(r => r !== usedRatios[index - 1]);
+            const randomAspect = available[Math.floor(Math.random() * available.length)];
+            usedRatios[index] = randomAspect;
             const aspectStyle = `style="aspect-ratio:${randomAspect}"`;
             let coverHtml;
             if (item.cover) {
