@@ -190,6 +190,8 @@
         function renderHomeWorks(works, applyFilter = true) {
             const recent = works;
             const grid = document.getElementById('homeMasonryGrid');
+            // 多种封面比例，随机分配以打破整齐排列
+            const ratios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
             grid.innerHTML = recent.map(item => {
                 const hue = (item.id * 45) % 360;
                 const nextHue = (hue + 60) % 360;
@@ -203,9 +205,10 @@
                     coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
                 const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
+                const ratio = ratios[Math.floor(Math.random() * ratios.length)];
                 return `
                 <div class="home-work-card" data-id="${dataId}" data-type="${item.type}">
-                    <div class="home-card-cover">${coverHtml}</div>
+                    <div class="home-card-cover" style="aspect-ratio:${ratio};">${coverHtml}</div>
                 </div>
             `}).join('');
 

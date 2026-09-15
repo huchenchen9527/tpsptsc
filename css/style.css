@@ -697,26 +697,7 @@ a {
     pointer-events: none;
 }
 
-/* 首页瀑布流 - 5种不同封面比例，让落差更明显 */
-.masonry-grid .home-work-card:nth-child(5n+1) .home-card-cover {
-    aspect-ratio: 16/9 !important; /* 超宽屏 */
-}
-
-.masonry-grid .home-work-card:nth-child(5n+2) .home-card-cover {
-    aspect-ratio: 3/4 !important; /* 竖版 */
-}
-
-.masonry-grid .home-work-card:nth-child(5n+3) .home-card-cover {
-    aspect-ratio: 1/1 !important; /* 正方形 */
-}
-
-.masonry-grid .home-work-card:nth-child(5n+4) .home-card-cover {
-    aspect-ratio: 2/1 !important; /* 横版 */
-}
-
-.masonry-grid .home-work-card:nth-child(5n) .home-card-cover {
-    aspect-ratio: 9/16 !important; /* 极高竖版 */
-}
+/* 首页瀑布流 - 封面比例由 JS 随机分配，打破整齐排列 */
 
 /* ========== 9. 页脚 ========== */
 .footer {
