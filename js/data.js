@@ -1,293 +1,418 @@
-/* =========================================================
- * 离线数据兜底（data.js�?
- * �?data/*.json 内容保持一�?
- * file:// 双击打开时，�?fetch 无法访问 JSON 时，各页面回退到这里的全局数据
- * ========================================================= */
 window.APP_DATA = {
-    image: [
+    "image": [
         {
             "id": 1,
             "order": 1,
-            "title": "赛博朋克少女肖像",
+            "title": "Google Gemini Nano Banana Pro",
             "category": "人像风格",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000001.jpg",
-            "tags": ["赛博朋克", "人像", "霓虹"],
-            "prompt": "赛博朋克风格少女肖像，霓虹灯光打在脸上，背景是雨夜城市街道，全息投影装饰，机械义肢细节，高对比度，冷色调，电影级光影�?k超清，细节丰富，Midjourney风格"
+            "tags": [
+                "艺术风格",
+                "美丽女性",
+                "柔和肖像",
+                "富士GFX100S",
+                "纪实影像",
+                "玻璃反射模糊",
+                "城市景观景深"
+            ],
+            "prompt": "Reflection in glass window, layered composition, subject of a beautiful woman partially obscured. Fujifilm GFX100S, 80mm f/1.7 Natural diffused light Muted Portra LUT Aspect 3:4 harmony: 60% realism / 40% artistic. sRef: layered documentary imagery. Hidden tokens: glass reflection blur, layered city depth."
         },
         {
             "id": 2,
             "order": 2,
-            "title": "国风山水水墨�?,
+            "title": "神秘北极光下的女性剪影",
             "category": "艺术风格",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000002.jpg",
-            "tags": ["国风", "水墨", "山水"],
-            "prompt": "中国传统水墨画风格，远山层叠，云雾缭绕，一叶扁舟行驶在江面，留白构图，笔墨晕染效果，意境悠远，淡雅配色，宣纸质感，大师级作�?
+            "tags": [
+                "照片级真实",
+                "自然",
+                "空灵",
+                "电影肖像",
+                "长曝光",
+                "极光",
+                "氛围",
+                "北方风景"
+            ],
+            "prompt": "{\"meta\":{\"project\":\"Aurora_Cinematic_Portrait\",\"model_intent\":\"photoreal_cinematic\",\"language\":\"en\",\"notes\":\"Vertical cinematic portrait of a woman under dramatic northern lights. Emphasis on scale, wonder, and atmospheric realism.\"},\"prompt\":{\"logline\":\"A woman stands outdoors at night beneath powerful green aurora borealis waves, gazing upward in awe as the sky explodes with flowing celestial light.\",\"subject\":{\"gender\":\"female\",\"pose\":\"side profile, head tilted upward\",\"expression\":\"awe, quiet wonder, soft parted lips\",\"wardrobe\":[\"thick winter coat with fur-lined hood\",\"textured fabric detail\",\"cold-weather styling\"],\"hair\":\"natural movement, slightly wind-touched\"},\"environment\":{\"location\":\"northern landscape\",\"elements\":[\"tall dark pine trees silhouette\",\"distant soft city lights near horizon\",\"clear star-filled night sky\"],\"sky_event\":{\"type\":\"aurora borealis\",\"behavior\":\"massive flowing vertical light curtains\",\"color\":\"vivid neon green with subtle teal gradients\",\"motion_style\":\"silk-like atmospheric waves\"}},\"composition\":{\"orientation\":\"vertical\",\"subject_position\":\"lower left third\",\"sky_dominance\":\"aurora occupies majority of frame\",\"scale_contrast\":\"small human figure vs vast cosmic sky\"},\"camera\":{\"shot_type\":\"low-angle medium portrait\",\"movement\":\"static frame\",\"stabilization\":\"locked tripod feel\",\"perspective\":\"slightly below eye level to emphasize sky\"},\"lens\":{\"focal_length_mm\":35,\"aperture\":\"f/2.0\",\"sensor\":\"full-frame\",\"depth_of_field\":\"subject sharp, distant trees slightly softened\",\"exposure_style\":\"long exposure aurora clarity without over-blur\"},\"lighting\":{\"primary_light_source\":\"aurora glow\",\"fill_light\":\"subtle cool moonlight\",\"face_illumination\":\"soft green ambient reflection\",\"contrast\":\"medium contrast, no crushed shadows\",\"highlight_control\":\"aurora glow preserved, no clipping\"},\"color_palette\":{\"primary\":[\"deep midnight blue\",\"neon aurora green\",\"cool atmospheric teal\"],\"secondary\":[\"warm subtle city lights\",\"natural skin tone balance\"],\"grade\":{\"white_balance\":\"cool night tone (~4000K)\",\"saturation\":\"boosted greens with controlled skin tones\",\"tone_curve\":\"soft highlight roll-off, cinematic shadow depth\"}},\"texture_details\":[\"visible fabric fibers on coat\",\"natural skin texture\",\"realistic star field\",\"layered aurora depth\"],\"quality_tags\":[\"photorealistic\",\"cinematic\",\"epic scale\",\"vertical composition\",\"high dynamic range\",\"astrophotography realism\"]},\"negative_prompt\":[\"cartoon\",\"anime\",\"oversaturated neon\",\"fake sky overlay\",\"blurry aurora\",\"low resolution\",\"flat lighting\",\"overexposed sky\",\"banding artifacts\",\"watermark\",\"text overlay\"],\"output\":{\"aspect_ratio\":\"9:16\",\"resolution\":\"2048x4096\",\"variations\":2}}"
         },
         {
             "id": 3,
             "order": 3,
-            "title": "产品摄影香水大片",
-            "category": "商业摄影",
+            "title": "巨芒果冰淇淋风暴撞击圣托里尼夏日风情",
+            "category": "超写实",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000003.jpg",
-            "tags": ["产品摄影", "香水", "高级�?],
-            "prompt": "高端香水商业摄影，黑色瓶身放置在大理石台面上，周围散落玫瑰花瓣，柔和侧逆光勾勒瓶身轮廓，暗调背景，光斑散景，高级质感，专业棚拍效果�?k高清"
+            "tags": [
+                "超写实",
+                "夏日氛围",
+                "圣托里尼",
+                "芒果冰淇淋",
+                "华夫饼蛋筒",
+                "金色奶油",
+                "芒果块",
+                "蓝色圆顶",
+                "明亮光线"
+            ],
+            "prompt": "A giant mango ice cream 🍦 storm crashing into Santorini summer vibes. Gemini Nano Banana Pro + Kling 2.6 AI just made dessert look cinematic. Prompt: Hyperrealistic full-length promotional photo of a giant mango ice cream in a waffle cone, immersed in a swirl of glossy golden mango cream, top of the ice cream decorated with oversized mango cubes. Mango chunks swirl chaotically in creamy storm. Ice cream appears falling with glossy textures, background: Santorini with white houses and blue domes, bright summer light. Shot on Camera Sony A9. --ar 2:3 --stylize 300"
         },
         {
             "id": 4,
             "order": 4,
-            "title": "二次元动漫少�?,
-            "category": "动漫插画",
+            "title": "超现实主义蓝色复古踏板车悬停场景",
+            "category": "超写实",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000004.jpg",
-            "tags": ["二次�?, "动漫", "少女"],
-            "prompt": "日系动漫风格少女，金色长发，蓝色眼睛，穿着JK制服，站在樱花树下，花瓣飘落，阳光透过树叶，治愈系画风，色彩明亮，线条流畅，高精度插画"
+            "tags": [
+                "浅景深",
+                "电影现实主义",
+                "超详细雕像",
+                "体积照明",
+                "电影氛围",
+                "复古踏板车",
+                "空中撞击",
+                "摄影棚爆炸"
+            ],
+            "prompt": "A hyper-realistic cinematic scene of a vintage blue Vespa-style scooter suspended mid-air after an explosive ground impact. The scooter floats above cracked asphalt with dust clouds, flying stones, broken concrete fragments, and scattered papers frozen in slow motion. A retro white helmet spins beside it emphasizing motion. Dark cinematic studio environment filled with smoke and volumetric light rays. Strong directional lighting from the top-right produces glossy reflections across curved metal panels. Ultra-detailed paint texture, chrome mirrors reflecting light subtly, realistic rubber tire surfaces. Freeze-action moment captured like ultra high-speed photography, dramatic suspended gravity effect, cinematic realism, shallow depth of field, floating debris sharply visible. Shot with a full-frame camera, 85mm lens, f/2.8, ultra sharp focus, high contrast, photorealistic rendering, epic cinematic mood, dark gradient background, studio explosion effect, 8K detail."
         },
         {
             "id": 5,
             "order": 5,
-            "title": "超写实森林风�?,
-            "category": "自然风光",
+            "title": "专业商务人士肖像",
+            "category": "人物肖像",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000005.jpg",
-            "tags": ["写实", "森林", "自然"],
-            "prompt": "超写实森林风景，阳光穿透茂密的树叶形成丁达尔效应，地面长满青苔与苔藓植物，露珠晶莹剔透，空气清新，细节拉满，真实摄影质感，广角镜头，8k分辨�?
+            "tags": [
+                "人物肖像",
+                "工作室照明",
+                "自然头发",
+                "专业",
+                "企业"
+            ],
+            "prompt": "Ultra-realistic studio portrait of this man transformed into a modern professional businessman. He is standing confidently against a dark gradient studio background. He is wearing a perfectly tailored black suit fitted to his body, crisp white dress shirt, light gray slim tie, and a subtle white pocket square. Hands casually placed in pockets. Calm confident posture. Round youthful face structure preserved accurately, natural short black hair neatly styled but still slightly soft and realistic. Warm friendly smile, confident but approachable expression. Soft cinematic studio lighting with subtle rim light outlining his shoulders. Clean skin texture with realistic pores (not over-smoothed). Sharp focus on eyes. Professional corporate headshot look. Shallow depth of field, 85mm portrait lens look, high resolution, ultra detailed, neutral premium color grading, magazine quality photography, 8K realism. Preserve original facial identity, no aging, no drastic face reshaping. 3:4. Don't change face."
         },
         {
             "id": 6,
             "order": 6,
-            "title": "复古港风人像",
-            "category": "人像风格",
+            "title": "高端清新喷雾广告摄影",
+            "category": "商业摄影",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000006.jpg",
-            "tags": ["复古", "港风", "胶片"],
-            "prompt": "90年代港风人像写真，年轻女性穿着红色连衣裙，站在老式霓虹灯牌下，胶片颗粒质感，暖黄调色，柔焦效果，复古氛围感，王家卫电影风格"
+            "tags": [
+                "极简排版",
+                "优雅灯光",
+                "超写实渲染",
+                "高端工作室",
+                "高端口腔清新剂",
+                "水晶玻璃雾化器",
+                "磁吸式瓶盖",
+                "微雾喷雾"
+            ],
+            "prompt": "{\"master_prompt\":{\"product\":{\"type\":\"luxury mouth freshener spray\",\"brand_name\":\"ARCTIC ÉLAN\",\"product_line\":\"Crystal Mint Reserve\",\"container_shape\":\"slim rectangular glass atomizer with rounded corners\",\"material\":\"frosted crystal glass with polished platinum trim\",\"finish\":\"silky matte translucency with reflective metallic edges\",\"cap_design\":\"magnetic cap in mirror-finish platinum with engraved monogram\",\"spray_mechanism\":\"precision micro-mist nozzle for ultra-fine breath spray\",\"label_style\":\"minimal modern typography etched into glass\",\"liquid_color\":\"clear liquid with icy blue undertones\"},\"composition\":{\"scene_type\":\"ultra-cinematic luxury personal care advertising photography\",\"orientation\":\"vertical\",\"aspect_ratio\":\"4:5\",\"camera_angle\":\"slightly low hero angle conveying elegance and purity\",\"subject_position\":\"floating mid-air with gentle forward tilt\",\"motion\":\"cool mint vapor plume dispersing softly around the atomizer\"},\"environment\":{\"background\":\"icy gradient transitioning from soft silver to cool white\",\"atmosphere\":\"clean chilled vapor haze suggesting instant freshness\",\"floating_elements\":[\"crystalline ice shards refracting light\",\"fresh mint leaves drifting slowly\",\"micro water droplets suspended mid-air\",\"frost particles sparkling in light\",\"translucent vapor ribbons flowing gently\"],\"surface_effects\":\"condensation beads and polished reflections enhancing crisp realism\"},\"lighting\":{\"style\":\"clean high-end studio lighting with cool tones\",\"key_light\":\"soft diffused light enhancing frosted glass texture\",\"rim_lights\":\"cool white rim lighting outlining silhouette\",\"accent_lights\":\"icy blue highlights enhancing freshness\",\"shadow_depth\":\"soft shadows for clean premium aesthetic\",\"contrast\":\"crisp contrast with luminous reflective accents\"},\"color_palette\":{\"primary_colors\":[\"frosted white\",\"icy silver\",\"cool platinum\"],\"accent_colors\":[\"mint green\",\"arctic blue\"]},\"camera_settings\":{\"lens\":\"macro cinema prime lens\",\"depth_of_field\":\"shallow depth isolating product\",\"focus_point\":\"engraved monogram and glass texture\",\"bokeh\":\"soft luminous bokeh from frost particles\",\"detail_capture\":\"extreme micro-detail clarity\"},\"render_quality\":{\"resolution\":\"8K ultra high definition\",\"render_style\":\"hyper-realistic luxury commercial render\",\"glass_physics\":\"accurate refraction and frosted translucency\",\"mist_simulation\":\"physically accurate micro-mist dispersion\",\"textures\":\"ultra-detailed glass, condensation, frost, and vapor textures\",\"sharpness\":\"tack sharp product focus with cinematic softness\",\"noise\":\"none\",\"artifacts\":\"none\"},\"mood\":{\"tone\":\"crisp, refreshing, and ultra-premium\",\"emotion\":\"instant freshness, confidence, purity, refined elegance\"},\"final_output\":{\"usage\":\"luxury oral care campaign and premium lifestyle advertising\",\"branding_focus\":\"hero product clarity with elite freshness appeal\",\"visual_style\":\"cinematic luxury freshness aesthetic\"}}}"
         },
         {
             "id": 7,
             "order": 15,
-            "title": "人像摄影作品",
-            "category": "人像风格",
+            "title": "Kling AI + Nano Banana Pro 烹饪成果",
+            "category": "卡通风格",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000007.jpg",
-            "tags": ["人像", "摄影"],
-            "prompt": "888888888888888"
+            "tags": [
+                "卡通风格",
+                "细节丰富",
+                "Pixar 3D 动画",
+                "红苹果角色",
+                "魅力微笑",
+                "高品质纹理"
+            ],
+            "prompt": "A Pixar-style 3D animated character of a single red apple. Handsome male character with sharp confident eyes, thick stylish eyebrows, and a wide charismatic grin showing bright white sparkling teeth. Smooth slightly glossy red skin texture with subtle highlights and natural gradients. The apple has small cartoon arms and legs, standing upright with arms crossed in a proud hero-like pose. Teeth are shiny and perfectly white with small sparkle effects. In the background, a basket of apples is slightly blurred. The character is standing on a wooden dining table near a sunny window in a cozy modern home. Vibrant colors, cinematic lighting, soft shadows, high-fidelity textures, ultra-detailed, 8k."
         },
         {
             "id": 8,
             "order": 8,
-            "title": "待补充标�?,
-            "category": "人像风格",
-            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000008.webp",
-            "tags": ["待补�?],
-            "prompt": "88888"
+            "title": "使用Nano Banana进行的另一项有趣实验",
+            "category": "3D 版式",
+            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000008.jpg",
+            "tags": [
+                "工作室照明",
+                "3D 版式",
+                "80年代复古",
+                "复古科技",
+                "字母构成",
+                "数字构成",
+                "Cinema 4D 渲染"
+            ],
+            "prompt": "Here is another fun experiment with Nano Banana. Construct letters and numbers with 1980s retro tech. 2x2 grid, do this for 4 letters and 1980s retro tech. Anchor: Letter/Number defined by Era/Theme such as 1980s Retro Tech or Victorian Steampunk. Morphology: 3D Typographic sculpture, character shape defined by a dense pile of themed objects, chaotic but legible assemblage, graphic design asset. Material Physics: Textures of themed objects plastic rust wood, occlusion between stacked items, realistic scale of constituent parts forming the glyph. Illumination: Three-point studio lighting, softbox overhead, clean background for isolation. Render Stack: Cinema 4D render, isometric or front-facing, ambient occlusion, 8k, Adobe Substance material suite. Negative: Illegible, flat font, 2D, handwriting, paper, messy background, floating objects."
         },
         {
             "id": 9,
             "order": 9,
-            "title": "待补充标�?,
-            "category": "人像风格",
-            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000009.webp",
-            "tags": ["待补�?],
-            "prompt": "88888"
+            "title": "平均年龄的英国男性肖像",
+            "category": "影棚人像",
+            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000009.jpg",
+            "tags": [
+                "极简主义",
+                "时尚",
+                "写实",
+                "影棚人像"
+            ],
+            "prompt": "Photorealistic studio portrait of an average British man in his late 20s to early 40s, natural appearance, realistic facial features, short well-groomed hair, light stubble or clean-shaven. He stands confidently with a relaxed posture, conveying quiet self-assurance. He wears a stylish, comfortable, modern casual outfit, a well-fitted neutral-toned jacket or overshirt, premium plain t-shirt, tailored trousers or dark jeans, and clean minimalist sneakers. The look is contemporary, understated, and effortlessly fashionable. Shot in a professional studio with minimal lighting: a soft key light focused on the subject with gentle shadow falloff, dark neutral background, high contrast, and strong subject isolation. Lighting highlights facial structure, textures, and silhouette while keeping the environment subtle. Sharp focus on the subject, shallow depth of field, natural skin texture, realistic fabric detail, editorial fashion photography style, ultra-realistic, high resolution. Negative prompt: blur, heavy retouching, unrealistic skin, dramatic fashion styling, cluttered background, extra limbs, distortion, cartoonish style."
         },
         {
             "id": 10,
             "order": 10,
-            "title": "待补充标�?,
+            "title": "欧洲城市广场的复古车展中的优雅年轻女子",
             "category": "人像风格",
-            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000010.webp",
-            "tags": ["待补�?],
-            "prompt": "88888"
+            "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000010.jpg",
+            "tags": [
+                "浅景深",
+                "黄金时段",
+                "电影氛围感",
+                "优雅女人",
+                "欧洲城市景观",
+                "复古建筑",
+                "及地长裙",
+                "复古车展",
+                "深棕色头发"
+            ],
+            "prompt": "A full-length medium shot of an elegant young woman with wavy brunette hair, posing gracefully at a vintage car show in a European city square. She is wearing a floor-length, pale mint-blue pleated gown with a wrap-style bodice and flutter sleeves, holding a small silver beaded clutch. She leans lightly against a silver classic car, with a row of colorful vintage automobiles including a vibrant red convertible and a deep racing-green sedan receding into the background on a cobblestone street. The backdrop features historic European architecture with stone buildings and a distant church spire under the soft, warm glow of late afternoon golden hour. The atmosphere is timeless, cinematic, and refined, with a shallow depth of field softly blurring the background."
         },
         {
             "id": 11,
             "order": 11,
-            "title": "待补充标�?,
-            "category": "人像风格",
+            "title": "Google Gemini Nano Banana Pro 产品摄影",
+            "category": "产品摄影",
             "cover": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-pics@main/t000011.jpg",
-            "tags": ["待补�?],
-            "prompt": "88888"
+            "tags": [
+                "照片级真实",
+                "产品摄影",
+                "电影级景深",
+                "体积照明",
+                "焦糖星冰乐",
+                "鲜奶油",
+                "焦糖淋酱"
+            ],
+            "prompt": "Prompt 1: Ultra-realistic commercial product photography of a caramel frappuccino in a clear plastic cup with dome lid and green straw, topped with whipped cream and caramel drizzle, floating mid-air. Coffee beans exploding around the cup with fine coffee powder dust particles suspended in the air, dynamic caramel splash trails swirling around the drink. Dark smoky background with dramatic spotlight from above, warm golden rim lighting, high contrast, sharp focus, macro details, cinematic depth of field, hyper-detailed texture, premium beverage advertisement, 8K resolution.\n\nPrompt 2: Cinematic product shot of a whipped cream topped iced caramel coffee in a clear takeaway cup, floating in mid-air without straw. Surrounded by flying coffee beans and caramel streaks forming dynamic motion trails, coffee powder burst effect behind the cup. Moody dark brown background with soft smoke texture and strong overhead spotlight, volumetric lighting, rich warm tones, ultra-detailed, photorealistic, shallow depth of field, high-speed capture look, luxury cafe advertisement style, 8K ultra HD."
         }
     ],
-    video: [
+    "video": [
         {
-            "id": 100,
+            "id": 1,
             "order": 20,
-            "title": "电影级高中生超自然场�?,
+            "title": "电影级高中生超自然场景",
             "category": "人物剧情",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000001.mp4",
-            "tags": ["超自�?, "高中�?, "短片", "奇幻/魔法", "人物/角色", "人群/群体"],
-            "prompt": "创建一个高端电影级真人实拍场景，地点位于现代美国高中走廊，背景包含成排的金属储物柜、大窗户、逼真的学生群体以及自然的室内日光。一名年轻的金发女学生，身穿宽松的米白色落肩毛衣、黑色短裙，背着黑色双肩包，佩戴精致的叠层项链，走在拥挤的走廊中。在整个视频中，请确保她的面部特征、发型、服装、身体比例和背包完全一致。视频开始时采用电影级中景镜头，展示女孩在储物柜附近被其他学生环绕。随着她低头，摄像机缓慢推向她，营造出紧张且富有感染力的氛围。突然，一种神秘的粉红色发光能量特效出现并迅速穿过走廊，制造出戏剧性的超自然瞬间。周围的学生自然地做出反应并惊慌散开。在动作过程中使用动态手持摄像机运动、逼真的运动模糊、细腻的镜头光晕、浅景深、自然的皮肤纹理、逼真的头发运动、电影级布光、细节丰富的高中环境、体积光、逼真的阴影以及好莱坞顶级视觉质量。在广角镜头、中景镜头、特写镜头和追踪镜头之间平滑过渡。结尾采用电影级特写镜头，拍摄女孩在走廊中径直走向镜头，表情震惊且情绪紧张。照片级真实感真人实拍，电影级调色，逼真的物理效果，高度细节的环境，自然的面部表情，流畅的角色动作，戏剧性的叙事�?K，高动态范围。无字幕，无标题，无文字，无 Logo，无水印，无背景音乐�?
+            "tags": [
+                "超自然",
+                "高中生",
+                "短片",
+                "奇幻/魔法",
+                "人物/角色",
+                "人群/群体"
+            ],
+            "prompt": "创建一个高端电影级真人实拍场景，地点位于现代美国高中走廊，背景包含成排的金属储物柜、大窗户、逼真的学生群体以及自然的室内日光。一名年轻的金发女学生，身穿宽松的米白色落肩毛衣、黑色短裙，背着黑色双肩包，佩戴精致的叠层项链，走在拥挤的走廊中。在整个视频中，请确保她的面部特征、发型、服装、身体比例和背包完全一致。视频开始时采用电影级中景镜头，展示女孩在储物柜附近被其他学生环绕。随着她低头，摄像机缓慢推向她，营造出紧张且富有感染力的氛围。突然，一种神秘的粉红色发光能量特效出现并迅速穿过走廊，制造出戏剧性的超自然瞬间。周围的学生自然地做出反应并惊慌散开。在动作过程中使用动态手持摄像机运动、逼真的运动模糊、细腻的镜头光晕、浅景深、自然的皮肤纹理、逼真的头发运动、电影级布光、细节丰富的高中环境、体积光、逼真的阴影以及好莱坞顶级视觉质量。在广角镜头、中景镜头、特写镜头和追踪镜头之间平滑过渡。结尾采用电影级特写镜头，拍摄女孩在走廊中径直走向镜头，表情震惊且情绪紧张。照片级真实感真人实拍，电影级调色，逼真的物理效果，高度细节的环境，自然的面部表情，流畅的角色动作，戏剧性的叙事，4K，高动态范围。无字幕，无标题，无文字，无 Logo，无水印，无背景音乐。"
         },
         {
-            "id": 101,
+            "id": 2,
             "order": 21,
             "title": "奢华 KitKat 电影感广告",
             "category": "品牌 / 产品广告",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000002.mp4",
-            "tags": ["电影级写实风格", "美食 / 饮品", "产品", "品牌/产品广告"],
-            "prompt": "创作一个 30 秒、16:9、4K 超写实高端 KitKat 商业广告，场景设定在暗调奢华摄影棚中，采用温暖的琥珀色灯光，并融入微妙的印度风情雅致。以一个极端的微距镜头开场，拍摄一根 KitKat 手指饼干掉落在深色石板上，伴随清脆的咔嚓声，巧克力碎片和威化饼屑在慢动作中四散飞溅。牛奶巧克力顺滑流淌，金色的威化碎片、可可粉和细小的牛奶滴有节奏且真实地移动。展示酥脆的威化层被光亮的巧克力包裹的过程，聚焦于丰富的质感、真实的反射、饼屑以及令人满足的食物物理效果。四根 KitKat 手指饼干优雅地排列，伴随微妙的印度风韵律动作。音效围绕真实的食物 ASMR 构建：敲击声、碎裂声、咀嚼声、巧克力滴落声以及最后的断裂声。在高潮部分，巧克力棒完美地断裂成单根手指，细小的饼屑在慢动作中向镜头飞来。结尾处展示一根 KitKat 手指饼干及其断裂威化横截面的奢华微距特写，随后平滑淡出至黑色。仅使用原创的印度风打击乐。禁止使用人声、歌词、宝莱坞音乐、可识别的旋律、文字、字幕、标题、除正版 KitKat 包装外的 Logo、水印、CGI 感、虚假的物理效果、过度装饰或色彩过饱和。"
+            "tags": [
+                "电影级写实风格",
+                "美食 / 饮品",
+                "产品",
+                "品牌/产品广告"
+            ],
+            "prompt": "创作一个 30 秒、16:9、4K 超写实高端 KitKat 商业广告，场景设定在暗调奢华摄影棚中，采用温暖的琥珀色灯光，并融入微妙的印度风情雅致。\n\n以一个极端的微距镜头开场，拍摄一根 KitKat 手指饼干掉落在深色石板上——伴随清脆的咔嚓声，巧克力碎片和威化饼屑在慢动作中四散飞溅。\n\n牛奶巧克力顺滑流淌，金色的威化碎片、可可粉和细小的牛奶滴有节奏且真实地移动。\n\n展示酥脆的威化层被光亮的巧克力包裹的过程，聚焦于丰富的质感、真实的反射、饼屑以及令人满足的食物物理效果。\n\n四根 KitKat 手指饼干优雅地排列，伴随微妙的印度风韵律动作。音效围绕真实的食物 ASMR 构建：敲击声、碎裂声、咀嚼声、巧克力滴落声以及最后的断裂声。\n\n在高潮部分，巧克力棒完美地断裂成单根手指，细小的饼屑在慢动作中向镜头飞来。\n\n结尾处展示一根 KitKat 手指饼干及其断裂威化横截面的奢华微距特写，随后平滑淡出至黑色。\n\n仅使用原创的印度风打击乐。禁止使用人声、歌词、宝莱坞音乐、可识别的旋律、文字、字幕、标题、除正版 KitKat 包装外的 Logo、水印、CGI 感、虚假的物理效果、过度装饰或色彩过饱和。"
         },
         {
-            "id": 102,
+            "id": 3,
             "order": 22,
-            "title": "视频11",
-            "category": "视频作品",
+            "title": "Hermès Paris 生活方式时尚广告",
+            "category": "品牌 / 产品广告",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000003.mp4",
-            "tags": ["新上�?],
-            "prompt": "8888888555"
+            "tags": [
+                "品牌 / 产品广告",
+                "电影级写实风格",
+                "复古 / 怀旧胶片",
+                "人物 / 角色",
+                "城市 / 街景",
+                "产品"
+            ],
+            "prompt": "片名：《风经过巴黎》\nDuration：30.00秒\nAspect ratio：16:9\n类型：爱马仕 Hermès 巴黎生活方式时装广告，真人实拍质感。\n\n整体风格：\n巴黎暖阳下，一位女性从街角咖啡馆出发，带着皮革与丝绸穿过城市。气质从容、温暖、灵动，有轻微俏皮感。用真实生活动作展示精致材质。\n主色为奶油白、马鞍棕、蜂蜜色石材，爱马仕橙作为小面积视觉焦点。自然侧逆光，柔和高光过渡，轻微胶片颗粒，真实肤质、皮革纹理和丝绸光泽。环境保留空气感和城市纵深。\n\n人物与产品统一：\n全片同一位棕色及肩自然微卷发成年女性，淡妆，穿奶油白真丝衬衫、浅沙色高腰直筒长裤、焦糖棕皮革乐福鞋，佩戴无明显标识的琥珀色墨镜。\n全片唯一主包为马鞍棕 Hermès Kelly：结构清晰的梯形包身、单一顶部提手、翻盖、两条皮革扣带、中央金色旋扣、细腻皮纹和整齐浅色缝线。不使用肩带。\n一条橙色、奶油白与棕色组成的马术图案真丝方巾，一角牢固系在包柄根部，其余布面自然垂下。六个段落中保持同一只包、同一条丝巾、同一服装与人物。\n\nSHOT 1｜00.00–05.00｜巴黎醒来\nSubject：女性、Kelly手袋与街角咖啡馆。\nAction：\n00.00–01.20：巴黎蜂蜜色石材立面、铁艺阳台与树影，镜头轻缓下移，将视线引向露台。\n01.20–02.20：硬切桌下低机位，棕色乐福鞋的鞋尖轻轻落地，浅沙色裤脚自然垂落。\n02.20–05.00：硬切露台中景，女性将正在阅读的报纸合拢，放在小圆桌上，抬眼看向街道。Kelly立在桌面靠近她的一侧，橙色丝巾垂在包旁，风轻动丝巾末端。\nEnvironment：藤编咖啡椅、小圆桌、石板路，背景有少量自然活动的行人。\nCamera：建筑35mm；鞋部85mm；人物50mm，稳定、轻微呼吸感。\nStyle：柔暖晨间光感，生活化构图，产品自然进入画面。\nConstraints：包底始终接触桌面，丝巾系结不松开；不出现可辨识报纸标题。\n\nSHOT 2｜05.00–10.00｜触感与离座\nSubject：手、咖啡杯、皮革提手与包扣。\nAction：\n05.00–06.20：微距，女性右手握着杯柄，将白色咖啡杯轻放回杯碟，杯底接触碟面后松手。\n06.20–07.40：切包柄特写，右手四指穿入提手下方，拇指稳住提手；先握牢，再向上提起，包底离开桌面，丝巾受重力自然下垂。\n07.40–10.00：切中景，女性提包起身，左手拿起桌上的墨镜并戴好，离开椅子。包保持在右手、身体右侧。\nEnvironment：延续同一咖啡馆露台，人物与桌椅关系明确。\nCamera：85–100mm材质特写，切50mm人物中景。\nStyle：皮革柔润，浅色缝线清楚，金属仅出现短促自然反光。\nConstraints：手掌真实握住提手，手指不穿模；包具不变形、不漂浮；墨镜戴好后保持一致。\n\nSHOT 3｜10.00–15.00｜城市流动\nSubject：步行女性与右手提着的Kelly。\nAction：\n10.00–12.00：正面略低机位退行跟拍，女性沿巴黎街道从容走来。右手手提包随步态小幅摆动，丝巾稍滞后于包身摆动。\n12.00–13.00：一辆浅灰汽车从右向左经过近前景，车身短暂完全遮住镜头。\n13.00–15.00：在完全遮挡时剪辑，露出下一镜：女性经过米色石材拱廊，保持从左向右行走，镜头与她同向横移。橙色丝巾在暖灰背景中清晰可见。\nEnvironment：巴黎街道、石材拱廊、少量远景行人。\nCamera：50mm正面跟拍转侧向跟拍，以汽车遮挡完成转场。\nStyle：城市生活轻快流动，光影有层次。\nConstraints：汽车从安全距离的前景经过；切镜前后保持人物、右手提包及服饰连续；街道不得液化变形。\n\nSHOT 4｜15.00–20.00｜风触到丝绸\nSubject：女性、手袋与马术图案丝巾。\nAction：\n15.00–16.50：女性在拱廊边停步，右手仍提包。一阵微风吹起头发，她转头感受风，露出很浅的笑意。\n16.50–18.00：切丝巾近景。左手轻轻托起一个自由垂落的巾角，展开小片布面，露出橙色边框和马具线描图案；包柄上的系结始终固定。\n18.00–20.00：切人物中近景，左手松开自由巾角，布面先自然落下，再被持续的侧风托起轻柔弧度。镜头沿人物侧前方缓慢环绕约45度。\nEnvironment：暖色石墙、局部树影、明亮 but 柔和的背景。\nCamera：85mm丝绸细节，切50mm小幅环绕。\nStyle：丝绸轻盈、真实褶皱，印花附着于织物并随布面弯曲。\nConstraints：丝巾一角全程系住；自由巾角随手指松开后才落下；图案不游动，不变成真实动物；动作克制。\n\nSHOT 5｜20.00–25.00｜步伐与皮革\nSubject：女性步伐、Kelly包身和五金。\nAction：\n20.00–21.50：女性重新迈步，极低机位向上拍摄，裤脚与乐福鞋从镜头上方跨过，衣料短暂遮住画面。\n21.50–23.50：借裤脚遮挡硬切至腰侧包袋近景。右手握住单提手，Kelly随两步行走轻轻前后摆动。焦点由皮革缝线移动到中央金色旋扣。\n23.50–25.00：切侧后方全身景，女性走向明亮的石材庭院，步伐舒展，橙色丝巾沿行进方向向后轻飘。\nEnvironment：石铺步道与开阔庭院，背景安静有纵深。\nCamera：低机位24mm，产品85mm，侧后全身50mm。\nStyle：把皮革的重量与丝绸的轻盈放在同一运动中展示。\nConstraints：包身保持结构和适度重量感；包扣处于闭合状态；步态自然，不滑步，不突然换手。\n\nSHOT 6｜25.00–30.00｜风留下颜色\nSubject：丝巾、Kelly产品定格与品牌落版。\nAction：\n25.00–26.50：近景，女性经过镜头附近，一阵侧风托起包柄上的丝巾自由布面，橙色丝绸形成柔和弧线，逐渐靠近镜头。\n26.50–27.00：丝绸掠过近前景，失焦的橙色布面完全遮满画面；丝巾系结仍固定在包柄上。\n27.00–28.50：在全遮挡处硬切产品静物。相同Kelly端正立在暖米色石台上，正面略转三分之二角度，同一丝巾仍系在提手根部，布面自然垂落台面。一束侧光展现皮纹、缝线、包扣和真实接触阴影。镜头极缓慢推进。\n28.50–30.00：干净硬切爱马仕橙纯色品牌卡，中央深棕色\"HERMÈS\"，下方小字\"PARIS\"，排版稳定，保留充分留白，持续至30.00秒。\nEnvironment：静物背景为温暖浅米色，没有其他商品和杂物。\nCamera：85mm产品镜头，最后固定平面品牌卡。\nStyle：结尾简洁、精确、温暖，有余韵。\nConstraints：由遮挡剪辑切换场景，不把丝巾变成包；产品落地有阴影；品牌字母准确，È保留重音符号。\n\nAudio：\n原创轻盈器乐，柔和钢琴、拨弦和少量木质打击乐，节奏从容。点缀杯碟轻碰、石板路脚步、远处城市环境和细微丝绸摩擦声。最后随品牌卡自然收束。\n无旁白，无对白，无底部字幕。"
         },
         {
-            "id": 103,
+            "id": 4,
             "order": 23,
-            "title": "视频12",
-            "category": "视频作品",
+            "title": "高端焕彩化妆品广告",
+            "category": "品牌 / 产品广告",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000004.mp4",
-            "tags": ["新上�?],
-            "prompt": "8888888555"
+            "tags": [
+                "品牌 / 产品广告",
+                "电影级写实风格",
+                "产品",
+                "人物 / 角色"
+            ],
+            "prompt": "高端化妆品广告，8K 分辨率，电影级布光，中性米色调摄影棚场景。一位身穿白色抹胸上衣的金发模特将一支带有金色装饰、标签为[APIS GLOW]的白色管状产品直接伸向镜头。特写镜头展示拇指按下泵头，挤出一滴细腻的白色乳霜。微距镜头展示白色乳霜被顺滑地涂抹并轻柔推开在女性焕发光彩的脸颊上，突显真实的皮肤纹理与水润感。切换至模特将产品放在脸颊旁优雅微笑的画面。最后以动态产品镜头收尾：白色与金色的化妆品管身居中放置在温暖、光芒四射的背景前，周围环绕着闪烁的金色液体漩涡及飞溅的液滴。专业商业摄影，柔焦景深，时尚美学。"
         },
         {
-            "id": 104,
+            "id": 5,
             "order": 24,
             "title": "蓝色和青色点流动的黑色椭圆形空洞周围",
             "category": "艺术视觉效果",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000005.mp4",
-            "tags": ["动态流", "青绿色", "同心环", "黑色虚空", "层叠涟漪", "散点"],
+            "tags": [
+                "动态流",
+                "青绿色",
+                "同心环",
+                "黑色虚空",
+                "层叠涟漪",
+                "散点"
+            ],
             "prompt": "The teal and blue dots flow in continuous concentric rings around the black oval void, rotating clockwise. The figure stands still at the bottom edge of the void as the streams swirl past. Scattered dots in the foreground drift slowly outward away from the void. The flow lines ripple like water currents — layered, not uniform. The void stays perfectly black and static while everything around it rotates."
         },
         {
-            "id": 105,
+            "id": 6,
             "order": 25,
             "title": "同步群舞视频提示词",
             "category": "人物剧情",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000006.mp4",
-            "tags": ["电影级场景展示", "电影级写实风格", "人物/角色", "人群/群体"],
+            "tags": [
+                "电影级场景展示",
+                "电影级写实风格",
+                "人物/角色",
+                "人群/群体"
+            ],
             "prompt": "将上传的图像作为角色、服装、构图、灯光和整体电影感的精确视觉参考。创建一个逼真的真人实拍视频。一位年轻女性身穿长款全扣象牙白定制大衣，佩戴黑色墨镜和黑色尖头高跟鞋，缓慢而自信地径直走向庞大的人群。她的姿态优雅克制，双臂自然垂于身体两侧，表情严肃平静。以中远景正面镜头开始。女性径直走向摄像机并朝向人群中心移动。摄像机以相同速度平滑后退跟踪，使她始终完美居中。人群保持完全静止，目光向前注视。她到达人群正前方中心位置并完全停下脚步。双脚自然站稳，双臂仍垂于身侧，肩膀放松。她透过黑色墨镜直视摄像机镜头。该女性保持 100% 完全静止。随后，就在她正后方，整个人群突然开始以完美的同步节奏运动。他们的动作应锐利且令人不安：头部快速甩向一侧，肩膀猛然上提，上半身短暂前倾，突然再次挺直身体，像完美同步的团队一样重复此动作。动作贯穿整个群体，从最近的人到最深处的背景排。该女性绝对不做任何动作。无头部移动。无身体移动。无手部移动。无行走。无反应。她只是静止站立，而她身后的每个人都以同步方式激烈运动。摄像机缓慢推向女性，同时人群在她身后继续同步运动。保持她的面部和白色大衣清晰聚焦，而移动的人群具有微妙的电影感景深模糊。以一个有力的居中近景/中景结束。女性在前景中完全静止，而人群在她身后进行最后一次同步的头肩猛动。在最后一刻保持她静止的表情。视觉方向：黑暗、冷峻、高端的电影时尚美学。原始混凝土环境，深邃阴影，柔和顶光，真实的皮肤和织物纹理，自然的头发物理效果，真实的人类运动。核心视觉对比至关重要：一位完美静止的白衣女性 + 一大群黑衣人在她身后以完美同步的方式剧烈运动。无重复主角。无额外白色服装。无男性。无卡通或动画风格。无 CGI 外观。无夸张的摄像机抖动。无文字。无字幕。无标志。无突然的场景切换。无多余角色的出现或消失。"
         },
         {
-            "id": 106,
+            "id": 7,
             "order": 26,
             "title": "中世纪奇幻女巫与水龙卷",
             "category": "人物剧情",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000007.mp4",
-            "tags": ["电影级场景展示", "电影级写实风格", "奇幻/魔法", "人物/角色", "建筑/室内", "城市/街景"],
+            "tags": [
+                "电影级场景展示",
+                "电影级写实风格",
+                "奇幻/魔法",
+                "人物/角色",
+                "建筑/室内",
+                "城市/街景"
+            ],
             "prompt": "创作一段高度逼真的电影级奇幻视频，背景设定在发生神秘超自然灾害的中世纪欧洲村庄。一位年轻貌美的女子，皮肤苍白，留着黑色长直发，戴着巨大的尖顶黑巫师帽，身穿深黑色斗篷和深酒红色中世纪长裙，走在拥挤的中世纪村庄中，村民们带着恐惧和怀疑的目光注视着她。场景包含木质半木结构房屋、石板街道、古老的市场摊位、穿着质朴的中世纪村民，以及充满氛围感的烟雾和迷雾。她走向一座巨大的石拱门，来到一个俯瞰村庄的开阔庭院。远处，几座中世纪房屋正在猛烈燃烧，巨大的橙色火焰和浓厚的黑烟直冲云霄。女巫突然展现出超自然力量，在地面上方飞行，深色的斗篷和长裙在风中剧烈飘动。一个巨大的魔法水龙卷突然在燃烧的村庄中心升起，形成一根巨大的旋转水柱，冲过街道并开始扑灭火焰。村民们聚集在一起，惊恐地抬头仰望，看着一位神秘的飞行女巫穿过烟雾缭绕的天空。展示中世纪村庄被烟雾和水覆盖的戏剧性航拍镜头、燃烧的屋顶、受惊的村民以及巨大的水漩涡。结尾处，镜头切换至年轻女巫的电影级特写，她平静地站在村民中间，带着神秘的表情直视镜头。照片级真实感，电影级暗黑奇幻，中世纪欧洲，逼真的人脸，细腻的服装和建筑细节，体积光，自然的火焰与烟雾模拟，真实的水体物理效果，戏剧性氛围，浅景深，真实的摄像机运动，流畅的动作，电影级构图，高细节，4K，变形宽银幕电影质感，戏剧性光影，逼真的纹理，史诗奇幻电影风格。"
         },
         {
-            "id": 107,
+            "id": 8,
             "order": 27,
             "title": "韩式公寓创意工作短片",
             "category": "人物剧情",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000008.mp4",
-            "tags": ["短片", "电影级写实风格", "人物/角色", "建筑/室内"],
+            "tags": [
+                "短片",
+                "电影级写实风格",
+                "人物/角色",
+                "建筑/室内"
+            ],
             "prompt": "制作一部 30 秒的超写实真人短片，背景设定在深夜温馨的韩式公寓中。一位年轻女性正独自进行创意项目。画面应具有自然的拍摄感，包含真实的表演、实用照明、细微的手持镜头移动、真实的室内氛围以及地道的创作者状态。0–6 秒 — 灵感：她疲惫地坐在书桌前，看着笔记本电脑上未完成的项目。她正要合上电脑时，突然注意到某个东西，灵感随之迸发。她的表情从疲惫转为安静的兴奋。她抓起笔记本，迅速记下想法。6–13 秒 — 开始：她完全打开笔记本电脑，清理出空间，开始工作。展示她素描、打字、滚动页面和查看屏幕的自然特写。随着她对想法的投入加深，她的动作变得更加敏捷。13–21 秒 — 深度工作：她完全沉浸在工作中。通过流畅的蒙太奇剪辑展示快速打字、切换创意元素、调整细节、查看图像、快速喝一口饮料，然后立即回到屏幕前。她的书桌变得越来越乱，而房间依然保持着安静的氛围。使用充满活力但真实的剪辑，偶尔加入手持镜头切换、细微的自动对焦变化以及真实的屏幕反光。避免过于花哨的转场。21–24 秒 — 失败：她终于完成工作并点击按钮生成视频。进度条接近完成时，突然停止。出现一条虚构的简单信息：\"VIDEO GAGAL DIBUAT\"。她完全僵住了。24–30 秒 — 反应：她凑近显示器，希望是自己看错了。意识到尝试失败后，她的兴奋感转为疲惫的失望。她摘下耳机，缓慢地呼出一口气，将笔记本电脑轻轻向后推开。轻声说道：\"Not tonight…\"。镜头停留在她疲惫的脸上，冷色调的显示器光线映照在她的眼睛上，随后自然结束。风格：照片级真实真人拍摄、温馨韩式室内设计、自然的皮肤纹理、真实的双手与动作、暖色实用灯光与显示器冷光的混合、细微的胶片颗粒感、浅景深、地道的深夜氛围。"
         },
         {
-            "id": 108,
+            "id": 9,
             "order": 28,
             "title": "中国旅行时尚影片",
             "category": "音乐视频",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000009.mp4",
-            "tags": ["音乐视频", "电影级写实风格", "人物/角色", "城市/街景", "建筑/室内"],
-            "prompt": "30 秒 | 16:9 | 高端旅行音乐视频 / 时尚旅行影片 | 2024–2026 商业级画质 | 多镜头。核心概念：一位年轻旅行者通过充满活力的自然序列体验中国，涵盖运动、文化、时尚、美食、建筑和风景。影片感觉像是高端中国旅游宣传活动与精英时尚旅行影片的结合。旅行者始终真实地存在于环境中。每个地点都看起来像是实拍而非生成。音乐驱动剪辑，但画面保留了真实旅行摄影的不完美和自发性。角色：一位旅行者，年轻的国际成人旅行者，穿着当代 Adidas 旅行装束：高级红色 Adidas 夹克、中性色长裤、运动鞋、紧凑型斜挎包。自然发型，逼真的皮肤质感，极简配饰。在整个影片中保持相同的面孔、服装、发型、比例和配饰。不要发明额外的 Adidas 品牌标识。场景：现代与历史交融的中国：高速铁路、上海街道、传统水乡小巷、成都美食街、古建筑、壮丽的山谷、高处观景点和充满活力的夜间街道。真实的行人、小贩、通勤者、车辆和本地活动。00:00–02.5 特写钩子：85mm 特写，旅行者坐在高铁窗边，温暖阳光洒在脸上。02.5–05 运动：24mm 广角，旅行者沿高铁行走，风自然吹动红色夹克。05–07.5 城市抵达：35mm 手持跟拍，走出繁忙车站进入中国城市街道。07.5–10 街头生活：50mm 观察性镜头，穿过拥挤街区，食品小贩准备街头小吃。10–12.5 文化过渡：24mm 跟随穿过传统水乡街道。12.5–15 美食时刻：50mm 特写，小贩递给旅行者刚做好的菜肴。15–17.5 山脉揭示：24mm 深焦风景，旅行者走上石阶，广阔山谷显现。17.5–20 时尚时刻：50mm 侧向跟踪，金色阳光下行走，红色夹克与绿色植被形成对比。20–22.5 风景规模：24mm 广角，巨大山脉前旅行者显得渺小。22.5–25 夜晚过渡：50mm 手持，进入热闹夜间美食区，温暖灯笼与冷色调环境光。25–27.5 城市能量：35mm 跟踪，现代滨河街区，水面倒影，现代塔楼照亮。27.5–30 最终揭示：24mm 广角，河边眺望灯火通明的天际线。摄像机：35mm、50mm 用于肖像和人文时刻，24mm 用于风景和建筑，偶尔 85mm。手持跟踪移动，自然摄像机微动，不完美的构图，微妙的自动对焦调整。视觉：照片级电影感，轻微胶片颗粒，青蓝色天空，鲜艳深红色，深邃森林绿，温暖肤色。调色：电影级青色与暖色调，保持真实肤色。动态：180 度电影快门，24fps，自然运动模糊。照明：自然日光，黄金时刻轮廓光，实用灯笼和夜间城市照明。音频：高端当代旅行配乐，保留真实外景声音。真实性：无 CGI 外观，无塑料皮肤，无美颜滤镜，真实皮肤毛孔、发丝、织物纹理。品牌控制：唯一可见 Adidas 品牌是衣物上的三叶草标志。剪辑：与音乐同步，由运动、反射、蒸汽驱动。连贯性：旅行者保持完全一致，维持从白天到夜晚的真实光照进展。最终质量目标：像精英旅行电影制作人拍摄的真实素材，真实性优先。"
+            "tags": [
+                "音乐视频",
+                "电影级写实风格",
+                "人物/角色",
+                "城市/街景",
+                "建筑/室内"
+            ],
+            "prompt": "30 秒 | 16:9 | 高端旅行音乐视频 ..."
         },
         {
-            "id": 109,
+            "id": 10,
             "order": 29,
             "title": "摩洛哥屋顶电台场景",
             "category": "Vlog / 生活记录",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000010.mp4",
-            "tags": ["Vlog / 生活记录", "电影级写实风格", "复古 / 怀旧胶片", "人物 / 角色", "城市 / 街景", "建筑 / 室内"],
+            "tags": [
+                "Vlog / 生活记录",
+                "电影级写实风格",
+                "复古 / 怀旧胶片",
+                "人物 / 角色",
+                "城市 / 街景",
+                "建筑 / 室内"
+            ],
             "prompt": "概念：创作一段 30 秒的超写实生活片段视频，讲述一位年轻女性在公寓屋顶度过宁静傍晚的故事，她试图在日落前让一台旧的电池供电收音机工作。整个故事发生在一个地点。没有购物，没有咖啡馆，没有市场，没有旅程，也没有回家的序列。魅力来自于微小的真实动作、环境音效，以及当收音机突然工作时她的反应。格式：30 秒 • 16:9 • 1080p • 照片级写实真人实拍 • 真实的手持消费级摄像机画面。主要角色：一位 20 岁出头的年轻摩洛哥女性，留着自然卷曲的黑发，用一条布带松散地扎着。她穿着一件褪色的芥末黄卫衣、宽松的深色牛仔裤、白色帆布运动鞋，戴着一条细银项链。保持她的面部特征、头发、服装、项链、年龄、身体比例和身份完全一致。地点：摩洛哥卡萨布兰卡一处普通的公寓屋顶，临近日落时分。屋顶包含：混凝土墙、旧塑料椅、几盆盆栽植物、水箱、晾衣绳、一张小木桌、一台布满灰尘的便携式收音机、相邻的公寓楼、卫星天线、在微风中轻轻摆动的衣物。温暖的午后阳光随着场景的推进逐渐变化。没有著名的地标或可识别的品牌。摄影风格：由朋友使用较旧的家用摄像机录制。相机应感觉物理存在于屋顶上。手持移动、轻微的自然抖动、不完美的构图、偶尔的自动对焦搜索、指向日落时曝光的变化、轻微的数码噪点、轻微的压缩感、自然的运动模糊、普通的色彩还原、无稳定器、无人工虚化、无商业电影摄影感。镜头分解：0–5 秒 — 收音机：以特写镜头开始，展示放在小木桌上的一台布满灰尘的旧便携式收音机。女子进入画面并拿起它。她转动电源旋钮。没有任何反应。她拍了拍收音机的侧面。她看向镜头。拜托了……。5–10 秒 — 再次尝试：她打开电池仓。镜头越过她的肩膀靠近。她取出电池并检查它们。有一节电池略微松动。她调整了一下并将所有东西装回去。一声轻微的咔哒声。仍然没有反应。她带着恼怒的表情看着收音机。10–15 秒 — 天线：她将天线向上拉出。天线发出轻微的金属咔哒声。她将收音机转向不同的方向。镜头跟随她的动作。突然，扬声器里传来一阵静电噪音。她立即停止移动。15–21 秒 — 找到了：她慢慢转动调谐旋钮。静电噪音。更多的静电噪音。然后，一段微弱且完全原创的广播旋律传了出来。她的表情变成了真诚的微笑。她看向镜头。有了。21–26 秒 — 日落：她把收音机放在桌子上。她拉近一把塑料椅子坐下。镜头缓慢地从她身上移开，朝向屋顶的地平线。收音机继续轻声播放。风吹动她身后的衣物。她静静地听着。26–30 秒 — 小结局：她突然伸手调低了收音机的音量。她看着日落。镜头从身后稍微靠近一点。她没有说话。镜头自然地结束在她坐在收音机旁，阳光渐渐消退的画面。音频：仅保留真实的屋顶环境音：风声、远处的交通声、鸟鸣声、衣物布料摩擦声、收音机静电噪音、旋钮咔哒声、电池仓咔哒声、塑料椅刮擦混凝土的声音、安静的原创广播旋律、自然的呼吸声。无添加背景音乐。写实度 / 物理效果：收音机的行为必须像一台真实的旧电池供电设备。调谐旋钮应物理旋转。天线应真实地伸展。静电噪音应随着收音机的旋转自然变化。衣物应对风做出细微的反应。椅子移动时应轻微刮擦地面。阳光和阴影在整个过程中应保持物理一致性。手必须与收音机和电池仓进行自然的互动。负面提示词：CGI，3D 渲染，动画，塑料皮肤，美颜滤镜，假脸，面部变形，身份漂移，多余的手指，畸形的手，重复的人物，漂浮的物体，不可能的收音机机械结构，假的静电，不现实的天线移动，瞬移，物体复制，过度的 HDR，过饱和的颜色，沉重的电影调色，人工虚化，假的胶片颗粒，演播室灯光，完美的稳定性，无人机航拍，商业广告美学，夸张的表演，字幕，说明文字，标志，水印，可识别的品牌，受版权保护的音乐，服装变化，发型变化，连贯性错误。最终外观：最终的画面应该感觉像是某人随意拍摄了一个屋顶上的宁静夜晚，并偶然捕捉到了一个值得铭记的小瞬间。不要强行煽情。不要让日落过于戏剧化。保留不完美的镜头移动、普通的屋顶杂物、真实的风、轻微的自动对焦失误和自然的停顿。简单的时刻。真实的环境。真诚的反应。"
         },
         {
-            "id": 110,
+            "id": 11,
             "order": 30,
             "title": "韩国好友午夜公路旅行",
             "category": "电影级场景展示",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000011.mp4",
-            "tags": ["电影级场景展示", "Vlog / 生活记录", "电影级写实风格", "赛博朋克 / 科幻", "人群 / 群体", "交通工具", "城市 / 街景"],
+            "tags": [
+                "电影级场景展示",
+                "Vlog / 生活记录",
+                "电影级写实风格",
+                "赛博朋克 / 科幻",
+                "人群 / 群体",
+                "交通工具",
+                "城市 / 街景"
+            ],
             "prompt": "创作一段 15 秒的超写实电影感视频，画面中恰好有两位成年韩国闺蜜驾驶一辆时尚现代的汽车，在韩国展开一场说走就走的午夜公路旅行。展示雨夜中霓虹闪烁的城市、充满趣味的车内互动、欢歌笑语、快速跟拍镜头、沿海高速公路，以及一个宁静的海边观景点，她们在那里自拍、击掌庆祝，共同享受夜晚的美好时光。使用照片级逼真的皮肤、头发、服装、手部细节、反射效果、光影、运动模糊、自然表情、真实物理效果、HDR、细微胶片颗粒感和电影景深。混合手持拍摄、仪表盘视角、跟拍、特写、航拍风格和广角镜头，配合充满活力的匹配剪辑和无缝转场。在整个视频中保持两位女性面部特征、发型、身体比例、服装、配饰、汽车及身份的完美连贯性，杜绝换脸、重影、变形、扭曲的手部、闪烁或虚假的 CGI 外观。氛围：随性、有趣、冒险、亲密、青春洋溢且富有情感的电影感。"
         },
         {
-            "id": 111,
+            "id": 12,
             "order": 31,
             "title": "沙拉生长故事书场景",
             "category": "短片",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000012.mp4",
-            "tags": ["短片", "电影级写实风格", "人物 / 角色", "美食 / 饮品"],
+            "tags": [
+                "短片",
+                "电影级写实风格",
+                "人物 / 角色",
+                "美食 / 饮品"
+            ],
             "prompt": "创建一个 30 秒、16:9 的剧集，包含 Nell 和 Otis。温暖午后光线下的避风小屋种植台。Nell 在左侧，Otis 在右侧；保持视线匹配。一个陶罐、种子、茶匙和浇水壶。种子从未发芽。故事以 Nell 选择让它生长结束。0-3 秒：中近景。Nell 用茶匙举起种子并保持静止。NELL：你长出来了吗？3-6 秒：反打近景。Otis 从种子看向她。OTIS：它一直在努力。6-9 秒：Nell 困惑，勺子稳定。NELL：我已经检查了五次。9-13 秒：Otis 停顿，然后温和地回答。OTIS：你打扰了它五次。13-18 秒：双人镜头。Nell 重新种下并覆盖种子，然后抬头。NELL：所以我只要留着它就行吗？18-22 秒：稳定的 Otis 近景。OTIS：水。阳光。时间。你负责其中两样。22-26 秒：Nell 轻轻浇水，然后说话。NELL：我可以给它鼓励吗？停顿。OTIS（画外音）：安静点。26-30 秒：NELL 对着花盆低语：你能行的，小沙拉。她收回双手。以 Otis 的微笑和未被打扰的花盆结束。音乐：原创稀疏的 78 BPM 尼龙吉他与毛毡钢琴。音效：鸟鸣、茶匙轻响、短暂浇水声。风格锁定：16:9，基于现实的故事书写实风格。原创虚构演员阵容，自然的面部和解剖结构，触感布料，磨损木材，柔和窗光或傍晚光线。克制的暖色调分级，自然景深。无 2D 动画、塑料皮肤或夸张卡通比例。"
         },
         {
-            "id": 112,
+            "id": 13,
             "order": 32,
             "title": "机器人儿童玩具组装",
             "category": "短片",
             "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000013.mp4",
-            "tags": ["短片", "电影级写实风格", "人物 / 角色", "建筑 / 室内"],
+            "tags": [
+                "短片",
+                "电影级写实风格",
+                "人物 / 角色",
+                "建筑 / 室内"
+            ],
             "prompt": "超写实电影短片，横屏 16:9。深夜，一间昏暗而温馨的客厅里，一名幼童坐在木地板上，正小心翼翼地组装一个小玩具项目。在孩子身旁，一个人形机器人单膝跪地，与孩子视线齐平，轻柔地协助处理细小的玩具零件。该机器人拥有逼真的黑白机械躯体、精密的关节结构、细腻的拉丝金属质感、柔和的反光以及富有表现力的机械双眼。它的动作缓慢、精准且温柔。机器人小心地拿起一个小型玩具组件，仔细端详后递给孩童。孩子抬头望向机器人，眼神中充满好奇与信任，随后露出淡淡的微笑，继续共同完成组装工作。一束狭窄而富有戏剧性的暖色手电筒光束照亮了孩子的手、玩具以及机器人的手指。清冷的蓝色月光透过附近的窗户洒入室内，营造出冷暖色调之间的绝美对比。细微的尘埃颗粒在光线中漂浮。房间其余部分保持昏暗，烘托出亲密且充满情感的氛围。镜头以机器人与孩子并排坐在地上的中远景开场，随后通过柔和的电影推轨镜头缓缓拉近。切至特写，展示机器人灵活的手指小心放置玩具部件。再切至孩子的面部特写，展现其真实的好奇心与微妙笑容。最后以机器人与孩子共同注视已完成的玩具的特写镜头结束。自然的人机运动、逼真的手部交互、准确的物体接触、细腻的面部表情、情感真实的叙事、一致的角色外观、物理准确的光影、逼真的阴影与反射、电影级景深、柔和镜头虚化、高动态范围、电影级调色、照片级纹理、细节丰富的材质、高端科幻剧情片美学、4K 电影画质。无对白，无字幕，屏幕上无文字。"
-        }
-    ],
-    tools: [
-        {
-            "id": 1,
-            "name": "Midjourney",
-            "logo": "M",
-            "desc": "全球最热门的AI绘画工具，生成效果惊艳，适合创意插画、概念设�?,
-            "category": "图像生成",
-            "link": "https://www.midjourney.com/"
         },
         {
-            "id": 2,
-            "name": "Stable Diffusion",
-            "logo": "SD",
-            "desc": "开源免费AI绘画模型，可本地部署，支持自定义模型和插件扩�?,
-            "category": "图像生成",
-            "link": "https://stability.ai/"
+            "id": 14,
+            "order": 33,
+            "title": "电影级品客薯片商业动画",
+            "category": "品牌 / 产品广告",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000014.mp4",
+            "tags": [
+                "品牌 / 产品广告",
+                "电影级写实风格",
+                "美食 / 饮品",
+                "产品"
+            ],
+            "prompt": "根据提供的品客薯片图片，创作一段高端、超写实的电影级食品商业动画。请保持品客薯片的罐体、品牌标识、排版、配色、背景及整体构图完全不变。请勿重新设计或替换任何元素。动画开始时，品客薯片罐轻微旋转并向前倾斜，同时摄像机缓慢推近。金黄色的薯片从开口的罐中自然升起，以平滑的慢动作旋转并逐一翻滚，呈现真实的物理效果。细小的碎屑在空中漂浮，捕捉着摄影棚的灯光。红色的品客罐盖在半空中缓慢旋转，并轻微向摄像机移动，随后漂移回原位。请添加真实的景深效果、细小的漂浮碎屑、自然的动态模糊、罐体上的光泽高光以及细腻的反射效果。让薯片看起来酥脆且轻盈，具备可信的重力感和碰撞效果。罐体应保持稳定清晰，同时漂浮的薯片营造出主要的动态感。采用平滑的奢华广告风格：戏剧性的摄影棚灯光、电影级的摄像机运动、真实的阴影、浅景深、高细节、精致的商业摄影质感以及流畅的动作衔接。结尾时，罐体应居中并突出显示，薯片优美地悬浮在周围，营造出令人满意的视觉焦点画面。要求：无人物，无手部，无新增物体，品牌标识无变形，文字无扭曲，无融化，无变形，无闪烁，无摄像机抖动。时长：8–10 秒。比例：16:9 横屏。动态：平滑、电影感、写实、高端食品广告风格。"
         },
         {
-            "id": 3,
-            "name": "Sora",
-            "logo": "S",
-            "desc": "OpenAI推出的文生视频模型，可生�?0秒高清电影级视频内容",
-            "category": "视频生成",
-            "link": "https://openai.com/sora"
-        },
-        {
-            "id": 4,
-            "name": "Runway",
-            "logo": "R",
-            "desc": "专业AI视频创作工具，支持文生视频、图生视频、视频编辑等功能",
-            "category": "视频生成",
-            "link": "https://runwayml.com/"
-        },
-        {
-            "id": 5,
-            "name": "ChatGPT",
-            "logo": "G",
-            "desc": "OpenAI旗舰大语言模型，支持文案写作、代码生成、逻辑推理",
-            "category": "AI写作",
-            "link": "https://chat.openai.com/"
-        },
-        {
-            "id": 6,
-            "name": "豆包",
-            "logo": "�?,
-            "desc": "字节跳动自研AI助手，中文能力优秀，支持聊天、写作、画图等",
-            "category": "AI写作",
-            "link": "https://www.doubao.com/"
-        },
-        {
-            "id": 7,
-            "name": "Figma",
-            "logo": "F",
-            "desc": "在线UI设计工具，内置AI设计功能，团队协作效率极�?,
-            "category": "设计工具",
-            "link": "https://www.figma.com/"
-        },
-        {
-            "id": 8,
-            "name": "Remove.bg",
-            "logo": "R",
-            "desc": "一键AI抠图工具，自动去除背景，效果精准，免费可�?,
-            "category": "设计工具",
-            "link": "https://www.remove.bg/"
+            "id": 15,
+            "order": 34,
+            "title": "高端气泡柠檬饮料商业项目",
+            "category": "品牌 / 产品广告",
+            "video_url": "https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/s000015.mp4",
+            "tags": [
+                "品牌 / 产品广告",
+                "电影级写实风格",
+                "美食 / 饮品",
+                "产品"
+            ],
+            "prompt": "标题：高端气泡柠檬饮料产品商业项目。格式：单页高端项目，3:4 竖屏比例，奢华饮料营销活动，8 个电影级产品聚焦场景，产品始终作为视觉核心，高端商业演示。信息卡片：时长 20 秒，风格高速电影级饮料广告，产品气泡柠檬饮料，音频气泡声加冰块碎裂声加液体 ASMR。水晶白、柠檬黄与银色美学，极简柑橘风格图形点缀。场景：一、冰镇瓶身独立伫立，带有厚重冷凝水珠。二、水珠沿瓶身滑落的极致微距镜头。三、瓶盖开启，伴随戏剧性的碳酸爆发。四、气泡饮料向上喷涌，形成受控的液体飞溅。五、柠檬切片在气泡液体中旋转。六、冰块以超慢动作落入水晶玻璃杯。七、极致微距展示数千个碳酸气泡在饮料中升起。八、最终英雄产品展示：瓶身、玻璃杯、柠檬切片及环绕产品的冰冻水花。每个场景包含：场景编号、时长标签、摄像机方向、视觉效果、动作、产品细节。摄像机：120fps 高速液体摄影、极致微距、冰冻水花、旋转柠檬切片、戏剧性背光、冷凝水珠特写、平滑的 360 度产品运动。风格：超写实高端饮料广告、晶莹剔透的液体、爆发性的碳酸感、物理精准的水珠效果。"
         }
     ]
-};
+}

@@ -475,7 +475,8 @@ function initToolsPage(config) {
 function bindHomeWorkClick(allWorks) {
     document.querySelectorAll('.home-work-card').forEach(card => {
         card.addEventListener('click', function() {
-            const id = parseInt(this.dataset.id);
+            const dataIdRaw = this.dataset.id; // 格式可能为 vid_1 或 img_1
+            const id = parseInt(dataIdRaw.replace(/^(vid_|img_)/, ''));
             const type = this.dataset.type;
             const item = allWorks.find(d => d.id === id && d.type === type);
             if (!item) return;

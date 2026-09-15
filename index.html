@@ -119,15 +119,19 @@
                 // 绑定卡片点击打开弹窗
                 bindHomeWorkClick(allWorks);
 
-                // 检查URL是否有id参数，自动打开对应作品
+                // 检查URL是否有id参数，自动打开对应作品（支持新格式 img_1, vid_1 和旧格式纯数字）
                 const urlParams = new URLSearchParams(window.location.search);
                 const autoOpenId = urlParams.get('id');
                 if (autoOpenId) {
-                    const targetId = parseInt(autoOpenId);
-                    const targetItem = allWorks.find(w => w.id === targetId);
+                    const targetItem = allWorks.find(w => {
+                        const wType = w.type === '视频' ? 'vid_' : 'img_';
+                        const wDataId = wType + w.id;
+                        return wDataId === autoOpenId || w.id === parseInt(autoOpenId);
+                    });
                     if (targetItem) {
                         setTimeout(() => {
-                            const card = document.querySelector('.home-work-card[data-id="' + targetId + '"]');
+                            const wType = targetItem.type === '视频' ? 'vid_' : 'img_';
+                            const card = document.querySelector('.home-work-card[data-id="' + wType + targetItem.id + '"]');
                             if (card) card.click();
                         }, 500);
                     }
@@ -198,8 +202,9 @@
                 } else {
                     coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
+                const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
                 return `
-                <div class="home-work-card" data-id="${item.id}" data-type="${item.type}">
+                <div class="home-work-card" data-id="${dataId}" data-type="${item.type}">
                     <div class="home-card-cover">${coverHtml}</div>
                 </div>
             `}).join('');
