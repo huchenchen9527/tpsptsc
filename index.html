@@ -111,8 +111,7 @@
                 // 按 order 倒序排列（order 大的排前面 = 新上传的靠前）
                 allWorks.sort((a, b) => (b.order || 0) - (a.order || 0));
 
-                const recent = allWorks.slice(0, 12);
-                renderHomeWorks(recent, false);
+                renderHomeWorks(allWorks, false);
 
                 // 存储数据到 window 供点击使用
                 window.allWorks = allWorks;
@@ -168,7 +167,7 @@
                         const keyword = this.value.trim().toLowerCase();
                         const allWorks = window.allWorks || [];
                         if (!keyword) {
-                            renderHomeWorks(allWorks);
+                            renderHomeWorks(allWorks, false);
                         } else {
                             const filtered = allWorks.filter(item =>
                                 item.title.toLowerCase().includes(keyword) ||
@@ -176,7 +175,7 @@
                                 item.prompt.toLowerCase().includes(keyword) ||
                                 (item.tags || []).some(tag => tag.toLowerCase().includes(keyword))
                             );
-                            renderHomeWorks(filtered);
+                            renderHomeWorks(filtered, false);
                         }
                     }, 300);
                 });
@@ -185,7 +184,7 @@
 
         // 渲染首页作品卡片
         function renderHomeWorks(works, applyFilter = true) {
-            const recent = applyFilter ? works.slice(0, 12) : works;
+            const recent = works;
             const grid = document.getElementById('homeMasonryGrid');
             grid.innerHTML = recent.map(item => {
                 const hue = (item.id * 45) % 360;
