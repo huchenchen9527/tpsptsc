@@ -255,15 +255,18 @@ function initPromptPage(config) {
         grid.innerHTML = data.map(item => {
             const hue = (item.id * 45) % 360;
             const nextHue = (hue + 60) % 360;
+            const aspectRatios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
+            const randomAspect = aspectRatios[Math.floor(Math.random() * aspectRatios.length)];
+            const aspectStyle = `style="aspect-ratio:${randomAspect}"`;
             let coverHtml;
             if (item.cover) {
                 const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                coverHtml = `<div class="cover-wrapper"><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
+                coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
             } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper video-wrapper" style="opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
+                coverHtml = `<div class="cover-wrapper video-wrapper" style="${aspectStyle};opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
             } else {
-                const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))"></div>`;
+                const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
                 coverHtml = fallbackSvg;
             }
             return `

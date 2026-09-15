@@ -225,26 +225,7 @@ a {
     z-index: 2;
 }
 
-/* 瀑布流 - 5种不同封面比例，让落差更明显 */
-.masonry-grid .prompt-card:nth-child(5n+1) .cover-wrapper {
-    aspect-ratio: 16/9; /* 超宽屏 */
-}
-
-.masonry-grid .prompt-card:nth-child(5n+2) .cover-wrapper {
-    aspect-ratio: 3/4; /* 竖版 */
-}
-
-.masonry-grid .prompt-card:nth-child(5n+3) .cover-wrapper {
-    aspect-ratio: 1/1; /* 正方形 */
-}
-
-.masonry-grid .prompt-card:nth-child(5n+4) .cover-wrapper {
-    aspect-ratio: 2/1; /* 横版 */
-}
-
-.masonry-grid .prompt-card:nth-child(5n) .cover-wrapper {
-    aspect-ratio: 9/16; /* 极高竖版 */
-}
+/* 瀑布流 - 封面比例由 JS 随机分配 */
 
 .prompt-card img {
     width: 100%;
@@ -271,25 +252,7 @@ a {
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-.masonry-grid .prompt-card:nth-child(5n+1) .cover-placeholder {
-    aspect-ratio: 16/9;
-}
-
-.masonry-grid .prompt-card:nth-child(5n+2) .cover-placeholder {
-    aspect-ratio: 3/4;
-}
-
-.masonry-grid .prompt-card:nth-child(5n+3) .cover-placeholder {
-    aspect-ratio: 1/1;
-}
-
-.masonry-grid .prompt-card:nth-child(5n+4) .cover-placeholder {
-    aspect-ratio: 2/1;
-}
-
-.masonry-grid .prompt-card:nth-child(5n) .cover-placeholder {
-    aspect-ratio: 9/16;
-}
+/* cover-placeholder 比例由 JS 随机分配 */
 
 /* ========== 6. 详情弹窗样式 ========== */
 .modal-mask {
