@@ -188,37 +188,58 @@
 
         // 渲染首页作品卡片
         function renderHomeWorks(works, applyFilter = true) {
-            const recent = works;
+            // 随机打乱数组，让瀑布流卡片随机排列
+            const recent = [...works].sort(() => Math.random() - 0.5);
             const grid = document.getElementById('homeMasonryGrid');
-            // 多种封面比例，随机分配且同列相邻不重复
             const ratios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
-            const columns = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
-            const colHeights = new Array(columns).fill(0);
-            const colLastRatio = new Array(columns).fill(null);
-            grid.innerHTML = recent.map((item, index) => {
-                const hue = (item.id * 45) % 360;
-                const nextHue = (hue + 60) % 360;
-                const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-                const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                let coverHtml;
-                if (item.type === '视频' && item.video_url) {
-                    const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                    coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
-                } else {
-                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
+            const tallGroup = ['9/16', '3/4', '1/1', '4/3'];     // 垂直高
+            const shortGroup = ['16/9', '2/1', '3/2', '5/3'];      // 水平宽
+            const column = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
+            // CSS column-count 渲染顺序：先填第1列（上→下），再填第2列...
+            const perColumn = Math.ceil(recent.length / column);
+            const colLastRatio = new Array(column).fill(null);
+            // 根据比例判断所属组
+            function getGroup(r) { return tallGroup.includes(r) ? 'tall' : 'short'; }
+            let prevColLastGroup = null;
+            let cards = [];
+            for (let col = 0; col < column; col++) {
+                const start = col * perColumn;
+                const end = Math.min(start + perColumn, recent.length);
+                let colLastGroup = null;
+                for (let idx = start; idx < end; idx++) {
+                    const item = recent[idx];
+                    const hue = (item.id * 45) % 360;
+                    const nextHue = (hue + 60) % 360;
+                    const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
+                    const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
+                    let coverHtml;
+                    if (item.type === '视频' && item.video_url) {
+                        const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
+                        coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
+                    } else {
+                        coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
+                    }
+                    const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
+                    // 同列相邻：从反组选；并行相邻（上一列最后一个）也从反组选
+                    const needOppositeOf = colLastGroup || prevColLastGroup;
+                    const targetGroup = needOppositeOf === 'tall' ? 'short' : 'tall';
+                    let available = targetGroup === 'tall' ? tallGroup : shortGroup;
+                    // 如果同列和并行都有约束，取交集
+                    if (colLastGroup && prevColLastGroup) {
+                        const prevTarget = prevColLastGroup === 'tall' ? 'short' : 'tall';
+                        const prevAvailable = prevTarget === 'tall' ? tallGroup : shortGroup;
+                        const intersection = available.filter(r => prevAvailable.includes(r));
+                        if (intersection.length > 0) available = intersection;
+                        else available = ratios;
+                    }
+                    const ratio = available[Math.floor(Math.random() * available.length)];
+                    colLastRatio[col] = ratio;
+                    colLastGroup = getGroup(ratio);
+                    cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratio};">${coverHtml}</div></div>`);
                 }
-                const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
-                const colIndex = colHeights.indexOf(Math.min(...colHeights));
-                const available = colLastRatio[colIndex] ? ratios.filter(r => r !== colLastRatio[colIndex]) : ratios;
-                const ratio = available[Math.floor(Math.random() * available.length)];
-                const heightRatio = parseFloat(ratio.split('/')[1]) / parseFloat(ratio.split('/')[0]);
-                colHeights[colIndex] += heightRatio;
-                colLastRatio[colIndex] = ratio;
-                return `
-                <div class="home-work-card" data-id="${dataId}" data-type="${item.type}">
-                    <div class="home-card-cover" style="aspect-ratio:${ratio};">${coverHtml}</div>
-                </div>
-            `}).join('');
+                prevColLastGroup = colLastGroup;
+            }
+            grid.innerHTML = cards.join('');
 
             bindHomeWorkClick(window.allWorks || []);
 

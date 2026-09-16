@@ -252,22 +252,39 @@ function initPromptPage(config) {
             grid.innerHTML = '<div class="empty-tip">没有找到匹配的提示词，换个关键词试试</div>';
             return;
         }
+        // 随机打乱数组，让瀑布流卡片随机排列
+        const shuffled = data.sort(() => Math.random() - 0.5);
         const aspectRatios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
-        // JS 模拟列分配：分配到当前最矮的列，记录每列最后使用的比例
+        const tallGroup = ['9/16', '3/4', '1/1', '4/3'];
+        const shortGroup = ['16/9', '2/1', '3/2', '5/3'];
         const columns = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
-        const colHeights = new Array(columns).fill(0);
+        // CSS column-count 渲染顺序：先填第1列（上→下），再填第2列...
+        const perColumn = Math.ceil(shuffled.length / columns);
         const colLastRatio = new Array(columns).fill(null);
-        grid.innerHTML = data.map((item, index) => {
+        function getGroup(r) { return tallGroup.includes(r) ? 'tall' : 'short'; }
+        let prevColLastGroup = null;
+        let cards = [];
+        for (let col = 0; col < columns; col++) {
+          const start = col * perColumn;
+          const end = Math.min(start + perColumn, shuffled.length);
+          let colLastGroup = null;
+          for (let i = start; i < end; i++) {
+            const item = shuffled[i];
             const hue = (item.id * 45) % 360;
             const nextHue = (hue + 60) % 360;
-            // 选择当前最矮的列
-            const colIndex = colHeights.indexOf(Math.min(...colHeights));
-            // 从可选比例中排除该列上次的比例
-            let available = colLastRatio[colIndex] ? aspectRatios.filter(r => r !== colLastRatio[colIndex]) : aspectRatios;
+            // 同列相邻：从反组选；并行相邻（上一列最后一个）也从反组选
+            const needOppositeOf = colLastGroup || prevColLastGroup;
+            const targetGroup = needOppositeOf === 'tall' ? 'short' : 'tall';
+            let available = targetGroup === 'tall' ? tallGroup : shortGroup;
+            // 如果同列和并行都有约束，取交集
+            if (colLastGroup && prevColLastGroup) {
+              const prevTarget = prevColLastGroup === 'tall' ? 'short' : 'tall';
+              const prevAvailable = prevTarget === 'tall' ? tallGroup : shortGroup;
+              const intersection = available.filter(r => prevAvailable.includes(r));
+              if (intersection.length > 0) available = intersection;
+              else available = aspectRatios;
+            }
             const randomAspect = available[Math.floor(Math.random() * available.length)];
-            const heightRatio = parseFloat(randomAspect.split('/')[1]) / parseFloat(randomAspect.split('/')[0]);
-            colHeights[colIndex] += heightRatio;
-            colLastRatio[colIndex] = randomAspect;
             const aspectStyle = `style="aspect-ratio:${randomAspect}"`;
             let coverHtml;
             if (item.cover) {
@@ -280,12 +297,13 @@ function initPromptPage(config) {
                 const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
                 coverHtml = fallbackSvg;
             }
-            return `
-            <div class="prompt-card" data-id="${escapeHtml(item.id)}">
-                ${coverHtml}
-            </div>
-        `;
-        }).join('');
+            cards.push(`<div class="prompt-card" data-id="${escapeHtml(item.id)}">${coverHtml}</div>`);
+            colLastRatio[col] = randomAspect;
+            colLastGroup = getGroup(randomAspect);
+          }
+          prevColLastGroup = colLastGroup;
+        }
+        grid.innerHTML = cards.join('');
         bindCardClick(data);
         // 视频加载完成后淡入显示
         document.querySelectorAll('.video-wrapper video').forEach(video => {
