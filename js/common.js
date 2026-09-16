@@ -254,19 +254,20 @@ function initPromptPage(config) {
         }
         // 随机打乱数组，让瀑布流卡片随机排列
         const shuffled = data.sort(() => Math.random() - 0.5);
-        // 5组比例，按高度从高到矮
+        // 7组比例，按高度从高到矮
         const ratioGroups = [
-            ['9/16'],            // 组0 - 最高
-            ['3/4'],             // 组1 - 偏高
-            ['1/1', '4/3'],      // 组2 - 中等
-            ['3/2', '5/3'],      // 组3 - 偏矮
-            ['16/9', '2/1']      // 组4 - 最矮
+            ['9/16'],          // 组0 - 最高
+            ['3/4'],           // 组1 - 高
+            ['1/1'],           // 组2 - 偏高
+            ['4/3'],           // 组3 - 中等
+            ['3/2', '5/3'],    // 组4 - 偏矮
+            ['16/9'],          // 组5 - 矮
+            ['2/1']            // 组6 - 最矮
         ];
-        const aspectRatios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
         const columns = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
         // CSS column-count 渲染顺序：先填第1列（上→下），再填第2列...
         const perColumn = Math.ceil(shuffled.length / columns);
-        // 记录每列上一个组的索引(0-4)
+        // 记录每列上一个组的索引(0-6)
         const colLastGroup = new Array(columns).fill(-1);
         // 上一列最后一个组的索引
         let prevColLastGroup = -1;
@@ -279,11 +280,11 @@ function initPromptPage(config) {
             const hue = (item.id * 45) % 360;
             const nextHue = (hue + 60) % 360;
             // 同列相邻：固定下一个组(循环)；并行相邻：也避开上一列的组
-            let nextGroup = (colLastGroup[col] + 1) % 5;
+            let nextGroup = (colLastGroup[col] + 1) % 7;
             let available = ratioGroups[nextGroup];
             // 如果上一列的组与目标组相同则再+1跳过
             if (prevColLastGroup >= 0 && prevColLastGroup === nextGroup) {
-              nextGroup = (nextGroup + 1) % 5;
+              nextGroup = (nextGroup + 1) % 7;
               available = ratioGroups[nextGroup];
             }
             const randomAspect = available[Math.floor(Math.random() * available.length)];
