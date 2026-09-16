@@ -190,9 +190,11 @@
         function renderHomeWorks(works, applyFilter = true) {
             const recent = works;
             const grid = document.getElementById('homeMasonryGrid');
-            // 多种封面比例，随机分配且相邻不重复以打破整齐排列
+            // 多种封面比例，随机分配且同列相邻不重复
             const ratios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
-            const usedRatios = [];
+            const columns = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
+            const colHeights = new Array(columns).fill(0);
+            const colLastRatio = new Array(columns).fill(null);
             grid.innerHTML = recent.map((item, index) => {
                 const hue = (item.id * 45) % 360;
                 const nextHue = (hue + 60) % 360;
@@ -206,9 +208,12 @@
                     coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
                 const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
-                const available = index === 0 ? ratios : ratios.filter(r => r !== usedRatios[index - 1]);
+                const colIndex = colHeights.indexOf(Math.min(...colHeights));
+                const available = colLastRatio[colIndex] ? ratios.filter(r => r !== colLastRatio[colIndex]) : ratios;
                 const ratio = available[Math.floor(Math.random() * available.length)];
-                usedRatios[index] = ratio;
+                const heightRatio = parseFloat(ratio.split('/')[1]) / parseFloat(ratio.split('/')[0]);
+                colHeights[colIndex] += heightRatio;
+                colLastRatio[colIndex] = ratio;
                 return `
                 <div class="home-work-card" data-id="${dataId}" data-type="${item.type}">
                     <div class="home-card-cover" style="aspect-ratio:${ratio};">${coverHtml}</div>

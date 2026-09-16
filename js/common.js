@@ -253,13 +253,21 @@ function initPromptPage(config) {
             return;
         }
         const aspectRatios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
-        const usedRatios = [];
+        // JS 模拟列分配：分配到当前最矮的列，记录每列最后使用的比例
+        const columns = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
+        const colHeights = new Array(columns).fill(0);
+        const colLastRatio = new Array(columns).fill(null);
         grid.innerHTML = data.map((item, index) => {
             const hue = (item.id * 45) % 360;
             const nextHue = (hue + 60) % 360;
-            let available = index === 0 ? aspectRatios : aspectRatios.filter(r => r !== usedRatios[index - 1]);
+            // 选择当前最矮的列
+            const colIndex = colHeights.indexOf(Math.min(...colHeights));
+            // 从可选比例中排除该列上次的比例
+            let available = colLastRatio[colIndex] ? aspectRatios.filter(r => r !== colLastRatio[colIndex]) : aspectRatios;
             const randomAspect = available[Math.floor(Math.random() * available.length)];
-            usedRatios[index] = randomAspect;
+            const heightRatio = parseFloat(randomAspect.split('/')[1]) / parseFloat(randomAspect.split('/')[0]);
+            colHeights[colIndex] += heightRatio;
+            colLastRatio[colIndex] = randomAspect;
             const aspectStyle = `style="aspect-ratio:${randomAspect}"`;
             let coverHtml;
             if (item.cover) {
