@@ -191,21 +191,26 @@
             // 随机打乱数组，让瀑布流卡片随机排列
             const recent = [...works].sort(() => Math.random() - 0.5);
             const grid = document.getElementById('homeMasonryGrid');
+            // 5组比例，按高度从高到矮
+            const ratioGroups = [
+                ['9/16'],            // 组0 - 最高
+                ['3/4'],             // 组1 - 偏高
+                ['1/1', '4/3'],      // 组2 - 中等
+                ['3/2', '5/3'],      // 组3 - 偏矮
+                ['16/9', '2/1']      // 组4 - 最矮
+            ];
             const ratios = ['16/9', '3/4', '1/1', '2/1', '9/16', '4/3', '3/2', '5/3'];
-            const tallGroup = ['9/16', '3/4', '1/1', '4/3'];     // 垂直高
-            const shortGroup = ['16/9', '2/1', '3/2', '5/3'];      // 水平宽
             const column = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
             // CSS column-count 渲染顺序：先填第1列（上→下），再填第2列...
             const perColumn = Math.ceil(recent.length / column);
-            const colLastRatio = new Array(column).fill(null);
-            // 根据比例判断所属组
-            function getGroup(r) { return tallGroup.includes(r) ? 'tall' : 'short'; }
-            let prevColLastGroup = null;
+            // 记录每列上一个组的索引(0-4)
+            const colLastGroup = new Array(column).fill(-1);
+            // 上一列最后一个组的索引
+            let prevColLastGroup = -1;
             let cards = [];
             for (let col = 0; col < column; col++) {
                 const start = col * perColumn;
                 const end = Math.min(start + perColumn, recent.length);
-                let colLastGroup = null;
                 for (let idx = start; idx < end; idx++) {
                     const item = recent[idx];
                     const hue = (item.id * 45) % 360;
@@ -220,24 +225,19 @@
                         coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                     }
                     const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
-                    // 同列相邻：从反组选；并行相邻（上一列最后一个）也从反组选
-                    const needOppositeOf = colLastGroup || prevColLastGroup;
-                    const targetGroup = needOppositeOf === 'tall' ? 'short' : 'tall';
-                    let available = targetGroup === 'tall' ? tallGroup : shortGroup;
-                    // 如果同列和并行都有约束，取交集
-                    if (colLastGroup && prevColLastGroup) {
-                        const prevTarget = prevColLastGroup === 'tall' ? 'short' : 'tall';
-                        const prevAvailable = prevTarget === 'tall' ? tallGroup : shortGroup;
-                        const intersection = available.filter(r => prevAvailable.includes(r));
-                        if (intersection.length > 0) available = intersection;
-                        else available = ratios;
+                    // 同列相邻：固定下一个组(循环)；并行相邻：也避开上一列的组
+                    let nextGroup = (colLastGroup[col] + 1) % 5;
+                    let available = ratioGroups[nextGroup];
+                    // 如果上一列的组与目标组相同则再+1跳过
+                    if (prevColLastGroup >= 0 && prevColLastGroup === nextGroup) {
+                        nextGroup = (nextGroup + 1) % 5;
+                        available = ratioGroups[nextGroup];
                     }
                     const ratio = available[Math.floor(Math.random() * available.length)];
-                    colLastRatio[col] = ratio;
-                    colLastGroup = getGroup(ratio);
+                    colLastGroup[col] = nextGroup;
                     cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratio};">${coverHtml}</div></div>`);
                 }
-                prevColLastGroup = colLastGroup;
+                prevColLastGroup = colLastGroup[col];
             }
             grid.innerHTML = cards.join('');
 
