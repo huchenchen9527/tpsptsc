@@ -229,38 +229,6 @@ function initPromptPage(config) {
         }
     }
 
-    // 获取媒体天然宽高比，带超时兜底
-    function getMediaRatio(src, isVideo) {
-        return new Promise((resolve) => {
-            const timeout = setTimeout(() => resolve(isVideo ? 16 / 9 : 4 / 3), 5000);
-            if (isVideo) {
-                const video = document.createElement('video');
-                video.preload = 'metadata';
-                video.onloadedmetadata = () => {
-                    clearTimeout(timeout);
-                    const ratio = video.videoWidth / video.videoHeight;
-                    URL.revokeObjectURL(video.src);
-                    resolve(ratio);
-                };
-                video.onerror = () => { clearTimeout(timeout); resolve(16 / 9); };
-                video.src = src;
-            } else {
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = () => {
-                    clearTimeout(timeout);
-                    if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-                        resolve(img.naturalWidth / img.naturalHeight);
-                    } else {
-                        resolve(4 / 3);
-                    }
-                };
-                img.onerror = () => { clearTimeout(timeout); resolve(4 / 3); };
-                img.src = src;
-            }
-        });
-    }
-
     function applyFilters() {
         let filtered = allData;
 
@@ -278,48 +246,46 @@ function initPromptPage(config) {
         document.getElementById('resultCount').innerText = `共 ${filtered.length} 条结果`;
     }
 
-    async function renderCards(data) {
+    function renderCards(data) {
         const grid = document.getElementById(gridId);
         if (!data.length) {
             grid.innerHTML = '<div class="empty-tip">没有找到匹配的提示词，换个关键词试试</div>';
             return;
         }
-        // 随机打乱数组，让瀑布流卡片随机排列
         const shuffled = data.sort(() => Math.random() - 0.5);
-
-        // 并行 preload 所有媒体的宽高比
-        const ratios = await Promise.all(shuffled.map(async (item) => {
-            if (item.cover) {
-                return await getMediaRatio(item.cover, false);
-            } else if (item.video_url) {
-                return await getMediaRatio(item.video_url, true);
-            }
-            return 4 / 3;
-        }));
-
+        const ratioPool = [
+            ...Array(50).fill('9/16'),
+            ...Array(20).fill('3/5'),
+            ...Array(20).fill('3/4'),
+            ...Array(5).fill('16/9'),
+            ...Array(5).fill('1/2')
+        ];
         let cards = [];
+        let lastRatio = '';
         for (let i = 0; i < shuffled.length; i++) {
-          const item = shuffled[i];
-          const ratio = ratios[i];
-          const hue = (item.id * 45) % 360;
-          const nextHue = (hue + 60) % 360;
-          const aspectStyle = `style="aspect-ratio:${ratio}"`;
-          let coverHtml;
-          if (item.cover) {
-              const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-              const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-              coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
-          } else if (item.video_url) {
-              coverHtml = `<div class="cover-wrapper video-wrapper" style="${aspectStyle};opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
-          } else {
-              const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
-              coverHtml = fallbackSvg;
-          }
-          cards.push(`<div class="prompt-card" data-id="${escapeHtml(item.id)}">${coverHtml}</div>`);
+            const item = shuffled[i];
+            const hue = (item.id * 45) % 360;
+            const nextHue = (hue + 60) % 360;
+            let available = ratioPool.filter(r => r !== lastRatio);
+            if (available.length === 0) available = ratioPool;
+            const ratio = available[Math.floor(Math.random() * available.length)];
+            lastRatio = ratio;
+            const aspectStyle = `style="aspect-ratio:${ratio}"`;
+            let coverHtml;
+            if (item.cover) {
+                const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
+                const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
+                coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
+            } else if (item.video_url) {
+                coverHtml = `<div class="cover-wrapper video-wrapper" style="${aspectStyle};opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
+            } else {
+                const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
+                coverHtml = fallbackSvg;
+            }
+            cards.push(`<div class="prompt-card" data-id="${escapeHtml(item.id)}">${coverHtml}</div>`);
         }
         grid.innerHTML = cards.join('');
         bindCardClick(data);
-        // 视频加载完成后淡入显示
         document.querySelectorAll('.video-wrapper video').forEach(video => {
             const wrapper = video.closest('.video-wrapper');
             const showWrapper = () => { wrapper.style.opacity = '1'; };

@@ -186,58 +186,25 @@
             }
         }
 
-        // 获取媒体天然宽高比，带超时兜底
-        function getMediaRatio(src, isVideo) {
-            return new Promise((resolve) => {
-                const timeout = setTimeout(() => resolve(isVideo ? 16 / 9 : 4 / 3), 5000);
-                if (isVideo) {
-                    const video = document.createElement('video');
-                    video.preload = 'metadata';
-                    video.onloadedmetadata = () => {
-                        clearTimeout(timeout);
-                        const ratio = video.videoWidth / video.videoHeight;
-                        URL.revokeObjectURL(video.src);
-                        resolve(ratio);
-                    };
-                    video.onerror = () => { clearTimeout(timeout); resolve(16 / 9); };
-                    video.src = src;
-                } else {
-                    const img = new Image();
-                    img.crossOrigin = 'anonymous';
-                    img.onload = () => {
-                        clearTimeout(timeout);
-                        if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-                            resolve(img.naturalWidth / img.naturalHeight);
-                        } else {
-                            resolve(4 / 3);
-                        }
-                    };
-                    img.onerror = () => { clearTimeout(timeout); resolve(4 / 3); };
-                    img.src = src;
-                }
-            });
-        }
-
         // 渲染首页作品卡片
-        async function renderHomeWorks(works, applyFilter = true) {
-            // 随机打乱数组，让瀑布流卡片随机排列
+        function renderHomeWorks(works, applyFilter = true) {
             const recent = [...works].sort(() => Math.random() - 0.5);
             const grid = document.getElementById('homeMasonryGrid');
-
-            // 并行 preload 所有媒体的宽高比
-            const ratios = await Promise.all(recent.map(async (item) => {
-                if (item.type === '视频' && item.video_url) {
-                    return await getMediaRatio(item.video_url, true);
-                } else if (item.cover) {
-                    return await getMediaRatio(item.cover, false);
-                }
-                return 4 / 3;
-            }));
-
+            const ratioPool = [
+                ...Array(50).fill('9/16'),
+                ...Array(20).fill('3/5'),
+                ...Array(20).fill('3/4'),
+                ...Array(5).fill('16/9'),
+                ...Array(5).fill('1/2')
+            ];
             let cards = [];
+            let lastRatio = '';
             for (let i = 0; i < recent.length; i++) {
                 const item = recent[i];
-                const ratio = ratios[i];
+                let available = ratioPool.filter(r => r !== lastRatio);
+                if (available.length === 0) available = ratioPool;
+                const ratioVal = available[Math.floor(Math.random() * available.length)];
+                lastRatio = ratioVal;
                 const hue = (item.id * 45) % 360;
                 const nextHue = (hue + 60) % 360;
                 const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
@@ -245,18 +212,15 @@
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
                     const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                    coverHtml = `<div class="home-video-wrapper" style="aspect-ratio:${ratio};opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
+                    coverHtml = `<div class="home-video-wrapper" style="aspect-ratio:${ratioVal};opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
                 } else {
-                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'" style="aspect-ratio:${ratio};object-fit:cover;width:100%;">`;
+                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'" style="aspect-ratio:${ratioVal};object-fit:cover;width:100%;">`;
                 }
                 const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
                 cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover">${coverHtml}</div></div>`);
             }
             grid.innerHTML = cards.join('');
-
             bindHomeWorkClick(window.allWorks || []);
-
-            // 视频加载完成后淡入显示
             document.querySelectorAll('.home-video-wrapper video').forEach(video => {
                 const wrapper = video.closest('.home-video-wrapper');
                 const showWrapper = () => { wrapper.style.opacity = '1'; };
