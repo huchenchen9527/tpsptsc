@@ -264,46 +264,30 @@ function initPromptPage(config) {
             ['16/9'],          // 组5 - 矮
             ['2/1']            // 组6 - 最矮
         ];
-        const columns = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
-        // CSS column-count 渲染顺序：先填第1列（上→下），再填第2列...
-        const perColumn = Math.ceil(shuffled.length / columns);
-        // 记录每列上一个组的索引(0-6)
-        const colLastGroup = new Array(columns).fill(-1);
-        // 上一列最后一个组的索引
-        let prevColLastGroup = -1;
         let cards = [];
-        for (let col = 0; col < columns; col++) {
-          const start = col * perColumn;
-          const end = Math.min(start + perColumn, shuffled.length);
-          for (let i = start; i < end; i++) {
-            const item = shuffled[i];
-            const hue = (item.id * 45) % 360;
-            const nextHue = (hue + 60) % 360;
-            // 同列相邻：固定下一个组(循环)；并行相邻：也避开上一列的组
-            let nextGroup = (colLastGroup[col] + 1) % 7;
-            let available = ratioGroups[nextGroup];
-            // 如果上一列的组与目标组相同则再+1跳过
-            if (prevColLastGroup >= 0 && prevColLastGroup === nextGroup) {
-              nextGroup = (nextGroup + 1) % 7;
-              available = ratioGroups[nextGroup];
-            }
-            const randomAspect = available[Math.floor(Math.random() * available.length)];
-            const aspectStyle = `style="aspect-ratio:${randomAspect}"`;
-            let coverHtml;
-            if (item.cover) {
-                const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-                const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
-            } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper video-wrapper" style="${aspectStyle};opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
-            } else {
-                const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
-                coverHtml = fallbackSvg;
-            }
-            cards.push(`<div class="prompt-card" data-id="${escapeHtml(item.id)}">${coverHtml}</div>`);
-            colLastGroup[col] = nextGroup;
+        let lastGroup = -1;
+        for (let i = 0; i < shuffled.length; i++) {
+          const item = shuffled[i];
+          const hue = (item.id * 45) % 360;
+          const nextHue = (hue + 60) % 360;
+          // 从排除上一组的其余组中随机选
+          const availableGroups = ratioGroups.map((g, idx) => idx).filter(idx => idx !== lastGroup);
+          const pickedGroup = availableGroups[Math.floor(Math.random() * availableGroups.length)];
+          const randomAspect = ratioGroups[pickedGroup][Math.floor(Math.random() * ratioGroups[pickedGroup].length)];
+          lastGroup = pickedGroup;
+          const aspectStyle = `style="aspect-ratio:${randomAspect}"`;
+          let coverHtml;
+          if (item.cover) {
+              const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
+              const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
+              coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
+          } else if (item.video_url) {
+              coverHtml = `<div class="cover-wrapper video-wrapper" style="${aspectStyle};opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
+          } else {
+              const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
+              coverHtml = fallbackSvg;
           }
-          prevColLastGroup = colLastGroup[col];
+          cards.push(`<div class="prompt-card" data-id="${escapeHtml(item.id)}">${coverHtml}</div>`);
         }
         grid.innerHTML = cards.join('');
         bindCardClick(data);

@@ -201,44 +201,28 @@
                 ['16/9'],          // 组5 - 矮
                 ['2/1']            // 组6 - 最矮
             ];
-            const column = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1100 ? 3 : window.innerWidth <= 1400 ? 4 : 5;
-            // CSS column-count 渲染顺序：先填第1列（上→下），再填第2列...
-            const perColumn = Math.ceil(recent.length / column);
-            // 记录每列上一个组的索引(0-6)
-            const colLastGroup = new Array(column).fill(-1);
-            // 上一列最后一个组的索引
-            let prevColLastGroup = -1;
             let cards = [];
-            for (let col = 0; col < column; col++) {
-                const start = col * perColumn;
-                const end = Math.min(start + perColumn, recent.length);
-                for (let idx = start; idx < end; idx++) {
-                    const item = recent[idx];
-                    const hue = (item.id * 45) % 360;
-                    const nextHue = (hue + 60) % 360;
-                    const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-                    const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                    let coverHtml;
-                    if (item.type === '视频' && item.video_url) {
-                        const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                        coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
-                    } else {
-                        coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
-                    }
-                    const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
-                    // 同列相邻：固定下一个组(循环)；并行相邻：也避开上一列的组
-                    let nextGroup = (colLastGroup[col] + 1) % 7;
-                    let available = ratioGroups[nextGroup];
-                    // 如果上一列的组与目标组相同则再+1跳过
-                    if (prevColLastGroup >= 0 && prevColLastGroup === nextGroup) {
-                        nextGroup = (nextGroup + 1) % 7;
-                        available = ratioGroups[nextGroup];
-                    }
-                    const ratio = available[Math.floor(Math.random() * available.length)];
-                    colLastGroup[col] = nextGroup;
-                    cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratio};">${coverHtml}</div></div>`);
+            let lastGroup = -1;
+            for (let i = 0; i < recent.length; i++) {
+                const item = recent[i];
+                const hue = (item.id * 45) % 360;
+                const nextHue = (hue + 60) % 360;
+                const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
+                const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
+                let coverHtml;
+                if (item.type === '视频' && item.video_url) {
+                    const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
+                    coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
+                } else {
+                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
-                prevColLastGroup = colLastGroup[col];
+                const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
+                // 从排除上一组的其余组中随机选
+                const availableGroups = ratioGroups.map((g, idx) => idx).filter(idx => idx !== lastGroup);
+                const pickedGroup = availableGroups[Math.floor(Math.random() * availableGroups.length)];
+                const ratio = ratioGroups[pickedGroup][Math.floor(Math.random() * ratioGroups[pickedGroup].length)];
+                lastGroup = pickedGroup;
+                cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratio};">${coverHtml}</div></div>`);
             }
             grid.innerHTML = cards.join('');
 
