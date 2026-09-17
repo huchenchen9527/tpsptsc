@@ -628,7 +628,6 @@ a {
     overflow: hidden;
     position: relative;
     width: 100%;
-    aspect-ratio: 16/10;
 }
 
 .home-card-cover video,

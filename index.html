@@ -212,12 +212,12 @@
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
                     const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                    coverHtml = `<div class="home-video-wrapper" style="aspect-ratio:${ratioVal};opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
+                    coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
                 } else {
-                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'" style="aspect-ratio:${ratioVal};object-fit:cover;width:100%;">`;
+                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
                 const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
-                cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover">${coverHtml}</div></div>`);
+                cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratioVal};">${coverHtml}</div></div>`);
             }
             grid.innerHTML = cards.join('');
             bindHomeWorkClick(window.allWorks || []);
