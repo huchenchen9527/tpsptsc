@@ -229,6 +229,38 @@ function initPromptPage(config) {
         }
     }
 
+    // 获取媒体天然宽高比，带超时兜底
+    function getMediaRatio(src, isVideo) {
+        return new Promise((resolve) => {
+            const timeout = setTimeout(() => resolve(isVideo ? 16 / 9 : 4 / 3), 5000);
+            if (isVideo) {
+                const video = document.createElement('video');
+                video.preload = 'metadata';
+                video.onloadedmetadata = () => {
+                    clearTimeout(timeout);
+                    const ratio = video.videoWidth / video.videoHeight;
+                    URL.revokeObjectURL(video.src);
+                    resolve(ratio);
+                };
+                video.onerror = () => { clearTimeout(timeout); resolve(16 / 9); };
+                video.src = src;
+            } else {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    clearTimeout(timeout);
+                    if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                        resolve(img.naturalWidth / img.naturalHeight);
+                    } else {
+                        resolve(4 / 3);
+                    }
+                };
+                img.onerror = () => { clearTimeout(timeout); resolve(4 / 3); };
+                img.src = src;
+            }
+        });
+    }
+
     function applyFilters() {
         let filtered = allData;
 
@@ -246,7 +278,7 @@ function initPromptPage(config) {
         document.getElementById('resultCount').innerText = `共 ${filtered.length} 条结果`;
     }
 
-    function renderCards(data) {
+    async function renderCards(data) {
         const grid = document.getElementById(gridId);
         if (!data.length) {
             grid.innerHTML = '<div class="empty-tip">没有找到匹配的提示词，换个关键词试试</div>';
@@ -254,28 +286,24 @@ function initPromptPage(config) {
         }
         // 随机打乱数组，让瀑布流卡片随机排列
         const shuffled = data.sort(() => Math.random() - 0.5);
-        // 7组比例，按高度从高到矮
-        const ratioGroups = [
-            ['9/16'],          // 组0 - 最高
-            ['3/4'],           // 组1 - 高
-            ['1/1'],           // 组2 - 偏高
-            ['4/3'],           // 组3 - 中等
-            ['3/2', '5/3'],    // 组4 - 偏矮
-            ['16/9'],          // 组5 - 矮
-            ['2/1']            // 组6 - 最矮
-        ];
+
+        // 并行 preload 所有媒体的宽高比
+        const ratios = await Promise.all(shuffled.map(async (item) => {
+            if (item.cover) {
+                return await getMediaRatio(item.cover, false);
+            } else if (item.video_url) {
+                return await getMediaRatio(item.video_url, true);
+            }
+            return 4 / 3;
+        }));
+
         let cards = [];
-        let lastGroup = -1;
         for (let i = 0; i < shuffled.length; i++) {
           const item = shuffled[i];
+          const ratio = ratios[i];
           const hue = (item.id * 45) % 360;
           const nextHue = (hue + 60) % 360;
-          // 从排除上一组的其余组中随机选
-          const availableGroups = ratioGroups.map((g, idx) => idx).filter(idx => idx !== lastGroup);
-          const pickedGroup = availableGroups[Math.floor(Math.random() * availableGroups.length)];
-          const randomAspect = ratioGroups[pickedGroup][Math.floor(Math.random() * ratioGroups[pickedGroup].length)];
-          lastGroup = pickedGroup;
-          const aspectStyle = `style="aspect-ratio:${randomAspect}"`;
+          const aspectStyle = `style="aspect-ratio:${ratio}"`;
           let coverHtml;
           if (item.cover) {
               const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
