@@ -254,11 +254,14 @@ function initPromptPage(config) {
         }
         const shuffled = data.sort(() => Math.random() - 0.5);
         const ratioPool = [
-            ...Array(50).fill('9/16'),
-            ...Array(20).fill('3/5'),
-            ...Array(20).fill('3/4'),
-            ...Array(5).fill('16/9'),
-            ...Array(5).fill('1/2')
+            ...Array(25).fill('9/16'),
+            ...Array(15).fill('3/5'),
+            ...Array(12).fill('2/3'),
+            ...Array(12).fill('4/5'),
+            ...Array(10).fill('3/4'),
+            ...Array(10).fill('16/9'),
+            ...Array(10).fill('1/1'),
+            ...Array(6).fill('1/2')
         ];
         let cards = [];
         let lastRatio = '';
@@ -277,7 +280,7 @@ function initPromptPage(config) {
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                 coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
             } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper video-wrapper" style="${aspectStyle};opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
+                coverHtml = `<div class="cover-wrapper video-wrapper" ${aspectStyle} style="opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
             } else {
                 const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
                 coverHtml = fallbackSvg;
