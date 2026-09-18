@@ -229,6 +229,36 @@ function initPromptPage(config) {
         }
     }
 
+    // 视频懒加载：只有进入视口时才加载并播放
+    function initVideoLazyLoad() {
+        const videos = document.querySelectorAll('.video-wrapper video[data-src]');
+        if (!videos.length) return;
+        let loadingCount = 0;
+        const maxLoading = 5;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    const wrapper = video.closest('.video-wrapper');
+                    if (video.hasAttribute('src')) { observer.unobserve(video); return; }
+                    if (loadingCount >= maxLoading) return;
+                    loadingCount++;
+                    video.setAttribute('src', video.dataset.src);
+                    video.removeAttribute('data-src');
+                    video.load();
+                    const onLoaded = () => {
+                        video.play().catch(() => {});
+                        if (wrapper) wrapper.style.opacity = '1';
+                        loadingCount--;
+                    };
+                    video.addEventListener('loadeddata', onLoaded, { once: true });
+                    observer.unobserve(video);
+                }
+            });
+        }, { rootMargin: '200px' });
+        videos.forEach(video => observer.observe(video));
+    }
+
     function applyFilters() {
         let filtered = allData;
 
@@ -280,7 +310,8 @@ function initPromptPage(config) {
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                 coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
             } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper video-wrapper" ${aspectStyle} style="opacity:0;transition:opacity 0.3s"><video src="${escapeHtml(item.video_url)}" muted autoplay loop playsinline preload="auto" class="cover-video"></video></div>`;
+                const hueStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
+                coverHtml = `<div class="cover-wrapper video-wrapper" ${aspectStyle} style="opacity:0;transition:opacity 0.3s;${hueStyle}"><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="cover-video" loading="lazy"></video></div>`;
             } else {
                 const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
                 coverHtml = fallbackSvg;
@@ -289,15 +320,7 @@ function initPromptPage(config) {
         }
         grid.innerHTML = cards.join('');
         bindCardClick(data);
-        document.querySelectorAll('.video-wrapper video').forEach(video => {
-            const wrapper = video.closest('.video-wrapper');
-            const showWrapper = () => { wrapper.style.opacity = '1'; };
-            if (video.readyState >= 1) {
-                showWrapper();
-            } else {
-                video.addEventListener('loadeddata', showWrapper, { once: true });
-            }
-        });
+        initVideoLazyLoad();
     }
 
     function bindCardClick(data) {

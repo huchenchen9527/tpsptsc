@@ -111,13 +111,7 @@
                 // 按 order 倒序排列（order 大的排前面 = 新上传的靠前）
                 allWorks.sort((a, b) => (b.order || 0) - (a.order || 0));
 
-                renderHomeWorks(allWorks, false);
-
-                // 存储数据到 window 供点击使用
-                window.allWorks = allWorks;
-
-                // 绑定卡片点击打开弹窗
-                bindHomeWorkClick(allWorks);
+                renderHomeWorks(allWorks);
 
                 // 检查URL是否有id参数，自动打开对应作品（支持新格式 img_1, vid_1 和旧格式纯数字）
                 const urlParams = new URLSearchParams(window.location.search);
@@ -171,7 +165,7 @@
                         const keyword = this.value.trim().toLowerCase();
                         const allWorks = window.allWorks || [];
                         if (!keyword) {
-                            renderHomeWorks(allWorks, false);
+                            renderHomeWorks(window.allWorks);
                         } else {
                             const filtered = allWorks.filter(item =>
                                 item.title.toLowerCase().includes(keyword) ||
@@ -179,7 +173,7 @@
                                 item.prompt.toLowerCase().includes(keyword) ||
                                 (item.tags || []).some(tag => tag.toLowerCase().includes(keyword))
                             );
-                            renderHomeWorks(filtered, false);
+                            renderHomeWorks(filtered, true);
                         }
                     }, 300);
                 });
@@ -187,7 +181,11 @@
         }
 
         // 渲染首页作品卡片
-        function renderHomeWorks(works, applyFilter = true) {
+        function renderHomeWorks(works, isSearch = false) {
+            // isSearch 为 true 表示是搜索触发的渲染，跳过 window.allWorks 赋值
+            if (!isSearch) {
+                window.allWorks = works;
+            }
             const recent = [...works].sort(() => Math.random() - 0.5);
             const grid = document.getElementById('homeMasonryGrid');
             const ratioPool = [
@@ -212,7 +210,7 @@
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
                     const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                    coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video src="${item.video_url}" muted autoplay loop playsinline preload="auto" class="home-card-video"></video></div>`;
+                    coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video muted loop playsinline preload="none" data-src="${item.video_url}" class="home-card-video" loading="lazy"></video></div>`;
                 } else {
                     coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
                 }
@@ -220,16 +218,38 @@
                 cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratioVal};">${coverHtml}</div></div>`);
             }
             grid.innerHTML = cards.join('');
-            bindHomeWorkClick(window.allWorks || []);
-            document.querySelectorAll('.home-video-wrapper video').forEach(video => {
-                const wrapper = video.closest('.home-video-wrapper');
-                const showWrapper = () => { wrapper.style.opacity = '1'; };
-                if (video.readyState >= 1) {
-                    showWrapper();
-                } else {
-                    video.addEventListener('loadeddata', showWrapper, { once: true });
-                }
-            });
+            // 绑定点击和懒加载
+            bindHomeWorkClick(works);
+            initHomeVideoLazyLoad();
+        }
+
+        // 首页视频懒加载
+        function initHomeVideoLazyLoad() {
+            const videos = document.querySelectorAll('.home-video-wrapper video[data-src]');
+            if (!videos.length) return;
+            let loadingCount = 0;
+            const maxLoading = 5;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const video = entry.target;
+                        const wrapper = video.closest('.home-video-wrapper');
+                        if (video.hasAttribute('src') || video.src) { observer.unobserve(video); return; }
+                        if (loadingCount >= maxLoading) return;
+                        loadingCount++;
+                        video.setAttribute('src', video.dataset.src);
+                        video.load();
+                        const onLoaded = () => {
+                            video.play().catch(() => {});
+                            if (wrapper) wrapper.style.opacity = '1';
+                            loadingCount--;
+                        };
+                        video.addEventListener('loadeddata', onLoaded, { once: true });
+                        observer.unobserve(video);
+                    }
+                });
+            }, { rootMargin: '200px' });
+            videos.forEach(video => observer.observe(video));
         }
 
         document.addEventListener('DOMContentLoaded', loadRecentWorks);
