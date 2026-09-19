@@ -223,6 +223,8 @@ a {
 .cover-video {
     position: relative;
     z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 /* 瀑布流 - 封面比例由 JS 随机分配 */

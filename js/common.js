@@ -229,36 +229,67 @@ function initPromptPage(config) {
         }
     }
 
-    // 视频懒加载：只有进入视口时才加载并播放
+    // 视频懒加载：串行高优先级，loadedmetadata 即放行，4s 超时兜底，保持 poster 可见
     function initVideoLazyLoad() {
         const videos = document.querySelectorAll('.video-wrapper video[data-src]');
         if (!videos.length) return;
+        const maxConcurrent = 1;
+        let queue = [];
         let loadingCount = 0;
-        const maxLoading = 5;
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const video = entry.target;
-                    const wrapper = video.closest('.video-wrapper');
-                    if (video.hasAttribute('src')) { observer.unobserve(video); return; }
-                    if (loadingCount >= maxLoading) return;
-                    loadingCount++;
-                    video.setAttribute('src', video.dataset.src);
-                    video.removeAttribute('data-src');
-                    video.load();
-                    const onLoaded = () => {
-                        video.play().catch(() => {});
-                        if (wrapper) wrapper.style.opacity = '1';
-                        loadingCount--;
-                    };
-                    video.addEventListener('loadeddata', onLoaded, { once: true });
-                    const spinner = wrapper.querySelector('.video-loading-spinner');
-                    if (spinner) spinner.remove();
-                    observer.unobserve(video);
+                    if (video.src || video.hasAttribute('src')) {
+                        observer.unobserve(video);
+                        return;
+                    }
+                    if (queue.indexOf(video) === -1) {
+                        queue.push(video);
+                        startNext();
+                    }
                 }
             });
         }, { rootMargin: '200px' });
-        videos.forEach(video => observer.observe(video));
+
+        function startNext() {
+            if (loadingCount >= maxConcurrent || queue.length === 0) return;
+            const video = queue.shift();
+            if (video.dataset.settled) { startNext(); return; }
+            if (video.src || video.hasAttribute('src')) { startNext(); return; }
+            const wrapper = video.closest('.video-wrapper');
+
+            loadingCount++;
+            let settled = false;
+            const settle = () => {
+                if (settled) return;
+                settled = true;
+                if (video.dataset.settled) return;
+                video.dataset.settled = '1';
+                video.removeEventListener('loadedmetadata', settle);
+                clearTimeout(timeoutTimer);
+                if (wrapper) {
+                    const spinner = wrapper.querySelector('.video-loading-spinner');
+                    if (spinner) spinner.remove();
+                }
+                video.style.opacity = '1';
+                video.style.display = '';
+                video.muted = true;
+                try { video.currentTime = 0; } catch (e) {}
+                video.play().catch(() => { video.style.opacity = '0'; });
+                loadingCount--;
+                startNext();
+            };
+            // 超时 4s：不再 display:none，保持 poster 可见
+            const timeoutTimer = setTimeout(settle, 4000);
+
+            video.addEventListener('loadedmetadata', settle, { once: true });
+            video.setAttribute('src', video.dataset.src);
+            observer.unobserve(video);
+        }
+        videos.forEach(v => observer.observe(v));
+        startNext();
     }
 
     function applyFilters() {
@@ -307,7 +338,14 @@ function initPromptPage(config) {
             if (item.cover) {
                 coverHtml = `<div class="cover-wrapper" style="aspect-ratio:${ratio};background:var(--bg-color)"><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.visibility='hidden';this.parentElement.style.background='var(--bg-color)'"></div>`;
             } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper video-wrapper" style="aspect-ratio:${ratio};background:var(--bg-color);position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="cover-video" loading="lazy"></video></div>`;
+                const vFileName = (item.video_url || '').split('/').pop().replace(/\.mp4$/i, '');
+                const posterUrl = /^s\d{5,}$/i.test(vFileName)
+                    ? 'https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/posters/' + vFileName + '.jpg'
+                    : '';
+                const posterStyle = posterUrl
+                    ? `background-image:url('${posterUrl}');background-size:cover;background-position:center;`
+                    : '';
+                coverHtml = `<div class="cover-wrapper video-wrapper" style="aspect-ratio:${ratio};background-color:var(--bg-color);${posterStyle}position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline autoplay preload="none" data-src="${escapeHtml(item.video_url)}" class="cover-video" loading="lazy"></video></div>`;
             } else {
                 const fallbackSvg = `<div class="cover-placeholder" style="background:#111827;aspect-ratio:${ratio}"></div>`;
                 coverHtml = fallbackSvg;
