@@ -205,7 +205,7 @@
                 lastRatio = ratioVal;
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
-                    coverHtml = `<div class="home-video-wrapper" style="background:var(--bg-color);position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="home-card-video"></video></div>`;
+                    coverHtml = `<div class="home-video-wrapper" style="background:var(--bg-color);position:relative"><div class="video-loading-spinner"></div><video poster="https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/posters/${item.video_url.split('/').pop().replace('.mp4', '.jpg')}" muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="home-card-video"></video></div>`;
                 } else {
                     coverHtml = `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.visibility='hidden'">`;
                 }
