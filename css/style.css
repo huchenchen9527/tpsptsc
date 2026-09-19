@@ -642,6 +642,7 @@ a {
 
 .home-card-cover .home-card-video {
     z-index: 2;
+    opacity: 0;
     transition: opacity 0.3s;
 }
 
