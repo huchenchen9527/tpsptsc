@@ -211,7 +211,10 @@
                     coverHtml = `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.visibility='hidden'">`;
                 }
                 const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
-                const badge = `<span class="media-type-badge media-type-${item.type === '视频' ? 'video' : 'image'}">${item.type}</span>`;
+                let badge = '';
+                if (item.type === '视频') {
+                    badge = `<span class="media-type-badge media-type-video" title="视频"></span>`;
+                }
                 cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratioVal};background:var(--bg-color);position:relative;">${coverHtml}${badge}</div></div>`);
             }
             grid.innerHTML = cards.join('');

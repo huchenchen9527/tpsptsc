@@ -648,28 +648,29 @@ a {
     transition: opacity 0.3s;
 }
 
-/* 媒体类型角标 - 封面右下角区分视频/图片 */
+/* 媒体类型角标 - 封面右下角，视频显示 ▶，图片无 */
 .home-card-cover .media-type-badge {
     position: absolute;
     right: 8px;
     bottom: 8px;
     z-index: 3;
-    padding: 2px 10px;
-    font-size: 12px;
-    line-height: 18px;
-    border-radius: 9px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
     color: #fff;
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     pointer-events: none;
-    white-space: nowrap;
+    text-align: center;
+    line-height: 22px;
 }
 
-/* 视频角标：播放三角前缀，更快区分 */
+/* 视频角标：播放三角符号 */
 .home-card-cover .media-type-badge.media-type-video::before {
-    content: '▶ ';
-    font-size: 10px;
+    content: '▶';
+    font-size: 11px;
+    margin-left: -1px;
 }
 
 /* 首页视频包裹层 - 初始隐藏，加载完成后淡入 */
