@@ -206,7 +206,7 @@
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
                     const posterUrl = 'https://cdn.jsdelivr.net/gh/420201953-dot/ai-videos@main/posters/' + item.video_url.split('/').pop().replace('.mp4', '.jpg');
-                    coverHtml = `<div class="home-video-wrapper" style="background-color:var(--bg-color);background-image:url('${posterUrl}');background-size:cover;background-position:center;position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="home-card-video"></video></div>`;
+                    coverHtml = `<div class="home-video-wrapper" style="background-color:var(--bg-color);background-image:url('${posterUrl}');background-size:cover;background-position:center;position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline autoplay preload="none" data-src="${escapeHtml(item.video_url)}" class="home-card-video"></video></div>`;
                 } else {
                     coverHtml = `<img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.visibility='hidden'">`;
                 }
@@ -219,7 +219,7 @@
             initHomeVideoLazyLoad();
         }
 
-        // 首页视频懒加载 — 串行高优先级，loadedmetadata 即放行，3s 超时兜底
+        // 首页视频懒加载 — 串行高优先级，loadedmetadata 即放行，4s 超时兜底
         function initHomeVideoLazyLoad() {
             const videos = document.querySelectorAll('.home-video-wrapper video[data-src]');
             if (!videos.length) return;
@@ -246,6 +246,7 @@
             function startNext() {
                 if (loadingCount >= maxConcurrent || queue.length === 0) return;
                 const video = queue.shift();
+                if (video.dataset.settled) { startNext(); return; }
                 if (video.src || video.hasAttribute('src')) { startNext(); return; }
                 const wrapper = video.closest('.home-video-wrapper');
                 if (!wrapper) { startNext(); return; }
@@ -269,12 +270,9 @@
                     loadingCount--;
                     startNext();
                 };
-                // 超时 4s：仅在 seekable 真的没用时才隐藏 video，否则保留在原地
+                // 超时 4s：不再 display:none，保持 video 在原地（poster 背景仍可见），metadata 到来后由 settle 接管
                 const timeoutTimer = setTimeout(() => {
                     settle();
-                    if (!video.seekable || video.seekable.length === 0) {
-                        video.style.display = 'none';
-                    }
                 }, 4000);
 
                 video.addEventListener('loadedmetadata', settle, { once: true });
