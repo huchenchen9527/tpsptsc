@@ -299,22 +299,17 @@ function initPromptPage(config) {
         let lastRatio = '';
         for (let i = 0; i < shuffled.length; i++) {
             const item = shuffled[i];
-            const hue = (item.id * 45) % 360;
-            const nextHue = (hue + 60) % 360;
             let available = ratioPool.filter(r => r !== lastRatio);
             if (available.length === 0) available = ratioPool;
             const ratio = available[Math.floor(Math.random() * available.length)];
             lastRatio = ratio;
-            const aspectStyle = `style="aspect-ratio:${ratio}"`;
             let coverHtml;
             if (item.cover) {
-                const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-                const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
-                coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
+                coverHtml = `<div class="cover-wrapper" style="aspect-ratio:${ratio};background:var(--bg-color)"><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.visibility='hidden';this.parentElement.style.background='var(--bg-color)'"></div>`;
             } else if (item.video_url) {
-                coverHtml = `<div class="cover-wrapper video-wrapper" ${aspectStyle} style="background:var(--bg-color);position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="cover-video" loading="lazy"></video></div>`;
+                coverHtml = `<div class="cover-wrapper video-wrapper" style="aspect-ratio:${ratio};background:var(--bg-color);position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="cover-video" loading="lazy"></video></div>`;
             } else {
-                const fallbackSvg = `<div class="cover-placeholder" style="background:#111827;${aspectStyle}"></div>`;
+                const fallbackSvg = `<div class="cover-placeholder" style="background:#111827;aspect-ratio:${ratio}"></div>`;
                 coverHtml = fallbackSvg;
             }
             cards.push(`<div class="prompt-card" data-id="${escapeHtml(item.id)}">${coverHtml}</div>`);
