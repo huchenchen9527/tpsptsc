@@ -252,6 +252,8 @@ function initPromptPage(config) {
                         loadingCount--;
                     };
                     video.addEventListener('loadeddata', onLoaded, { once: true });
+                    const spinner = wrapper.querySelector('.video-loading-spinner');
+                    if (spinner) spinner.remove();
                     observer.unobserve(video);
                 }
             });
@@ -310,10 +312,9 @@ function initPromptPage(config) {
                 const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                 coverHtml = `<div class="cover-wrapper" ${aspectStyle}><img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${encodedSvg}'"></div>`;
             } else if (item.video_url) {
-                const hueStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                coverHtml = `<div class="cover-wrapper video-wrapper" ${aspectStyle} style="opacity:0;transition:opacity 0.3s;${hueStyle}"><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="cover-video" loading="lazy"></video></div>`;
+                coverHtml = `<div class="cover-wrapper video-wrapper" ${aspectStyle} style="background:var(--bg-color);position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline preload="none" data-src="${escapeHtml(item.video_url)}" class="cover-video" loading="lazy"></video></div>`;
             } else {
-                const fallbackSvg = `<div class="cover-placeholder" style="background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%));${aspectStyle}"></div>`;
+                const fallbackSvg = `<div class="cover-placeholder" style="background:#111827;${aspectStyle}"></div>`;
                 coverHtml = fallbackSvg;
             }
             cards.push(`<div class="prompt-card" data-id="${escapeHtml(item.id)}">${coverHtml}</div>`);

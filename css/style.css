@@ -659,6 +659,25 @@ a {
     pointer-events: none;
 }
 
+/* 视频加载中旋转图标 */
+.video-loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--text-sub);
+    border-radius: 50%;
+    animation: video-spinner-spin 0.6s linear infinite;
+    z-index: 1;
+}
+
+@keyframes video-spinner-spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 /* 首页瀑布流 - 封面比例由 JS 随机分配，打破整齐排列 */
 
 /* ========== 9. 页脚 ========== */

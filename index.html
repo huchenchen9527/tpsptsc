@@ -203,19 +203,14 @@
                 if (available.length === 0) available = ratioPool;
                 const ratioVal = available[Math.floor(Math.random() * available.length)];
                 lastRatio = ratioVal;
-                const hue = (item.id * 45) % 360;
-                const nextHue = (hue + 60) % 360;
-                const svgFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g${item.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="hsl(${hue},70%,70%)" /><stop offset="100%" stop-color="hsl(${nextHue},70%,50%)" /></linearGradient></defs><rect width="400" height="300" fill="url(#g${item.id})" /></svg>`;
-                const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svgFallback);
                 let coverHtml;
                 if (item.type === '视频' && item.video_url) {
-                    const bgStyle = `background:linear-gradient(135deg, hsl(${hue},70%,70%), hsl(${nextHue},70%,50%))`;
-                    coverHtml = `<div class="home-video-wrapper" style="opacity:0;transition:opacity 0.3s;${bgStyle}"><video muted loop playsinline preload="none" data-src="${item.video_url}" class="home-card-video" loading="lazy"></video></div>`;
+                    coverHtml = `<div class="home-video-wrapper" style="background:var(--bg-color);position:relative"><div class="video-loading-spinner"></div><video muted loop playsinline preload="none" data-src="${item.video_url}" class="home-card-video" loading="lazy"></video></div>`;
                 } else {
-                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.src='${encodedSvg}'">`;
+                    coverHtml = `<img src="${item.cover}" alt="${item.title}" loading="lazy" onerror="this.style.visibility='hidden'">`;
                 }
                 const dataId = (item.type === '视频' ? 'vid_' : 'img_') + item.id;
-                cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratioVal};">${coverHtml}</div></div>`);
+                cards.push(`<div class="home-work-card" data-id="${dataId}" data-type="${item.type}"><div class="home-card-cover" style="aspect-ratio:${ratioVal};background:var(--bg-color);">${coverHtml}</div></div>`);
             }
             grid.innerHTML = cards.join('');
             // 绑定点击和懒加载
@@ -228,7 +223,7 @@
             const videos = document.querySelectorAll('.home-video-wrapper video[data-src]');
             if (!videos.length) return;
             let loadingCount = 0;
-            const maxLoading = 5;
+            const maxLoading = 8;
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -239,16 +234,24 @@
                         loadingCount++;
                         video.setAttribute('src', video.dataset.src);
                         video.load();
-                        const onLoaded = () => {
+                        let settled = false;
+                        const settle = () => {
+                            if (settled) return;
+                            settled = true;
+                            video.removeEventListener('loadeddata', settle);
+                            clearTimeout(fallbackTimer);
                             video.play().catch(() => {});
+                            const spinner = wrapper.querySelector('.video-loading-spinner');
+                            if (spinner) spinner.remove();
                             if (wrapper) wrapper.style.opacity = '1';
                             loadingCount--;
                         };
-                        video.addEventListener('loadeddata', onLoaded, { once: true });
+                        const fallbackTimer = setTimeout(settle, 8000);
+                        video.addEventListener('loadeddata', settle, { once: true });
                         observer.unobserve(video);
                     }
                 });
-            }, { rootMargin: '200px' });
+            }, { rootMargin: '600px' });
             videos.forEach(video => observer.observe(video));
         }
 
