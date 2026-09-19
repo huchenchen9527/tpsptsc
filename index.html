@@ -255,20 +255,27 @@
                 const settle = () => {
                     if (settled) return;
                     settled = true;
+                    if (video.dataset.settled) return;
+                    video.dataset.settled = '1';
                     video.removeEventListener('loadedmetadata', settle);
                     clearTimeout(timeoutTimer);
                     const spinner = wrapper.querySelector('.video-loading-spinner');
                     if (spinner) spinner.remove();
                     video.style.opacity = '1';
-                    video.play().catch(() => {});
+                    video.style.display = '';
+                    video.muted = true;
+                    try { video.currentTime = 0; } catch(e) {}
+                    video.play().catch(() => { video.style.opacity = '0'; });
                     loadingCount--;
                     startNext();
                 };
-                // 超时 3s：没拿到首帧就隐藏视频，目的是保留中性灰底
+                // 超时 4s：仅在 seekable 真的没用时才隐藏 video，否则保留在原地
                 const timeoutTimer = setTimeout(() => {
                     settle();
-                    video.style.display = 'none';
-                }, 3000);
+                    if (!video.seekable || video.seekable.length === 0) {
+                        video.style.display = 'none';
+                    }
+                }, 4000);
 
                 video.addEventListener('loadedmetadata', settle, { once: true });
                 video.setAttribute('src', video.dataset.src);
